@@ -6,11 +6,16 @@ import java.sql.SQLException;
 
 public class Connexion {
     private Connection conn;
-    private String host = "127.0.0.1";
-
     public void connect(){
+        // String user = "mnocito114";
+        // String password = "";
+        String Driver = "org.postrgesql.Driver";
+        String host = "10.9.185.1";
+        String url = "jdbc:postgresql://" + host + "/";
+
+
         try{
-            conn=DriverManager.getConnection("jdbc:postgresql://sinfo1:5432/nguigou971","nguigou971","");
+            conn=DriverManager.getConnection(url);
             System.out.println("Connexion ok");
         }catch(SQLException e){
             e.printStackTrace();
