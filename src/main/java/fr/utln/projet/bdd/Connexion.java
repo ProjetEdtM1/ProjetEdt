@@ -10,7 +10,7 @@ public class Connexion {
 
     public void connect(){
         try{
-            conn=DriverManager.getConnection("jdbc:postgresql://"+host+"/2000/sinfo1");
+            conn=DriverManager.getConnection("jdbc:postgresql://sinfo1:5432/nguigou971","nguigou971","");
             System.out.println("Connexion ok");
         }catch(SQLException e){
             e.printStackTrace();
