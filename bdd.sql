@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS GROUPE (
 --
 
 CREATE TABLE IF NOT EXISTS ETUDIANT (
-  numEtudiant integer,
+  numEtudiant varchar(10),
   nomEtudiant varchar(15),
   prenomEtudiant varchar(15),
   motDePasse varchar(15),
@@ -137,9 +137,9 @@ CREATE TABLE IF NOT EXISTS ETUDIANT (
 CREATE TABLE IF NOT EXISTS RESERVER (
   numeroSalle integer references SALLE(numeroSalle),
   idProfesseur integer references PROFESSEUR(idProfesseur),
-  dateReservation date DEFAULT NULL,
-  heureDebRes date DEFAULT NULL,
-  heureFinRes date DEFAULT NULL,
+  dateReservation date,
+  heureDebRes date,
+  heureFinRes date,
   PRIMARY KEY(numeroSalle, idProfesseur, dateReservation, heureDebRes)
 );
 
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS RESERVER (
 --
 
 CREATE TABLE IF NOT EXISTS SUIVRE (
-  numEtudiant integer references ETUDIANT(numEtudiant),
+  numEtudiant varchar(10) references ETUDIANT(numEtudiant),
   idProfesseur integer references PROFESSEUR(idProfesseur),
   intituleModule varchar(11) references MODULE(intituleModule),
   dateCours date,
