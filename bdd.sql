@@ -26,10 +26,13 @@
 -- Structure de la table `professeur`
 --
 
+
 CREATE TABLE IF NOT EXISTS PROFESSEUR (
   idProfesseur serial,
-  nomProfesseur varchar(15) DEFAULT NULL,
-  prenomProfesseur varchar(50) DEFAULT NULL,
+  nomProfesseur varchar(15),
+  prenomProfesseur varchar(50),
+  login varchar(15),
+  motDePasse varchar(15),
   PRIMARY KEY (idProfesseur)
 );
 
@@ -106,7 +109,7 @@ CREATE TABLE IF NOT EXISTS PROMOTION (
 
 CREATE TABLE IF NOT EXISTS GROUPE (
   intituleGroupe varchar(10) NOT NULL,
-  intitulePromo varchar(11) references PROMOTION(intitulePromo)NOT NULL,
+  intitulePromo varchar(11) references PROMOTION(intitulePromo),
   PRIMARY KEY (intituleGroupe)
 );
 
@@ -117,11 +120,12 @@ CREATE TABLE IF NOT EXISTS GROUPE (
 --
 
 CREATE TABLE IF NOT EXISTS ETUDIANT (
-  idEtudiant serial,
-  nomEtudiant varchar(15) DEFAULT NULL,
-  prenomEtudiant varchar(15) DEFAULT NULL,
+  numEtudiant integer,
+  nomEtudiant varchar(15),
+  prenomEtudiant varchar(15),
+  motDePasse varchar(15),
   intituleGroupe varchar(10) references GROUPE(intituleGroupe),
-  PRIMARY KEY (idEtudiant)
+  PRIMARY KEY (numEtudiant)
 );
 
 -- --------------------------------------------------------
@@ -131,8 +135,8 @@ CREATE TABLE IF NOT EXISTS ETUDIANT (
 --
 
 CREATE TABLE IF NOT EXISTS RESERVER (
-  numeroSalle integer references SALLE(numeroSalle)DEFAULT NULL,
-  idProfesseur integer references PROFESSEUR(idProfesseur) DEFAULT NULL,
+  numeroSalle integer references SALLE(numeroSalle),
+  idProfesseur integer references PROFESSEUR(idProfesseur),
   dateReservation date DEFAULT NULL,
   heureDebRes date DEFAULT NULL,
   heureFinRes date DEFAULT NULL,
@@ -146,14 +150,14 @@ CREATE TABLE IF NOT EXISTS RESERVER (
 --
 
 CREATE TABLE IF NOT EXISTS SUIVRE (
-  idEtudiant integer references ETUDIANT(idEtudiant) DEFAULT NULL,
-  idProfesseur integer references PROFESSEUR(idProfesseur) DEFAULT NULL,
-  intituleModule varchar(11) references MODULE(intituleModule) DEFAULT NULL,
-  dateCours date DEFAULT NULL,
-  heureDebCours date DEFAULT NULL,
-  heureFinCours date DEFAULT NULL,
-  numeroSalle integer DEFAULT NULL,
-  Primary KEY(idEtudiant, idProfesseur, intituleModule, dateCours, heureDebCours)
+  numEtudiant integer references ETUDIANT(numEtudiant),
+  idProfesseur integer references PROFESSEUR(idProfesseur),
+  intituleModule varchar(11) references MODULE(intituleModule),
+  dateCours date,
+  heureDebCours date,
+  heureFinCours date,
+  numeroSalle integer,
+  Primary KEY(numEtudiant, idProfesseur, intituleModule, dateCours, heureDebCours)
 );
 
 -- /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
