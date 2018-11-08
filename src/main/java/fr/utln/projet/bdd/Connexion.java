@@ -6,18 +6,19 @@ import java.sql.SQLException;
 
 public class Connexion {
     private Connection conn;
-    public void connect(){
-        // String user = "mnocito114";
-        // String password = "";
-        String Driver = "org.postrgesql.Driver";
+    public void connect() {
+        String user = "sa";
+        String password = "";
+        // String Driver = "org.postrgesql.Driver";
         String host = "10.9.185.1";
-        String url = "jdbc:postgresql://" + host + "/";
+        // String url = "jdbc:postgresql://" + host + "/"; // pour postgres
+        String url = "jdbc:h2:tcp://localhost/~/test";
 
 
-        try{
-            conn=DriverManager.getConnection(url);
+        try {
+            conn = DriverManager.getConnection(url + user + password);
             System.out.println("Connexion ok");
-        }catch(SQLException e){
+        } catch(SQLException e){
             e.printStackTrace();
         }
     }
