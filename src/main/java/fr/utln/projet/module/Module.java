@@ -43,4 +43,20 @@ public class Module {
         nbHeureTd = builder.nbHeureTd;
         nbHeureTP = builder.nbHeureTp;
     }
+
+    public String getIntitule() {
+        return intitule;
+    }
+
+    public int getNbHeureCm() {
+        return nbHeureCm;
+    }
+
+    public int getNbHeureTd() {
+        return nbHeureTd;
+    }
+
+    public int getNbHeureTP() {
+        return nbHeureTP;
+    }
 }

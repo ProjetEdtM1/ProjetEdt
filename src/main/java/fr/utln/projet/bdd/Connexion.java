@@ -5,7 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Connexion {
-    private Connection conn;
+    public static Connection conn;
+
     public void connect() {
         String user = "sa";
         String password = "";
@@ -21,5 +22,9 @@ public class Connexion {
         } catch(SQLException e){
             e.printStackTrace();
         }
+    }
+
+    public static Connection getConn() {
+        return conn;
     }
 }
