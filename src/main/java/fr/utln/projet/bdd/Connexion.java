@@ -1,25 +1,38 @@
 package fr.utln.projet.bdd;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Connexion {
-    public static Connection conn;
+    private static Connection conn;
+    static final String user = "sa";
+    static final String pwd = "";
+    static final String host = "10.9.185.1";
+    static final String JDBC_DRIVER = "org.h2.Driver";
+    static final String DB_URL = "jdbc:h2:tcp://localhost/~/test";
+
+    // String Driver = "org.postrgesql.Driver";
+    // String url = "jdbc:postgresql://" + host + "/"; // pour postgres
+
 
     public void connect() {
-        String user = "sa";
-        String password = "";
-        // String Driver = "org.postrgesql.Driver";
-        String host = "10.9.185.1";
-        // String url = "jdbc:postgresql://" + host + "/"; // pour postgres
-        String url = "jdbc:h2:tcp://localhost/~/test";
-
+        Statement statement = null;
 
         try {
-            conn = DriverManager.getConnection(url + user + password);
+            Class.forName(JDBC_DRIVER);
+            conn = DriverManager.getConnection(DB_URL, user, pwd);
             System.out.println("Connexion ok");
-        } catch(SQLException e){
+
+            // test de connection a la DB
+
+//            System.out.println("select *");
+//            statement = conn.createStatement();
+//            String sql = "SELECT * FROM ETUDIANT";
+//            ResultSet resultSet = statement.executeQuery(sql);
+//            System.out.println(resultSet);
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
