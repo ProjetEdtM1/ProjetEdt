@@ -2,6 +2,7 @@ package fr.utln.projet.vue;
 
 import fr.utln.projet.DAO.ModuleDAO;
 import fr.utln.projet.controleur.ModuleControleur;
+import fr.utln.projet.modele.ModuleModele;
 import fr.utln.projet.module.Module;
 
 import javax.swing.*;
@@ -10,8 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ModuleVUE extends Fenetre {
-    ModuleControleur moduleControleur;
-    // ModeleModule modelModul
+    public static ModuleControleur moduleControleur;
+    public static ModuleModele moduleModele;
 
     public static JButton ajout = new JButton("Ajouter");
     public static JButton annuler = new JButton("Annuler");
@@ -26,7 +27,9 @@ public class ModuleVUE extends Fenetre {
     public static JLabel heureTd = new JLabel("nombre d'heures total des travaux dirigés");
     public static JLabel heureTp = new JLabel("nombre d'heures total des travaux pratiques");
 
-    public ModuleVUE(/* ModelModule module*/) {
+    public static JList<Module> moduleListModel;
+
+    public ModuleVUE(ModuleModele modelModule) {
         super();
         JPanel global = new JPanel();
         this.setTitle("Ajouter un module");
@@ -39,13 +42,24 @@ public class ModuleVUE extends Fenetre {
         global.setLayout(new GridBagLayout());
         GridBagConstraints contrainte = new GridBagConstraints();
 
+        this.moduleModele = moduleModele;
+        this.moduleControleur = new ModuleControleur(this, moduleModele);
+        // this.moduleListModel = new ModuletLisModel(moduleModele.getModule());
+
+        // moduleModele.addObserver();
+
         ajout.setEnabled(false);
         ajout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                moduleControleur.ajoueterModule();
+                moduleControleur.ajouterModule();
             }
         });
+
+        ajoutmodule = new JTextField(moduleControleur.getIntituleNouveauModuleModele(),"",10);
+        nbHeureCm = new JTextField(moduleControleur.getNbHCmNouveauModuleModele(),"",10);
+        nbHeureTd = new JTextField(moduleControleur.getNbHTdNouveauModuleModele(),"",10);
+        nbHeureTp = new JTextField(moduleControleur.getNbHTpNouveauModuleModele(),"",10);
 
         // placement des JLabel sur la colonne 1
 
@@ -91,10 +105,10 @@ public class ModuleVUE extends Fenetre {
         getContentPane().add(global);
 
 
-        ajout.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                // controleurModule.ajoutermodule();
+//        ajout.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                controleurModule.ajoutermodule();
 //                String intit = ajoutmodule.getText();
 //                String hCm = nbHeureCm.getText();
 //                String hTd = nbHeureTd.getText();
@@ -108,8 +122,8 @@ public class ModuleVUE extends Fenetre {
 //                }
 //                Module module = new Module.Builder(intit).nbHeureCm(hCm).nbHeureTd(hTd).nbHeureTp(hTp).build();
 //                ModuleDAO moduleDAO = new ModuleDAO();
-            }
-        });
+//            }
+//        });
 
 
     }
@@ -120,6 +134,7 @@ public class ModuleVUE extends Fenetre {
 
 
     public static void main(String[] args) {
-        new ModuleVUE();
+        ModuleModele moduleModele = new ModuleModele();
+        new ModuleVUE(moduleModele);
     }
 }

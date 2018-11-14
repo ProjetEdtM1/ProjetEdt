@@ -5,10 +5,12 @@ import fr.utln.projet.vue.ModuleVUE;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class ModuleControleur{
     private ModuleVUE moduleVUE;
@@ -21,10 +23,10 @@ public class ModuleControleur{
 
 
     public ModuleControleur(final ModuleVUE moduleVue, ModuleModele moduleModele) {
-        this.moduleVUE = moduleVUE;
+        this.moduleVUE = moduleVue;
         this.moduleModele = moduleModele;
 
-        DocumentListener ecouterCHangementTexte = new DocumentListener() {
+        DocumentListener ecouterChangementTexte = new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 changedUpdate(e);
@@ -37,20 +39,73 @@ public class ModuleControleur{
 
             @Override
             public void changedUpdate(DocumentEvent e) {
+                // System.out.println("YOOO");
                 if(intituleNouveauModuleModele.getLength() == 0) {
                     moduleVUE.setBoutonAjouter(false);
                 }
+                else {
+                    moduleVUE.setBoutonAjouter(true);
+                }
             }
         };
+
+        intituleNouveauModuleModele.addDocumentListener(ecouterChangementTexte);
+        nbHCmNouveauModuleModele.addDocumentListener(ecouterChangementTexte);
+        nbHTdNouveauModuleModele.addDocumentListener(ecouterChangementTexte);
+        nbHTpNouveauModuleModele.addDocumentListener(ecouterChangementTexte);
 
     }
 
     /* methode pour ajouter un Module */
 
-    public void ajoueterModule() {
-        try{
-            moduleModele.ajouterModule();
-        }
+    public void ajouterModule() {
+//        String a;
 
+        try {
+//            a = intituleNouveauModuleModele.getText(0, intituleNouveauModuleModele.getLength());
+//
+//            System.out.println("fef" + intituleNouveauModuleModele.getLength());
+//
+//
+//            System.out.println("ff" + a);
+
+//            System.out.println("intitule " + intituleNouveauModuleModele.getText(0, intituleNouveauModuleModele.getLength()));
+//            System.out.println("nbHCm " + nbHCmNouveauModuleModele.getText(0, nbHCmNouveauModuleModele.getLength()));
+//            System.out.println("nbHTd " + nbHTdNouveauModuleModele.getText(0, nbHTdNouveauModuleModele.getLength()));
+//            System.out.println("nbHTp " + nbHTpNouveauModuleModele.getText(0, nbHTpNouveauModuleModele.getLength()));
+
+
+            moduleModele.ajouterModule(
+                    intituleNouveauModuleModele.getText(0, intituleNouveauModuleModele.getLength()),
+                    nbHCmNouveauModuleModele.getText(0, nbHCmNouveauModuleModele.getLength()),
+                    nbHTdNouveauModuleModele.getText(0, nbHTdNouveauModuleModele.getLength()),
+                    nbHTpNouveauModuleModele.getText(0, nbHTpNouveauModuleModele.getLength())
+            );
+
+            intituleNouveauModuleModele.remove(0, intituleNouveauModuleModele.getLength());
+            nbHCmNouveauModuleModele.remove(0, nbHCmNouveauModuleModele.getLength());
+            nbHTdNouveauModuleModele.remove(0, nbHTdNouveauModuleModele.getLength());
+            nbHTpNouveauModuleModele.remove(0, nbHTpNouveauModuleModele.getLength());
+        } catch (BadLocationException e){
+            System.out.println("erreur");
+            e.printStackTrace();
+
+        }
+    }
+
+    public Document getIntituleNouveauModuleModele() {
+        return intituleNouveauModuleModele;
+    }
+
+    public Document getNbHCmNouveauModuleModele() {
+        return nbHCmNouveauModuleModele;
+    }
+
+    public Document getNbHTdNouveauModuleModele() {
+        return nbHTdNouveauModuleModele;
+    }
+
+    public Document getNbHTpNouveauModuleModele() {
+        return nbHTpNouveauModuleModele;
     }
 }

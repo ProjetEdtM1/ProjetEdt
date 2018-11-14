@@ -5,26 +5,69 @@ import fr.utln.projet.bdd.Connexion;
 import fr.utln.projet.module.Module;
 import fr.utln.projet.bdd.InitStatement;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModuleDAO {
-    static Connection conn = Connexion.getConn();
+    private Connexion conn;
 
-    public void persistModule(Module module) throws SQLException {
-        String req1 = "insert into module (intitule, nbHeureCm, nbHeureTd, nbHeureTp) values (?, ?, ?, ?)";
+    public void persistModule(String intitule, int nbHCm, int nbHTd, int nbHTp) throws SQLException {
+        this.conn = new Connexion();
+        conn.connect();
+        System.out.println("connection a la bd pour la methode ajout");
 
-        PreparedStatement insertModule = InitStatement.initPsmt(conn, req1);
+        String req = "insert into module (intitule, nbHeureCm, nbHeureTd, nbHeureTp)" + "values (?, ?, ?, ?)";
 
-        insertModule.setString(1, module.getIntitule());
-        insertModule.setInt(2, module.getNbHeureCm());
-        insertModule.setInt(3, module.getNbHeureTd());
-        insertModule.setInt(4, module.getNbHeureTP());
+        try {
 
-        insertModule.executeQuery();
+            PreparedStatement stmt = conn.getConn().prepareStatement(req);
 
-        // message de confirmation
-        System.out.println("J'ai bien ajoute le module" + module.getIntitule());
+            stmt.setObject(1, intitule, Types.VARCHAR);
+            stmt.setObject(2, nbHCm, Types.INTEGER);
+            stmt.setObject(3, nbHTd, Types.INTEGER);
+            stmt.setObject(4, nbHTp, Types.INTEGER);
+
+            int res = stmt.executeUpdate();
+            System.out.println(res);
+
+            // message de confirmation
+            System.out.println("J'ai bien ajoute le module" + intitule);
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public List<Module> listModule() {
+        this.conn = new Connexion();
+        conn.connect();
+        System.out.println("connection a la bd pour la methode lister");
+
+        List<Module> moduleList = new ArrayList<Module>();
+
+        String req = "SELECT * FROM MODULE";
+
+        try{
+            Statement stmt = conn.getConn().createStatement();
+
+            ResultSet res = stmt.executeQuery(req);
+            System.out.println(res);
+
+            while(res.next()) {
+                Module module = new Module.Builder(res.getString(1)).nbHeureCm(res.getInt(2)).nbHeureTd(res.getInt(3)).nbHeureTp(res.getInt(4)).build();
+                moduleList.add(module);
+            }
+
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    return moduleList;
     }
 }
