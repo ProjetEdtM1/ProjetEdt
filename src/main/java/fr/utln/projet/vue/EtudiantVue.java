@@ -81,6 +81,7 @@ public class EtudiantVue extends JFrame  {
             public void actionPerformed(ActionEvent e) {
                 //String ID =
                 controleurEtudiant.deleteEtudiant(etudiantSuppressionJList.getSelectedValue());
+                setSuppressionEtudiant((etudiantSuppressionJList.getSelectedValue() == null));
 
             }
         });

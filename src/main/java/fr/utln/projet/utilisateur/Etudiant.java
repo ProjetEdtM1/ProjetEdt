@@ -5,7 +5,7 @@ package fr.utln.projet.utilisateur;
  *
  * Description   : Classe Etudiant qui comporte les données de celui-ci
  *
- * Version       : 1.2
+ * Version       : 1.3
  *
  * Date          : 08/11/2018
  *
@@ -25,6 +25,7 @@ public class Etudiant {
     public Etudiant() {
 
     }
+
 
     public String getTelephone() {
         return telephone;
@@ -84,12 +85,12 @@ public class Etudiant {
 
     @Override
     public String toString() {
-        return "Etudiant{" +
+        return
                 "Nom='" + Nom + '\'' +
-                ", Prenom='" + Prenom + '\'' +
-                '}';
+                        ", Prenom='" + Prenom + '\'' +
+                        ", Groupe='" + Groupe + '\'' +
+                        ", Numetud='" + Numetud;
     }
-
 
     @Override
     public boolean equals(Object o) {
