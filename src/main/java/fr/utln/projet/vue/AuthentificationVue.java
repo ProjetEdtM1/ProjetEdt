@@ -74,9 +74,6 @@ public class AuthentificationVue extends JFrame implements Observer {
 
     }
 
-    public static void main(String[] args) {
-        AuthentificationVue authentificationVue = new AuthentificationVue();
-    }
 
     @Override
     public void update(Observable o, Object arg) {
