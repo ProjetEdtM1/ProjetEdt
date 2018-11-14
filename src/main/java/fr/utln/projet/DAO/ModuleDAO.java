@@ -17,11 +17,16 @@ public class ModuleDAO {
         conn.connect();
         System.out.println("connection a la bd pour la methode ajout");
 
-        String req = "insert into module (intitule, nbHeureCm, nbHeureTd, nbHeureTp)" + "values (?, ?, ?, ?)";
+        String req = "insert into module (INTITULEMODULE, NBHEURECM, NBHEURETD, NBHEURETP)" + "values (?, ?, ?, ?)";
 
         try {
 
             PreparedStatement stmt = conn.getConn().prepareStatement(req);
+            System.out.println("YO " + stmt);
+            System.out.println("int " + intitule);
+            System.out.println("CM " + nbHCm);
+            System.out.println("TD " + nbHTd);
+            System.out.println("TP " + nbHTd);
 
             stmt.setObject(1, intitule, Types.VARCHAR);
             stmt.setObject(2, nbHCm, Types.INTEGER);

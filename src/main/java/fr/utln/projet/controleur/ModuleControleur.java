@@ -25,6 +25,8 @@ public class ModuleControleur{
     public ModuleControleur(final ModuleVUE moduleVue, ModuleModele moduleModele) {
         this.moduleVUE = moduleVue;
         this.moduleModele = moduleModele;
+        System.out.println("aa " + moduleModele);
+
 
         DocumentListener ecouterChangementTexte = new DocumentListener() {
             @Override
@@ -74,6 +76,7 @@ public class ModuleControleur{
 //            System.out.println("nbHTd " + nbHTdNouveauModuleModele.getText(0, nbHTdNouveauModuleModele.getLength()));
 //            System.out.println("nbHTp " + nbHTpNouveauModuleModele.getText(0, nbHTpNouveauModuleModele.getLength()));
 
+            System.out.println("ff " + moduleModele);
 
             moduleModele.ajouterModule(
                     intituleNouveauModuleModele.getText(0, intituleNouveauModuleModele.getLength()),

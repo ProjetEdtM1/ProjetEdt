@@ -29,7 +29,7 @@ public class ModuleVUE extends Fenetre {
 
     public static JList<Module> moduleListModel;
 
-    public ModuleVUE(ModuleModele modelModule) {
+    public ModuleVUE(ModuleModele moduleModele) {
         super();
         JPanel global = new JPanel();
         this.setTitle("Ajouter un module");

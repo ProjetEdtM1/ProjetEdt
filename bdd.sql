@@ -44,9 +44,9 @@ CREATE TABLE IF NOT EXISTS PROFESSEUR (
 
 CREATE TABLE IF NOT EXISTS MODULE (
   intituleModule varchar(11) NOT NULL,
-  nbHeureTp date DEFAULT NULL,
-  nbHeureCm date DEFAULT NULL,
-  nbHeureTd date DEFAULT NULL,
+  nbHeureTp integer DEFAULT NULL,
+  nbHeureCm integer DEFAULT NULL,
+  nbHeureTd integer DEFAULT NULL,
   PRIMARY KEY (intituleModule)
 );
 
