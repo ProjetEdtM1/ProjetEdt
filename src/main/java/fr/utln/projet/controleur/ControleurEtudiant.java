@@ -1,6 +1,8 @@
-package fr.utln.projet.vue;
+package fr.utln.projet.controleur;
 
+import fr.utln.projet.modele.ModeleEtudiant;
 import fr.utln.projet.utilisateur.Etudiant;
+import fr.utln.projet.vue.EtudiantVue;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;

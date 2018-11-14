@@ -1,10 +1,9 @@
 package fr.utln.projet;
 
 import fr.utln.projet.bdd.Connexion;
-import fr.utln.projet.utilisateur.Utilisateur;
 import fr.utln.projet.vue.AuthentificationVue;
 import fr.utln.projet.vue.EtudiantVue;
-import fr.utln.projet.vue.ModeleEtudiant;
+import fr.utln.projet.modele.ModeleEtudiant;
 
 /**
  * Hello world!

@@ -1,4 +1,7 @@
 package fr.utln.projet.vue;
+import fr.utln.projet.controleur.ControleurEtudiant;
+import fr.utln.projet.modele.EtudiantListModel;
+import fr.utln.projet.modele.ModeleEtudiant;
 import fr.utln.projet.utilisateur.Etudiant;
 
 import javax.swing.*;
@@ -7,8 +10,6 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
-import java.util.List;
 
 /**
  * Nom de classe : EtudiantVue
@@ -28,7 +29,7 @@ public class EtudiantVue extends JFrame  {
     private final ModeleEtudiant modeleEtudiant;
     private final ControleurEtudiant controleurEtudiant;
 
-    private static  EtudiantListModel etudiantListModel;
+    private static EtudiantListModel etudiantListModel;
 
     private final JPanel etudiantSuppressionPanel = new JPanel(new GridBagLayout());
     private final JPanel etudiantAjoutPanel = new JPanel(new GridBagLayout());

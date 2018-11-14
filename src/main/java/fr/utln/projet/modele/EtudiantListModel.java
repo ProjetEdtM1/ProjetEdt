@@ -1,4 +1,4 @@
-package fr.utln.projet.vue;
+package fr.utln.projet.modele;
 
 import fr.utln.projet.utilisateur.Etudiant;
 
