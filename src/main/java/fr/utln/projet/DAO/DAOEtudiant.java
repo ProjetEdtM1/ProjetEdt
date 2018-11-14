@@ -48,6 +48,7 @@ public class DAOEtudiant {
 
         try {
             PreparedStatement statementAjoutEtudiant = conn.getConn().prepareStatement(sql);
+            // on ajoute au statement au neme ? l'objet x (numetud par exemple) de type Types.type 
             statementAjoutEtudiant.setObject(1,numetud, Types.VARCHAR);
             statementAjoutEtudiant.setObject(2,nom, Types.VARCHAR);
             statementAjoutEtudiant.setObject(3,prenom, Types.VARCHAR);
@@ -64,7 +65,13 @@ public class DAOEtudiant {
         }
 
     }
-
+    /**
+     * Methode de supression d'un d'étudient ( présent en BD) en fonction de son id
+     *
+     * @param numetud
+     *
+     * @author      CLAIN Cyril
+     */
     public void deleteEtudiant(String numetud){
         // debut de connection
         this.conn = new Connexion();
@@ -90,6 +97,8 @@ public class DAOEtudiant {
      * Methode de creation d'une liste d'étudient ( présent en BD)
      *
      * @return liste d'etudiant
+     *
+     * @author      CLAIN Cyril
      */
     public List<Etudiant> creationListEtudiant(){
         // debut de connection
