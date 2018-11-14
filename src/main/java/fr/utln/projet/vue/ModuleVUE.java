@@ -1,6 +1,7 @@
 package fr.utln.projet.vue;
 
 import fr.utln.projet.DAO.ModuleDAO;
+import fr.utln.projet.controleur.ModuleControleur;
 import fr.utln.projet.module.Module;
 
 import javax.swing.*;
@@ -9,7 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ModuleVUE extends Fenetre {
-    // ControleurModule controleurModule;
+    ModuleControleur moduleControleur;
     // ModeleModule modelModul
 
     public static JButton ajout = new JButton("Ajouter");
@@ -37,6 +38,14 @@ public class ModuleVUE extends Fenetre {
 
         global.setLayout(new GridBagLayout());
         GridBagConstraints contrainte = new GridBagConstraints();
+
+        ajout.setEnabled(false);
+        ajout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moduleControleur.ajoueterModule();
+            }
+        });
 
         // placement des JLabel sur la colonne 1
 
@@ -103,6 +112,10 @@ public class ModuleVUE extends Fenetre {
         });
 
 
+    }
+
+    public void setBoutonAjouter (boolean gris) {
+        ajout.setEnabled(gris);
     }
 
 
