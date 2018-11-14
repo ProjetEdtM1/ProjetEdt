@@ -1,9 +1,16 @@
 package fr.utln.projet.vue;
 
+import fr.utln.projet.DAO.ModuleDAO;
+import fr.utln.projet.module.Module;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ModuleVUE extends Fenetre {
+    // ControleurModule controleurModule;
+    // ModeleModule modelModul
 
     public static JButton ajout = new JButton("Ajouter");
     public static JButton annuler = new JButton("Annuler");
@@ -18,7 +25,7 @@ public class ModuleVUE extends Fenetre {
     public static JLabel heureTd = new JLabel("nombre d'heures total des travaux dirigés");
     public static JLabel heureTp = new JLabel("nombre d'heures total des travaux pratiques");
 
-    public ModuleVUE() {
+    public ModuleVUE(/* ModelModule module*/) {
         super();
         JPanel global = new JPanel();
         this.setTitle("Ajouter un module");
@@ -73,6 +80,28 @@ public class ModuleVUE extends Fenetre {
 
 
         getContentPane().add(global);
+
+
+        ajout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // controleurModule.ajoutermodule();
+//                String intit = ajoutmodule.getText();
+//                String hCm = nbHeureCm.getText();
+//                String hTd = nbHeureTd.getText();
+//                String hTp = nbHeureTp.getText();
+//
+//                try {
+//                    int aux = Integer.parseInt(hCm);
+//                } catch (NumberFormatException nfe){
+//                    int valmin = 0;
+//
+//                }
+//                Module module = new Module.Builder(intit).nbHeureCm(hCm).nbHeureTd(hTd).nbHeureTp(hTp).build();
+//                ModuleDAO moduleDAO = new ModuleDAO();
+            }
+        });
+
 
     }
 
