@@ -53,6 +53,7 @@ public class ControleurEtudiant {
                 changedUpdate(e);
             }
 
+            // test si les champs sont vide ou non pour rendre le bouton clickable
             @Override
             public void changedUpdate(DocumentEvent e) {
                 if ((nomNouvelEtudiantModel.getLength() == 0)|| (prenomNouvelEtudiantModel.getLength() == 0) || (groupeNouvelEtudiantModel.getLength() == 0) || (numNouvelEtudiantModel.getLength() == 0) || (mdpNouvelEtudiantModel.getLength() == 0))
@@ -104,6 +105,8 @@ public class ControleurEtudiant {
 
     /**
      * Methode d'appel de suppression etudiant du modele
+     *
+     * @param etudiant
      *
      * @author      CLAIN Cyril
      */

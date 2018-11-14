@@ -50,7 +50,7 @@ public class EtudiantVue extends JFrame  {
     private final JTextField nometud;
     private final JTextField prenometud;
     private final JTextField groupetud;
-    private final JTextField mdpEtudiant;
+    private final JPasswordField mdpEtudiant;
 
 
     public EtudiantVue(ModeleEtudiant modeleEtudiant) throws HeadlessException {
@@ -109,7 +109,7 @@ public class EtudiantVue extends JFrame  {
         nometud = new JTextField(controleurEtudiant.getNomNouvelEtudiantModel(),"",10);
         prenometud = new JTextField(controleurEtudiant.getPrenomNouvelEtudiantModel(),"",10);
         groupetud = new JTextField(controleurEtudiant.getGroupeNouvelEtudiantModel(),"",10);
-        mdpEtudiant = new JTextField(controleurEtudiant.getMdpNouvelEtudiantModel(),"",10);
+        mdpEtudiant = new JPasswordField(controleurEtudiant.getMdpNouvelEtudiantModel(),"",10);
 
         etudiantSuppressionPanel.revalidate();
 
