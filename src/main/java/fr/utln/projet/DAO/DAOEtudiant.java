@@ -123,4 +123,42 @@ public class DAOEtudiant {
         }
         return etudiantList;
     }
+
+    /**
+     *
+     *
+     * @param login
+     * @param mdp
+     * @return vrai si l'identifiant et le mot de passe sont correctes
+     *
+     * @author Nicolas Guigou
+     */
+    public Boolean connexionEtudiant(String login,String mdp){
+        this.conn = new Connexion();
+        conn.connect();
+        try {
+            PreparedStatement pstmt = conn.getConn().prepareStatement("SELECT *" +
+                    " FROM ETUDIANT WHERE numEtudiant = ?");
+            pstmt.setString(1,login);
+            ResultSet res = pstmt.executeQuery();
+            if(res.next()){
+                pstmt = conn.getConn().prepareStatement("SELECT motDePasse FROM ETUDIANT " +
+                        "WHERE numEtudiant = ?");
+                pstmt.setString(1,login);
+                res = pstmt.executeQuery();
+                if(res.next()){
+                    if(res.getString("motDePasse").equals(mdp)){
+                        return true;
+                    }
+                }else
+                    return false;
+            }else
+                return false;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+
+    }
 }
