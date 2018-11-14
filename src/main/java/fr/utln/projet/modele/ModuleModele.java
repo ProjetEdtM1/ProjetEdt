@@ -47,23 +47,30 @@ public class ModuleModele extends Observable {
 
 
     public void ajouterModule(String intitule, String nbHCm, String nbHTd, String nbHTp) {
-        System.out.println("YOOO");
-//        System.out.println("Modele intitule " + intitule);
-//        System.out.println("Modele CM " + nbHCm);
-//        System.out.println("Modele TD " + nbHTd);
-//        System.out.println("Modele TP " + nbHTp);
         try {
-            System.out.println("ALLO");
             int intNbHCm = 0, intNbHTd = 0, intNbHTp = 0;
+
+//            try {
+//                convertion(nbHCm);
+//            } catch (NumberFormatException e) {
+//                System.out.println("erreur de conversion pour nbHCm");
+//            }
+
+
             if (convertion(nbHCm)) {
                 intNbHCm = convertionIntStr(nbHCm);
             }
-            if (convertion(nbHCm)) {
-                intNbHTd = convertionIntStr(nbHTd);
+            else {
+                if (convertion(nbHCm)) {
+                    intNbHTd = convertionIntStr(nbHTd);
+                }
+                else {
+                    if (convertion(nbHCm)) {
+                        intNbHTp = convertionIntStr(nbHTp);
+                    }
+                }
             }
-            if (convertion(nbHCm)) {
-                intNbHTp = convertionIntStr(nbHTp);
-            }
+
 
             moduleDao.persistModule(intitule, intNbHCm, intNbHTd, intNbHTp);
 

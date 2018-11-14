@@ -22,11 +22,11 @@ public class ModuleDAO {
         try {
 
             PreparedStatement stmt = conn.getConn().prepareStatement(req);
-            System.out.println("YO " + stmt);
-            System.out.println("int " + intitule);
-            System.out.println("CM " + nbHCm);
-            System.out.println("TD " + nbHTd);
-            System.out.println("TP " + nbHTd);
+//            System.out.println("YO " + stmt);
+//            System.out.println("int " + intitule);
+//            System.out.println("CM " + nbHCm);
+//            System.out.println("TD " + nbHTd);
+//            System.out.println("TP " + nbHTd);
 
             stmt.setObject(1, intitule, Types.VARCHAR);
             stmt.setObject(2, nbHCm, Types.INTEGER);
@@ -34,10 +34,9 @@ public class ModuleDAO {
             stmt.setObject(4, nbHTp, Types.INTEGER);
 
             int res = stmt.executeUpdate();
-            System.out.println(res);
 
             // message de confirmation
-            System.out.println("J'ai bien ajoute le module" + intitule);
+            System.out.println("J'ai bien ajoute le module " + intitule);
             stmt.close();
             conn.close();
         } catch (SQLException e) {

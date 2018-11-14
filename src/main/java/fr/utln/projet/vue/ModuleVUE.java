@@ -1,7 +1,7 @@
 package fr.utln.projet.vue;
 
-import fr.utln.projet.DAO.ModuleDAO;
 import fr.utln.projet.controleur.ModuleControleur;
+//import fr.utln.projet.modele.ModuleListeModele;
 import fr.utln.projet.modele.ModuleModele;
 import fr.utln.projet.module.Module;
 
@@ -13,9 +13,11 @@ import java.awt.event.ActionListener;
 public class ModuleVUE extends Fenetre {
     public static ModuleControleur moduleControleur;
     public static ModuleModele moduleModele;
+//    public static ModuleListeModele moduleListeModele;
 
     public static JButton ajout = new JButton("Ajouter");
     public static JButton annuler = new JButton("Annuler");
+    public static JButton supprimer = new JButton("Supprimer");
 
     public static JTextField ajoutmodule = new JTextField();
     public static JTextField nbHeureCm = new JTextField();
@@ -27,26 +29,23 @@ public class ModuleVUE extends Fenetre {
     public static JLabel heureTd = new JLabel("nombre d'heures total des travaux dirigés");
     public static JLabel heureTp = new JLabel("nombre d'heures total des travaux pratiques");
 
-    public static JList<Module> moduleListModel;
+    public static JList<Module> supprimerModule;
 
     public ModuleVUE(ModuleModele moduleModele) {
         super();
         JPanel global = new JPanel();
         this.setTitle("Ajouter un module");
 
-        ajoutmodule.setPreferredSize(new Dimension(100, 30));
-        nbHeureCm.setPreferredSize(new Dimension(100, 30));
-        nbHeureTd.setPreferredSize(new Dimension(100, 30));
-        nbHeureTp.setPreferredSize(new Dimension(100, 30));
-
         global.setLayout(new GridBagLayout());
         GridBagConstraints contrainte = new GridBagConstraints();
 
         this.moduleModele = moduleModele;
         this.moduleControleur = new ModuleControleur(this, moduleModele);
-        // this.moduleListModel = new ModuletLisModel(moduleModele.getModule());
+//        this.moduleListeModele = new ModuleListeModele(moduleModele.getModule());
 
-        // moduleModele.addObserver();
+//        moduleModele.addObserver(moduleListeModele);
+
+        // supprimerModule = new JList<>(moduleListeModele);
 
         ajout.setEnabled(false);
         ajout.addActionListener(new ActionListener() {
@@ -60,6 +59,7 @@ public class ModuleVUE extends Fenetre {
         nbHeureCm = new JTextField(moduleControleur.getNbHCmNouveauModuleModele(),"",10);
         nbHeureTd = new JTextField(moduleControleur.getNbHTdNouveauModuleModele(),"",10);
         nbHeureTp = new JTextField(moduleControleur.getNbHTpNouveauModuleModele(),"",10);
+
 
         // placement des JLabel sur la colonne 1
 
@@ -99,6 +99,10 @@ public class ModuleVUE extends Fenetre {
 
         contrainte.gridx = 1;
         global.add(ajout, contrainte);
+
+        contrainte.gridx = 1;
+        contrainte.gridy = 10;
+        global.add(supprimer, contrainte);
 
 
 
