@@ -2,6 +2,7 @@ package fr.utln.projet.vue;
 
 import fr.utln.projet.controleur.ModuleControleur;
 //import fr.utln.projet.modele.ModuleListeModele;
+import fr.utln.projet.modele.ModuleListeModele;
 import fr.utln.projet.modele.ModuleModele;
 import fr.utln.projet.module.Module;
 
@@ -17,7 +18,7 @@ public class ModuleVUE extends Fenetre {
 
     public static JButton ajout = new JButton("Ajouter");
     public static JButton annuler = new JButton("Annuler");
-    public static JButton supprimer = new JButton("Supprimer");
+//    public static JButton supprimer = new JButton("Supprimer");
 
     public static JTextField ajoutmodule = new JTextField();
     public static JTextField nbHeureCm = new JTextField();
@@ -29,7 +30,7 @@ public class ModuleVUE extends Fenetre {
     public static JLabel heureTd = new JLabel("nombre d'heures total des travaux dirigés");
     public static JLabel heureTp = new JLabel("nombre d'heures total des travaux pratiques");
 
-    public static JList<Module> supprimerModule;
+//    public static JList<Module> supprimerModule;
 
     public ModuleVUE(ModuleModele moduleModele) {
         super();
@@ -42,10 +43,12 @@ public class ModuleVUE extends Fenetre {
         this.moduleModele = moduleModele;
         this.moduleControleur = new ModuleControleur(this, moduleModele);
 //        this.moduleListeModele = new ModuleListeModele(moduleModele.getModule());
+//        System.out.println("aa " + moduleListeModele.getClass().getName());
 
 //        moduleModele.addObserver(moduleListeModele);
 
-        // supprimerModule = new JList<>(moduleListeModele);
+  //       supprimerModule = new JList<Module> (moduleListeModele);
+//         supprimerModule.add();
 
         ajout.setEnabled(false);
         ajout.addActionListener(new ActionListener() {
@@ -102,7 +105,7 @@ public class ModuleVUE extends Fenetre {
 
         contrainte.gridx = 1;
         contrainte.gridy = 10;
-        global.add(supprimer, contrainte);
+//        global.add(supprimer, contrainte);
 
 
 
@@ -137,8 +140,8 @@ public class ModuleVUE extends Fenetre {
     }
 
 
-    public static void main(String[] args) {
-        ModuleModele moduleModele = new ModuleModele();
-        new ModuleVUE(moduleModele);
-    }
+//    public static void main(String[] args) {
+//        ModuleModele moduleModele = new ModuleModele();
+//        new ModuleVUE(moduleModele);
+//    }
 }

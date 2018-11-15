@@ -60,16 +60,12 @@ public class ModuleModele extends Observable {
             if (convertion(nbHCm)) {
                 intNbHCm = convertionIntStr(nbHCm);
             }
-            else {
-                if (convertion(nbHCm)) {
+            if (convertion(nbHCm)) {
                     intNbHTd = convertionIntStr(nbHTd);
                 }
-                else {
-                    if (convertion(nbHCm)) {
-                        intNbHTp = convertionIntStr(nbHTp);
-                    }
+            if (convertion(nbHCm)) {
+                intNbHTp = convertionIntStr(nbHTp);
                 }
-            }
 
 
             moduleDao.persistModule(intitule, intNbHCm, intNbHTd, intNbHTp);
