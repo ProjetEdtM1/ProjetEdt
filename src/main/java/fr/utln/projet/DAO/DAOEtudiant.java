@@ -12,7 +12,7 @@ import java.util.List;
  *
  * Description   : Gere les requettes sql
  *
- * Version       : 1.0
+ * Version       : 1.1
  *
  * Date          : 12/11/2018
  *
@@ -109,7 +109,6 @@ public class DAOEtudiant {
         String sql = "SELECT * FROM ETUDIANT";
         try {
             Statement statementSelectall = conn.getConn().createStatement();
-
             ResultSet resListeDesEtudiant = statementSelectall.executeQuery(sql);
             System.out.println(resListeDesEtudiant);
             while(resListeDesEtudiant.next()){
@@ -133,6 +132,46 @@ public class DAOEtudiant {
         return etudiantList;
     }
 
+
+    public Etudiant getEtudiant(String numetud){
+        // debut de connection
+        this.conn = new Connexion();
+        conn.connect();
+        Etudiant etudiant = new Etudiant();
+
+
+        //requette de selection des Etudiant
+        String sql = "SELECT * FROM ETUDIANT "+"where NUMETUDIANT = ?";
+        System.out.println("num etud : "+numetud);
+        try {
+            PreparedStatement statementSelectEtudiantFromID = conn.getConn().prepareStatement(sql);
+            System.out.println("statement pret");
+            statementSelectEtudiantFromID.setObject(1,numetud, Types.VARCHAR);
+            System.out.println("param ajouter ");
+            ResultSet resDetailUnEtudiant = statementSelectEtudiantFromID.executeQuery();
+           // affin d'axeder au 1er elmt de la liste
+            resDetailUnEtudiant.next();
+
+            etudiant.setNumetud(resDetailUnEtudiant.getString(1));
+            System.out.println(resDetailUnEtudiant.getString(1));
+            etudiant.setNom(resDetailUnEtudiant.getString(2));
+            etudiant.setPrenom(resDetailUnEtudiant.getString(3));
+            System.out.println(resDetailUnEtudiant.getString(3));
+            etudiant.setMdp(resDetailUnEtudiant.getString(4));
+            etudiant.setGroupe(resDetailUnEtudiant.getString(5));
+        }
+            catch (SQLException e1) {
+                System.out.println("error in getEtudiant : "+e1.getMessage());
+
+        }
+
+        return etudiant;
+
+
+        }
+
+
+
     /**
      *
      *
@@ -146,6 +185,8 @@ public class DAOEtudiant {
         this.conn = new Connexion();
         conn.connect();
         try {
+
+
             PreparedStatement pstmt = conn.getConn().prepareStatement("SELECT *" +
                     " FROM ETUDIANT WHERE numEtudiant = ?");
             pstmt.setString(1,login);
@@ -168,6 +209,51 @@ public class DAOEtudiant {
             e.printStackTrace();
         }
         return false;
+
+    }
+
+    public void updateEtudiant(String numetud,String nom, String prenom, String groupe)  {
+        // debut de connection
+        this.conn = new Connexion();
+        conn.connect();
+        String sqlNom = "UPDATE Etudiant " + "SET NOMETUDIANT = ? WHERE NUMETUDIANT = ?";
+        String sqlPrenom = "UPDATE Etudiant " + "SET PRENOMETUDIANT = ? WHERE NUMETUDIANT = ?";
+        String sqlGroupe = "UPDATE Etudiant " + "SET INTITULEGROUPE = ? WHERE NUMETUDIANT = ?";
+
+        Etudiant etudiant = getEtudiant(numetud);
+        System.out.println(etudiant);
+
+        try {
+
+
+            if (etudiant.getNom() != nom) {
+                PreparedStatement statementSelectEtudiantFromID = conn.getConn().prepareStatement(sqlNom);
+                statementSelectEtudiantFromID.setObject(1, nom, Types.VARCHAR);
+                statementSelectEtudiantFromID.setObject(2, numetud, Types.VARCHAR);
+                int resDetailUnEtudiant = statementSelectEtudiantFromID.executeUpdate();
+
+            }
+            if (etudiant.getGroupe() != groupe) {
+                PreparedStatement statementSelectEtudiantFromID = conn.getConn().prepareStatement(sqlGroupe);
+                statementSelectEtudiantFromID.setObject(1, groupe, Types.VARCHAR);
+                statementSelectEtudiantFromID.setObject(2, numetud, Types.VARCHAR);
+                int resDetailUnEtudiant = statementSelectEtudiantFromID.executeUpdate();
+
+            }
+            if (etudiant.getPrenom() != prenom) {
+                System.out.println(etudiant.getPrenom());
+                System.out.println(prenom);
+                PreparedStatement statementSelectEtudiantFromID = conn.getConn().prepareStatement(sqlPrenom);
+                statementSelectEtudiantFromID.setObject(1, prenom, Types.VARCHAR);
+                statementSelectEtudiantFromID.setObject(2, numetud, Types.VARCHAR);
+                int resDetailUnEtudiant = statementSelectEtudiantFromID.executeUpdate();
+
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
 
     }
 }

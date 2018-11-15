@@ -4,6 +4,7 @@ import fr.utln.projet.DAO.DAOEtudiant;
 import fr.utln.projet.utilisateur.Etudiant;
 
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.ArrayList;
 import java.util.List;
@@ -85,6 +86,32 @@ public class ModeleEtudiant extends Observable {
         //On previent les observateurs du changement
         setChanged();
         notifyObservers(ModeleEtudiantEvent.ETUDIANT);
+    }
+
+    public void modifiereEtudiant(String numetud, String nom, String prenom, String groupe){
+
+        dao.updateEtudiant(numetud,nom,prenom,groupe);
+        Etudiant etudiant = new Etudiant();
+        etudiant.setNumetud(numetud);
+        etudiant.setNom(nom);
+        etudiant.setPrenom(prenom);
+        etudiant.setGroupe(groupe);
+
+        for(Etudiant e : etudiants){
+            System.out.println("je suis passer par for ");
+            System.out.println("e.getnum : "+e.getNumetud());
+            System.out.println("num etud !: " + numetud);
+
+            if ((e.getNumetud().compareTo(numetud))==0){
+                System.out.println("je suis dans if ");
+                etudiants.remove(e);}}
+        etudiants.add(etudiant);
+
+        setChanged();
+        notifyObservers(ModeleEtudiantEvent.ETUDIANT);
+
+
+
     }
 
 }

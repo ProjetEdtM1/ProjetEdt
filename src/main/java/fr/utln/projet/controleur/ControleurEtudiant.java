@@ -85,6 +85,8 @@ public class ControleurEtudiant {
         nomEtudiantModel.addDocumentListener(ecouteurChangementTexte);
         prenomEtudiantModel.addDocumentListener(ecouteurChangementTexte);
         groupeEtudiantModel.addDocumentListener(ecouteurChangementTexte);
+        mdpEtudiantModel.addDocumentListener(ecouteurChangementTexte);
+
 
 
     }
@@ -157,6 +159,22 @@ public class ControleurEtudiant {
     }
 
     public void modifierEtudiant() {
+        try {
+            System.out.println(numEtudiantModel.getLength());
+            System.out.println(nomEtudiantModel.getLength());
+            System.out.println(prenomEtudiantModel.getLength());
+            System.out.println(groupeEtudiantModel.getLength());
+
+            modeleEtudiant.modifiereEtudiant(
+                    numEtudiantModel.getText(0, numEtudiantModel.getLength()),
+                    nomEtudiantModel.getText(0, nomEtudiantModel.getLength()),
+                    prenomEtudiantModel.getText(0, prenomEtudiantModel.getLength()),
+                    groupeEtudiantModel.getText(0, groupeEtudiantModel.getLength())
+
+                    );
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -192,4 +210,6 @@ public class ControleurEtudiant {
         return groupeEtudiantModel;
     }
 
+    public Document getMdpEtudiantModel() { return mdpEtudiantModel;
+    }
 }

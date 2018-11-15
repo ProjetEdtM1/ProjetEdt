@@ -100,7 +100,6 @@ public class EtudiantVue extends JFrame  {
         supprimerEtudiantJButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //String ID =
                 controleurEtudiant.deleteEtudiant(etudiantSuppressionJList.getSelectedValue());
                 setSuppressionEtudiant((etudiantSuppressionJList.getSelectedValue() == null));
 
@@ -159,6 +158,12 @@ public class EtudiantVue extends JFrame  {
 
 
         modifierEtudiantJBouton.setEnabled(false);
+        modifierEtudiantJBouton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controleurEtudiant.modifierEtudiant();
+            }
+        });
         cancelModifierEtudiantJButton.setEnabled(false);
 
 
@@ -350,13 +355,14 @@ public class EtudiantVue extends JFrame  {
         nomEtudDetailTextField.setEnabled(true);
         prenomEtudDetailTextField.setEnabled(true);
         groupeEtudDetailTextField.setEnabled(true);
+        modifierEtudiantJBouton.setEnabled(true);
+        cancelModifierEtudiantJButton.setEnabled(true);
 
     }
 
     public void montrerDetail(Etudiant etudiant){
         System.out.println("je rentre bien la ");
         if (etudiant == null){
-            System.out.println("il suppose que etudiant == null ");
             numEtudDetailTextField.setText("");
             nomEtudDetailTextField.setText("");
             prenomEtudDetailTextField.setText("");
@@ -364,11 +370,18 @@ public class EtudiantVue extends JFrame  {
         }
         else{
             System.out.println("il suppose que etudiant != null ");
+            System.out.println(etudiant.getGroupe());
             numEtudDetailTextField.setText(etudiant.getNumetud());
-            //System.out.println(etudiant.getNumetud() +" etudiant : \n" + etudiant);
+            numEtudDetailTextField= new JTextField(controleurEtudiant.getNumEtudiantModel(),etudiant.getNumetud(),10);
+
             nomEtudDetailTextField.setText(etudiant.getNom());
+            nomEtudDetailTextField= new JTextField(controleurEtudiant.getNomEtudiantModel(),etudiant.getNom(),10);
+
             prenomEtudDetailTextField.setText(etudiant.getPrenom());
+            prenomEtudDetailTextField= new JTextField(controleurEtudiant.getPrenomEtudiantModel(),etudiant.getPrenom(),10);
+
             groupeEtudDetailTextField.setText(etudiant.getGroupe());
+            groupeEtudDetailTextField= new JTextField(controleurEtudiant.getGroupeEtudiantModel(),etudiant.getGroupe(),10);
         }
     }
 }
