@@ -1,13 +1,13 @@
 package fr.utln.projet.utilisateur;
 
-/*
+/**
  * Nom de classe : Etudiant
  *
  * Description   : Classe Etudiant qui comporte les données de celui-ci
  *
  * Version       : 1.3
  *
- * Date          : 08/11/2018
+ * Date          : 16/11/2018
  *
  * Copyright     : CLAIN Cyril
  */

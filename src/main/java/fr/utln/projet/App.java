@@ -4,6 +4,7 @@ import fr.utln.projet.DAO.DAOEtudiant;
 import fr.utln.projet.bdd.Connexion;
 import fr.utln.projet.modele.ModuleModele;
 import fr.utln.projet.module.Module;
+import fr.utln.projet.utilisateur.Professeur;
 import fr.utln.projet.utilisateur.Utilisateur;
 import fr.utln.projet.vue.AuthentificationVue;
 import fr.utln.projet.vue.EtudiantVue;
@@ -28,6 +29,7 @@ public class App
 
         ModuleModele moduleModele = new ModuleModele();
         ModuleVUE moduleVUE = new ModuleVUE(moduleModele);
+        Professeur professeur = new Professeur();
 
 
     }}
