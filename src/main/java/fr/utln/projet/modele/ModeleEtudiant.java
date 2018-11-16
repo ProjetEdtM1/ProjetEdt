@@ -6,14 +6,14 @@ import fr.utln.projet.utilisateur.Etudiant;
 import java.sql.SQLException;
 import java.util.*;
 
-/**
+/*
  * Nom de classe : ModeleEtudiant
  *
  * Description   : Modele Etudiant (MVC) contient les méthode a appliquer
  *
- * Version       : 1.3
+ * Version       : 1.1
  *
- * Date          : 16/11/2018
+ * Date          : 12/11/2018
  *
  * Copyright     : CLAIN Cyril
  */
@@ -44,7 +44,7 @@ public class ModeleEtudiant extends Observable {
 
     public enum ModeleEtudiantEvent {ETUDIANT}
 
-    public Etudiant getEtudiant(final String Numetud) {
+    public Etudiant getEtudiant(final String Numetud){
         for (Etudiant etudiant : etudiants)
             if (etudiant.Numetud == Numetud) return etudiant;
         return null;
@@ -52,19 +52,20 @@ public class ModeleEtudiant extends Observable {
     }
 
     /**
-     * Methode d'ajout des étudiants
+     *  Methode d'ajout des étudiants
      *
      * @param numetud
      * @param nom
      * @param prenom
      * @param mdp
      * @param groupe
-     * @author CLAIN Cyril
+     *
+     * @author      CLAIN Cyril
      */
-    public void ajouterEtudiant(String numetud, String nom, String prenom, String mdp, String groupe) {
+    public void ajouterEtudiant(String numetud, String nom, String prenom,String mdp, String groupe) {
         try {
 
-            dao.setEtudiant(numetud, nom, prenom, mdp, groupe);
+            dao.setEtudiant(numetud,nom, prenom, mdp, groupe);
 
             Etudiant etudiant = new Etudiant();
             etudiant.setNumetud(numetud);
@@ -73,7 +74,7 @@ public class ModeleEtudiant extends Observable {
             etudiant.setMdp(mdp);
             etudiant.setGroupe(groupe);
             etudiants.add(etudiant);
-           ListIterator listIterator = etudiants.listIterator();
+            ListIterator listIterator = etudiants.listIterator();
             while( listIterator.hasNext()){
                 Object o = listIterator.next();
                 System.out.println("iterator : "+o);
@@ -82,16 +83,19 @@ public class ModeleEtudiant extends Observable {
             //On previent les observateurs du changement
             setChanged();
             notifyObservers(ModeleEtudiantEvent.ETUDIANT);
-        } catch (SQLException e) {
+        }
+        catch (SQLException e){
             e.printStackTrace();
         }
     }
 
     /**
-     * Methode de supression  des étudiants
+     *
+     *  Methode de supression  des étudiants
      *
      * @param etudiant
-     * @author CLAIN Cyril
+     *
+     *  @author      CLAIN Cyril
      */
     public void deleteEtudiant(Etudiant etudiant) throws SQLException {
         dao.deleteEtudiant(etudiant.getNumetud());
@@ -102,10 +106,9 @@ public class ModeleEtudiant extends Observable {
         notifyObservers(ModeleEtudiantEvent.ETUDIANT);
     }
 
-    public void modifiereEtudiant(String numetud, String nom, String prenom, String groupe) {
+    public void modifiereEtudiant(String numetud, String nom, String prenom, String groupe){
 
-        int i = 0;
-        dao.updateEtudiant(numetud, nom, prenom, groupe);
+        dao.updateEtudiant(numetud,nom,prenom,groupe);
         Etudiant etudiant = new Etudiant();
         etudiant.setNumetud(numetud);
         etudiant.setNom(nom);
@@ -120,12 +123,12 @@ public class ModeleEtudiant extends Observable {
                 etudiants.add(etudiant);
             }}
 
+        setChanged();
+        notifyObservers(ModeleEtudiantEvent.ETUDIANT);
 
-            setChanged();
-            notifyObservers(ModeleEtudiantEvent.ETUDIANT);
 
-
-        }
 
     }
 
+
+}
