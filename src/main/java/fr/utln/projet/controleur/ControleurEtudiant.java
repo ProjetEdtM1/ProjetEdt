@@ -33,6 +33,12 @@ public class ControleurEtudiant {
     private Document groupeNouvelEtudiantModel = new PlainDocument();
     private Document mdpNouvelEtudiantModel = new PlainDocument();
 
+    private Document numEtudiantModel = new PlainDocument();
+    private Document nomEtudiantModel = new PlainDocument();
+    private Document prenomEtudiantModel = new PlainDocument();
+    private Document groupeEtudiantModel = new PlainDocument();
+    private Document mdpEtudiantModel = new PlainDocument();
+
     public Document getMdpNouvelEtudiantModel() {
         return mdpNouvelEtudiantModel;
     }
@@ -61,6 +67,12 @@ public class ControleurEtudiant {
                 else
                     etudiantVue.setCreationEtudiant(true);
 
+                if ((nomEtudiantModel.getLength() == 0)|| (prenomEtudiantModel.getLength() == 0) || (groupeEtudiantModel.getLength() == 0) || (numEtudiantModel.getLength() == 0) || (mdpEtudiantModel.getLength() == 0)){
+                    etudiantVue.setModificationEtudiant(false);                }
+                else
+                    etudiantVue.setModificationEtudiant(true);
+
+
             }
         };
         numNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexte);
@@ -68,6 +80,13 @@ public class ControleurEtudiant {
         prenomNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexte);
         groupeNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexte);
         mdpNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexte);
+
+        numEtudiantModel.addDocumentListener(ecouteurChangementTexte);
+        nomEtudiantModel.addDocumentListener(ecouteurChangementTexte);
+        prenomEtudiantModel.addDocumentListener(ecouteurChangementTexte);
+        groupeEtudiantModel.addDocumentListener(ecouteurChangementTexte);
+        mdpEtudiantModel.addDocumentListener(ecouteurChangementTexte);
+
 
 
     }
@@ -139,6 +158,26 @@ public class ControleurEtudiant {
         }
     }
 
+    public void modifierEtudiant() {
+        try {
+            System.out.println(numEtudiantModel.getLength());
+            System.out.println(nomEtudiantModel.getLength());
+            System.out.println(prenomEtudiantModel.getLength());
+            System.out.println(groupeEtudiantModel.getLength());
+
+            modeleEtudiant.modifiereEtudiant(
+                    numEtudiantModel.getText(0, numEtudiantModel.getLength()),
+                    nomEtudiantModel.getText(0, nomEtudiantModel.getLength()),
+                    prenomEtudiantModel.getText(0, prenomEtudiantModel.getLength()),
+                    groupeEtudiantModel.getText(0, groupeEtudiantModel.getLength())
+
+                    );
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     public Document getNumNouvelEtudiantModel() {
         return numNouvelEtudiantModel;
     }
@@ -155,4 +194,22 @@ public class ControleurEtudiant {
         return groupeNouvelEtudiantModel;
     }
 
+    public Document getNumEtudiantModel() {
+        return numEtudiantModel;
+    }
+
+    public Document getNomEtudiantModel() {
+        return nomEtudiantModel;
+    }
+
+    public Document getPrenomEtudiantModel() {
+        return prenomEtudiantModel;
+    }
+
+    public Document getGroupeEtudiantModel() {
+        return groupeEtudiantModel;
+    }
+
+    public Document getMdpEtudiantModel() { return mdpEtudiantModel;
+    }
 }

@@ -1,5 +1,6 @@
 package fr.utln.projet;
 
+import fr.utln.projet.DAO.DAOEtudiant;
 import fr.utln.projet.bdd.Connexion;
 import fr.utln.projet.modele.ModuleModele;
 import fr.utln.projet.module.Module;
@@ -10,6 +11,7 @@ import fr.utln.projet.modele.ModeleEtudiant;
 import fr.utln.projet.vue.ModuleVUE;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
@@ -18,20 +20,14 @@ import java.sql.Statement;
  */
 public class App
 {
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-        Connexion con = new Connexion();
-        con.connect();
-
+    public static void main( String[] args ) throws SQLException {
+        DAOEtudiant dao = new DAOEtudiant();
         ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
-        System.out.println(modeleEtudiant.getEtudiant());
         EtudiantVue etudiantVue = new EtudiantVue(modeleEtudiant);
         AuthentificationVue authentificationVue = new AuthentificationVue();
 
         ModuleModele moduleModele = new ModuleModele();
-        new ModuleVUE(moduleModele);
-//        Utilisateur utilisateur = new Utilisateur.Builder("toto", "Jean").telephone("0605020301").build();
-//        System.out.println(utilisateur.nom + " " + utilisateur.prenom + " " + utilisateur.telephone);
-    }
-}
+        ModuleVUE moduleVUE = new ModuleVUE(moduleModele);
+
+
+    }}

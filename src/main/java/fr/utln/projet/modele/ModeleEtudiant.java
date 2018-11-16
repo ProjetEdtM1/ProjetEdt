@@ -4,6 +4,7 @@ import fr.utln.projet.DAO.DAOEtudiant;
 import fr.utln.projet.utilisateur.Etudiant;
 
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.Observable;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ public class ModeleEtudiant extends Observable {
 
     public enum ModeleEtudiantEvent {ETUDIANT}
 
-    public Etudiant getEtudiant(final String Numetud){
+    public Etudiant getEtudiant(final String Numetud) {
         for (Etudiant etudiant : etudiants)
             if (etudiant.Numetud == Numetud) return etudiant;
         return null;
@@ -39,20 +40,19 @@ public class ModeleEtudiant extends Observable {
     }
 
     /**
-     *  Methode d'ajout des étudiants
+     * Methode d'ajout des étudiants
      *
      * @param numetud
      * @param nom
      * @param prenom
      * @param mdp
      * @param groupe
-     *
-     * @author      CLAIN Cyril
+     * @author CLAIN Cyril
      */
-    public void ajouterEtudiant(String numetud, String nom, String prenom,String mdp, String groupe) {
+    public void ajouterEtudiant(String numetud, String nom, String prenom, String mdp, String groupe) {
         try {
 
-            dao.setEtudiant(numetud,nom, prenom, mdp, groupe);
+            dao.setEtudiant(numetud, nom, prenom, mdp, groupe);
 
             Etudiant etudiant = new Etudiant();
             etudiant.setNumetud(numetud);
@@ -65,19 +65,16 @@ public class ModeleEtudiant extends Observable {
             //On previent les observateurs du changement
             setChanged();
             notifyObservers(ModeleEtudiantEvent.ETUDIANT);
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     /**
-     *
-     *  Methode de supression  des étudiants
+     * Methode de supression  des étudiants
      *
      * @param etudiant
-     *
-     *  @author      CLAIN Cyril
+     * @author CLAIN Cyril
      */
     public void deleteEtudiant(Etudiant etudiant) throws SQLException {
         dao.deleteEtudiant(etudiant.getNumetud());
@@ -87,4 +84,29 @@ public class ModeleEtudiant extends Observable {
         notifyObservers(ModeleEtudiantEvent.ETUDIANT);
     }
 
-}
+    public void modifiereEtudiant(String numetud, String nom, String prenom, String groupe) {
+
+        int i = 0;
+        dao.updateEtudiant(numetud, nom, prenom, groupe);
+        Etudiant etudiant = new Etudiant();
+        etudiant.setNumetud(numetud);
+        etudiant.setNom(nom);
+        etudiant.setPrenom(prenom);
+        etudiant.setGroupe(groupe);
+
+        for (Etudiant e : etudiants) {
+            System.out.println("je suis passer par for ");
+            System.out.println("e.getnum : " + e.getNumetud());
+            System.out.println("num etud !: " + numetud);
+
+            if ((e.getNumetud().compareTo(numetud)) == 0) {
+                etudiants.remove(e);}}
+            etudiants.add(etudiant);
+
+            setChanged();
+            notifyObservers(ModeleEtudiantEvent.ETUDIANT);
+
+
+        }
+
+    }
