@@ -35,7 +35,7 @@ public class DAOEtudiant {
      *
      * @author      CLAIN Cyril
      */
-    public void setEtudiant(String numetud,String nom, String prenom, String mdp, String groupe) throws SQLException {
+    public void persisteEtudiant(String numetud, String nom, String prenom, String mdp, String groupe) throws SQLException {
         // debut de connection
         this.conn = new Connexion();
         conn.connect();

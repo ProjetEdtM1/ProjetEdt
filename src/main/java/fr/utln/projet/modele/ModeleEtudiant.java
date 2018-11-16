@@ -24,6 +24,9 @@ public class ModeleEtudiant extends Observable {
 
     private DAOEtudiant dao = new DAOEtudiant();
 
+    public enum ModeleEtudiantEvent {ETUDIANT}
+
+
     public List<Etudiant> getEtudiant() {
         etudiants = dao.creationListEtudiant();
         return etudiants;
@@ -41,10 +44,21 @@ public class ModeleEtudiant extends Observable {
         return groupes;
     }
 
-
-    public enum ModeleEtudiantEvent {ETUDIANT}
-
+    /**
+     * Methode de récuperationd 'un etudiant en fonctiond e son numEtud
+     *
+     * @param Numetud
+     * @return etudiant
+     *
+     * @author CLAIN Cyril
+     */
     public Etudiant getEtudiant(final String Numetud){
+
+        // pour chaque objet de type Etudiant dans la liste etudiants test si numetud = objetcourant.numetud
+        //si c'est le cas je retourne l'étudiant en question
+        //sinon je retourn null
+        // cette fonction regarde si un étudiant de ma liste a le meme numetud que celui saisie
+
         for (Etudiant etudiant : etudiants)
             if (etudiant.Numetud == Numetud) return etudiant;
         return null;
@@ -62,10 +76,10 @@ public class ModeleEtudiant extends Observable {
      *
      * @author      CLAIN Cyril
      */
-    public void ajouterEtudiant(String numetud, String nom, String prenom,String mdp, String groupe) {
+    public void persisteEtudiant(String numetud, String nom, String prenom, String mdp, String groupe) {
         try {
 
-            dao.setEtudiant(numetud,nom, prenom, mdp, groupe);
+            dao.persisteEtudiant(numetud,nom, prenom, mdp, groupe);
 
             Etudiant etudiant = new Etudiant();
             etudiant.setNumetud(numetud);

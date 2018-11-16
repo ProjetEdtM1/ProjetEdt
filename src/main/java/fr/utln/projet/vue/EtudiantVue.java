@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
-/**
+/*
  * Nom de classe : EtudiantVue
  *
  * Description   : Partie visible de mon interface permet de voir le formulaire d'ajout d'étudiant
