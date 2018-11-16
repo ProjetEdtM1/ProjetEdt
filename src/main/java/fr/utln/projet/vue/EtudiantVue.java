@@ -1,6 +1,7 @@
 package fr.utln.projet.vue;
 import fr.utln.projet.controleur.ControleurEtudiant;
 import fr.utln.projet.modele.EtudiantListModel;
+import fr.utln.projet.modele.GroupeListModele;
 import fr.utln.projet.modele.ModeleEtudiant;
 import fr.utln.projet.utilisateur.Etudiant;
 
@@ -18,9 +19,9 @@ import java.awt.event.ItemListener;
  *
  * Description   : Partie visible de mon interface permet de voir le formulaire d'ajout d'étudiant
  *
- * Version       : 2.1
+ * Version       : 2.2
  *
- * Date          : 14/11/2018
+ * Date          : 16/11/2018
  *
  * Copyright     : CLAIN Cyril
  */
@@ -32,6 +33,7 @@ public class EtudiantVue extends JFrame  {
     private final ControleurEtudiant controleurEtudiant;
 
     private static EtudiantListModel etudiantListModel;
+    private static GroupeListModele groupeListModele;
 
     private final JPanel etudiantSuppressionPanel = new JPanel(new GridBagLayout());
     private final JPanel etudiantAjoutPanel = new JPanel(new GridBagLayout());
@@ -59,6 +61,7 @@ public class EtudiantVue extends JFrame  {
     private final JButton cancelModifierEtudiantJButton = new JButton("annuler ");
 
     private final JComboBox<Etudiant> etudiantDetailJComboBox;
+    private final JComboBox<String> groupeEtudiantJcomboBox;
 
     private static JTextField numEtudDetailTextField;// = new JTextField();
     private static JTextField nomEtudDetailTextField;// = new JTextField();
@@ -82,7 +85,8 @@ public class EtudiantVue extends JFrame  {
 
         this.modeleEtudiant = modeleEtudiant;
         this.controleurEtudiant = new ControleurEtudiant(this,modeleEtudiant);
-        this.etudiantListModel = new EtudiantListModel(modeleEtudiant.getEtudiant());
+        this.etudiantListModel = new EtudiantListModel(controleurEtudiant.getListEtudiant());
+        this.groupeListModele = new GroupeListModele(controleurEtudiant.getListGroupe());
 
 
         modeleEtudiant.addObserver(etudiantListModel);
@@ -138,6 +142,22 @@ public class EtudiantVue extends JFrame  {
         prenomEtudDetailTextField = new JTextField(controleurEtudiant.getPrenomEtudiantModel(),"",10);
         groupeEtudDetailTextField= new JTextField(controleurEtudiant.getGroupeEtudiantModel(),"",10);
 
+        groupeEtudiantJcomboBox = new JComboBox<String>(groupeListModele);
+        groupeEtudiantJcomboBox.setEnabled(false);
+        groupeEtudiantJcomboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                switch (e.getStateChange()) {
+                    case ItemEvent.DESELECTED:
+
+                        break;
+                    case ItemEvent.SELECTED:
+                        modifierGroupe(groupeEtudiantJcomboBox.getItemAt(groupeEtudiantJcomboBox.getSelectedIndex()));
+                        break;
+                }
+
+            }
+        });
         etudiantDetailJComboBox = new JComboBox<Etudiant>(etudiantListModel);
 
         etudiantDetailJComboBox.addItemListener(new ItemListener() {
@@ -219,7 +239,8 @@ public class EtudiantVue extends JFrame  {
 
         c.gridx = 1;
         c.gridy = 4;
-        etudiantDetailPanel.add(groupeEtudDetailTextField, c);
+        etudiantDetailPanel.add(groupeEtudiantJcomboBox,c);
+        //etudiantDetailPanel.add(groupeEtudDetailTextField, c);
 
         c.gridx = 1;
         c.gridy = 5;
@@ -229,6 +250,10 @@ public class EtudiantVue extends JFrame  {
         c.gridy = 5;
         c.gridx = 0;
         etudiantDetailPanel.add(modifierEtudiantJBouton,c);
+
+       /* c.gridx = 5;
+        c.gridy = 0;*/
+
 
 
         // Ajout d'un etudiant
@@ -314,7 +339,7 @@ public class EtudiantVue extends JFrame  {
         getContentPane().setLayout(new GridBagLayout());
 
 
-        c.fill = GridBagConstraints.BOTH;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
         getContentPane().add(etudiantSuppressionPanel, c);
@@ -324,7 +349,7 @@ public class EtudiantVue extends JFrame  {
         c.gridy = 0;
         getContentPane().add(etudiantAjoutPanel, c);
 
-        c.fill = GridBagConstraints.BOTH;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 2;
         c.gridy = 0;
         getContentPane().add(etudiantDetailPanel, c);
@@ -332,6 +357,18 @@ public class EtudiantVue extends JFrame  {
 
 
         setVisible(true);
+    }
+
+    /**
+     * Methode modifiant le groupe en fonction de groupe existant ( foreign key)
+     *
+     * @param itemAt
+     *
+     * @author CLAIN CYRIL
+     */
+    private void modifierGroupe(String itemAt) {
+        groupeEtudDetailTextField.setText(itemAt);
+        groupeEtudDetailTextField= new JTextField(controleurEtudiant.getGroupeEtudiantModel(),itemAt,10);
     }
 
     public void setCreationEtudiant(boolean creationEtudiantok){
@@ -357,11 +394,11 @@ public class EtudiantVue extends JFrame  {
         groupeEtudDetailTextField.setEnabled(true);
         modifierEtudiantJBouton.setEnabled(true);
         cancelModifierEtudiantJButton.setEnabled(true);
+        groupeEtudiantJcomboBox.setEnabled(true);
 
     }
 
     public void montrerDetail(Etudiant etudiant){
-        System.out.println("je rentre bien la ");
         if (etudiant == null){
             numEtudDetailTextField.setText("");
             nomEtudDetailTextField.setText("");
@@ -369,8 +406,6 @@ public class EtudiantVue extends JFrame  {
             groupeEtudDetailTextField.setText("");
         }
         else{
-            System.out.println("il suppose que etudiant != null ");
-            System.out.println(etudiant.getGroupe());
             numEtudDetailTextField.setText(etudiant.getNumetud());
             numEtudDetailTextField= new JTextField(controleurEtudiant.getNumEtudiantModel(),etudiant.getNumetud(),10);
 

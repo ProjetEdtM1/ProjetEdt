@@ -98,7 +98,7 @@ public class DAOEtudiant {
      *
      * @return liste d'etudiant
      *
-     * @author      CLAIN Cyril
+     * @author CLAIN Cyril
      */
     public List<Etudiant> creationListEtudiant(){
         // debut de connection
@@ -132,6 +132,14 @@ public class DAOEtudiant {
         return etudiantList;
     }
 
+    /**
+     * Methode qui retroune un Etudiant trouvé en Base de donnée en fonction de son numetud(clef primaire)
+     *
+     * @param numetud
+     * @return instance Etudiant
+     *
+     * @author CLAIN Cyril
+     */
 
     public Etudiant getEtudiant(String numetud){
         // debut de connection
@@ -212,6 +220,17 @@ public class DAOEtudiant {
 
     }
 
+
+    /**
+     * Methode de modification d'un d'étudient ( présent en BD) en fonction de son numetud(clef primaire)
+     *
+     * @param numetud
+     * @param nom
+     * @param prenom
+     * @param groupe
+     *
+     * @author CLAIN Cyril
+     */
     public void updateEtudiant(String numetud,String nom, String prenom, String groupe)  {
         // debut de connection
         this.conn = new Connexion();
@@ -255,5 +274,42 @@ public class DAOEtudiant {
         }
 
 
+    }
+
+    /**
+     * Methode de creation d'une liste de groupe  ( présent en BD)
+     *
+     * @return liste degroupe
+     *
+     * @author CLAIN Cyril
+     */
+    public List<String> creationListGroupe(){
+
+        // debut de connection
+        this.conn = new Connexion();
+        conn.connect();
+
+        List<String> groupeList = new ArrayList<String>();
+
+        //requette de selection des Etudiant
+        String sql = "SELECT INTITULEGROUPE FROM Groupe";
+        try {
+            Statement statementSelectIntitulegroupe = conn.getConn().createStatement();
+            ResultSet resListeDesEtudiant = statementSelectIntitulegroupe.executeQuery(sql);
+
+            while(resListeDesEtudiant.next()){
+
+                groupeList.add(resListeDesEtudiant.getString(1));
+            }
+
+            statementSelectIntitulegroupe.close();
+            conn.close();
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return groupeList;
     }
 }

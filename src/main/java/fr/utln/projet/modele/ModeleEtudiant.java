@@ -4,31 +4,43 @@ import fr.utln.projet.DAO.DAOEtudiant;
 import fr.utln.projet.utilisateur.Etudiant;
 
 import java.sql.SQLException;
-import java.util.Iterator;
-import java.util.Observable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-/*
+/**
  * Nom de classe : ModeleEtudiant
  *
  * Description   : Modele Etudiant (MVC) contient les méthode a appliquer
  *
- * Version       : 1.1
+ * Version       : 1.3
  *
- * Date          : 12/11/2018
+ * Date          : 16/11/2018
  *
  * Copyright     : CLAIN Cyril
  */
 
 public class ModeleEtudiant extends Observable {
     List<Etudiant> etudiants = new ArrayList();
+    List<String> groupes = new ArrayList();
+
     private DAOEtudiant dao = new DAOEtudiant();
 
     public List<Etudiant> getEtudiant() {
         etudiants = dao.creationListEtudiant();
         return etudiants;
     }
+
+    /**
+     * Methode qui retourne la list des groupe possible a donner a un étudiant
+     *
+     * @return list de gourpe
+     *
+     * @author CLAIN Cyril
+     */
+    public List<String> getListGroupe() {
+        groupes = dao.creationListGroupe();
+        return groupes;
+    }
+
 
     public enum ModeleEtudiantEvent {ETUDIANT}
 
@@ -61,6 +73,11 @@ public class ModeleEtudiant extends Observable {
             etudiant.setMdp(mdp);
             etudiant.setGroupe(groupe);
             etudiants.add(etudiant);
+           ListIterator listIterator = etudiants.listIterator();
+            while( listIterator.hasNext()){
+                Object o = listIterator.next();
+                System.out.println("iterator : "+o);
+            }
 
             //On previent les observateurs du changement
             setChanged();
@@ -79,6 +96,7 @@ public class ModeleEtudiant extends Observable {
     public void deleteEtudiant(Etudiant etudiant) throws SQLException {
         dao.deleteEtudiant(etudiant.getNumetud());
         etudiants.remove(etudiant);
+
         //On previent les observateurs du changement
         setChanged();
         notifyObservers(ModeleEtudiantEvent.ETUDIANT);
@@ -94,14 +112,14 @@ public class ModeleEtudiant extends Observable {
         etudiant.setPrenom(prenom);
         etudiant.setGroupe(groupe);
 
-        for (Etudiant e : etudiants) {
-            System.out.println("je suis passer par for ");
-            System.out.println("e.getnum : " + e.getNumetud());
-            System.out.println("num etud !: " + numetud);
+        for(Etudiant e : etudiants){
 
-            if ((e.getNumetud().compareTo(numetud)) == 0) {
-                etudiants.remove(e);}}
-            etudiants.add(etudiant);
+            if ((e.getNumetud().compareTo(numetud))==0) {
+                //supression Ancien etudiant ajout nouvel etudiant dans arraylist
+                etudiants.remove(e);
+                etudiants.add(etudiant);
+            }}
+
 
             setChanged();
             notifyObservers(ModeleEtudiantEvent.ETUDIANT);
@@ -110,3 +128,4 @@ public class ModeleEtudiant extends Observable {
         }
 
     }
+
