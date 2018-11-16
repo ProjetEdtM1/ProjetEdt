@@ -12,7 +12,7 @@ import javax.swing.text.PlainDocument;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
+/*
  * Nom de classe : ControleurEtudiant
  *
  * Description   : Controlleur Etudiant (MVC) previens le modele si il y a une action sur la vue
@@ -102,7 +102,7 @@ public class ControleurEtudiant {
         try {
             System.out.println(numNouvelEtudiantModel.getText(0, numNouvelEtudiantModel.getLength()));
 
-            modeleEtudiant.ajouterEtudiant(
+            modeleEtudiant.persisteEtudiant(
                     numNouvelEtudiantModel.getText(0, numNouvelEtudiantModel.getLength()),
                     nomNouvelEtudiantModel.getText(0, nomNouvelEtudiantModel.getLength()),
                     prenomNouvelEtudiantModel.getText(0, prenomNouvelEtudiantModel.getLength()),

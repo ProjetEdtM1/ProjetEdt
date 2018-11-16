@@ -1,6 +1,6 @@
 package fr.utln.projet.utilisateur;
 
-/**
+/*
  * Nom de classe : Professeur
  *
  * Description   : Classe Etudiant qui comporte les données de celui-ci

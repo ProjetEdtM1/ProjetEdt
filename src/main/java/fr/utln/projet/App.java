@@ -1,6 +1,7 @@
 package fr.utln.projet;
 
 import fr.utln.projet.DAO.DAOEtudiant;
+import fr.utln.projet.DAO.DAOProfesseur;
 import fr.utln.projet.bdd.Connexion;
 import fr.utln.projet.modele.ModuleModele;
 import fr.utln.projet.module.Module;
@@ -23,6 +24,7 @@ public class App
 {
     public static void main( String[] args ) throws SQLException {
         DAOEtudiant dao = new DAOEtudiant();
+        DAOProfesseur daoProfesseur = new DAOProfesseur();
         ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
         EtudiantVue etudiantVue = new EtudiantVue(modeleEtudiant);
         AuthentificationVue authentificationVue = new AuthentificationVue();
@@ -30,6 +32,8 @@ public class App
         ModuleModele moduleModele = new ModuleModele();
         ModuleVUE moduleVUE = new ModuleVUE(moduleModele);
         Professeur professeur = new Professeur();
+
+        daoProfesseur.persisteProfesseur("Jean","marc","P12,","beurdecacauhete");
 
 
     }}

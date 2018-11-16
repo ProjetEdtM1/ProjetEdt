@@ -1,13 +1,21 @@
 package fr.utln.projet.DAO;
 
+/*
+ * Nom de classe : DaoProfessuer
+ *
+ * Description   : Gere les requettes sql
+ *
+ * Version       : 1.2
+ *
+ * Date          : 16/11/2018
+ *
+ * Copyright     : CLAIN Cyril, GUIGOU Nicolas
+ */
+
 import fr.utln.projet.bdd.Connexion;
-import fr.utln.projet.utilisateur.Etudiant;
 import fr.utln.projet.utilisateur.Professeur;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,20 +54,22 @@ public class DAOProfesseur {
 
     }
 
+
     /**
      * Methode de creation d'une liste de professeur ( présent en BD)
      *
-     * @return liste d'etudiant
+     * @return liste d'professeur
      *
      * @author CLAIN Cyril
      */
+
     public List<Professeur> creationListProfesseur(){
 
         // debut de connection
         this.conn = new Connexion();
         conn.connect();
         List<Professeur> professeurList = new ArrayList<Professeur>();
-        //requette de selection des Etudiant
+        //requette de selection des Professeur
         String sql = "SELECT * FROM PROFESSEUR";
         try {
             Statement statementSelectall = conn.getConn().createStatement();
@@ -83,5 +93,36 @@ public class DAOProfesseur {
             e.printStackTrace();
         }
         return professeurList;
+    }
+
+
+    public void persisteProfesseur(String nom, String prenom, String login, String mdp) {
+        // debut de connection
+        this.conn = new Connexion();
+        conn.connect();
+
+        // requete d'ajout d'un professeur a la base de donnée écrite en sql
+        String sql = "insert into PROFESSEUR (NOMPROFESSEUR, PRENOMPROFESSEUR, LOGIN, MOTDEPASSE) "+"values (?,?,?,?)";
+
+
+        try {
+            PreparedStatement statementAjoutProfesseur = conn.getConn().prepareStatement(sql);
+
+            // on ajoute au statement au neme ? l'objet x (numetud par exemple) de type Types.type
+
+            statementAjoutProfesseur.setObject(1,nom, Types.VARCHAR);
+            statementAjoutProfesseur.setObject(2,prenom, Types.VARCHAR);
+            statementAjoutProfesseur.setObject(3, login, Types.VARCHAR);
+            statementAjoutProfesseur.setObject(4,mdp, Types.VARCHAR);
+            int resultSet = statementAjoutProfesseur.executeUpdate();
+            System.out.println(resultSet);
+            statementAjoutProfesseur.close();
+            conn.close();
+
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+
     }
 }
