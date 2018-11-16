@@ -10,15 +10,16 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 import java.sql.SQLException;
+import java.util.List;
 
-/*
+/**
  * Nom de classe : ControleurEtudiant
  *
  * Description   : Controlleur Etudiant (MVC) previens le modele si il y a une action sur la vue
  *
- * Version       : 1.1
+ * Version       : 1.2
  *
- * Date          : 12/11/2018
+ * Date          : 16/11/2018
  *
  * Copyright     : CLAIN Cyril
  */
@@ -158,6 +159,12 @@ public class ControleurEtudiant {
         }
     }
 
+    /**
+     *
+     * Methode qui modifie un etudiant dans la list<Etudiant>
+     *
+     * @Aauthor CLAIN Cyril
+     */
     public void modifierEtudiant() {
         try {
             System.out.println(numEtudiantModel.getLength());
@@ -212,4 +219,11 @@ public class ControleurEtudiant {
 
     public Document getMdpEtudiantModel() { return mdpEtudiantModel;
     }
+
+
+    public List<String> getListGroupe() {
+        return(modeleEtudiant.getListGroupe());
+    }
+    public List<Etudiant> getListEtudiant() {return(modeleEtudiant.getEtudiant());}
+
 }

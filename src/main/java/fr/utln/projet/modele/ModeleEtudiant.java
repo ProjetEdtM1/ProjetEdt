@@ -20,12 +20,27 @@ import java.util.*;
 
 public class ModeleEtudiant extends Observable {
     List<Etudiant> etudiants = new ArrayList();
+    List<String> groupes = new ArrayList();
+
     private DAOEtudiant dao = new DAOEtudiant();
 
     public List<Etudiant> getEtudiant() {
         etudiants = dao.creationListEtudiant();
         return etudiants;
     }
+
+    /**
+     * Methode qui retourne la list des groupe possible a donner a un étudiant
+     *
+     * @return list de gourpe
+     *
+     * @author CLAIN Cyril
+     */
+    public List<String> getListGroupe() {
+        groupes = dao.creationListGroupe();
+        return groupes;
+    }
+
 
     public enum ModeleEtudiantEvent {ETUDIANT}
 
@@ -85,6 +100,7 @@ public class ModeleEtudiant extends Observable {
     public void deleteEtudiant(Etudiant etudiant) throws SQLException {
         dao.deleteEtudiant(etudiant.getNumetud());
         etudiants.remove(etudiant);
+
         //On previent les observateurs du changement
         setChanged();
         notifyObservers(ModeleEtudiantEvent.ETUDIANT);
@@ -102,7 +118,7 @@ public class ModeleEtudiant extends Observable {
         for(Etudiant e : etudiants){
 
             if ((e.getNumetud().compareTo(numetud))==0) {
-                System.out.println("je suis dans if ");
+                //supression Ancien etudiant ajout nouvel etudiant dans arraylist
                 etudiants.remove(e);
                 etudiants.add(etudiant);
             }}
@@ -113,5 +129,6 @@ public class ModeleEtudiant extends Observable {
 
 
     }
+
 
 }
