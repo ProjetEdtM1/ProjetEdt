@@ -76,26 +76,30 @@ public class ModeleEtudiant extends Observable {
      *
      * @author      CLAIN Cyril
      */
-    public void persisteEtudiant(String numetud, String nom, String prenom, String mdp, String groupe) {
+    public boolean persisteEtudiant(String numetud, String nom, String prenom, String mdp, String groupe) {
         try {
+            if (groupes.contains(groupe)){
+                if (dao.persisteEtudiant(numetud,nom, prenom, mdp, groupe))
+                {
+                    Etudiant etudiant = new Etudiant();
+                    etudiant.setNumetud(numetud);
+                    etudiant.setNom(nom);
+                    etudiant.setPrenom(prenom);
+                    etudiant.setMdp(mdp);
+                    etudiant.setGroupe(groupe);
+                    etudiants.add(etudiant);
 
-            dao.persisteEtudiant(numetud,nom, prenom, mdp, groupe);
+                    //On previent les observateurs du changement
+                    setChanged();
+                    notifyObservers(ModeleEtudiantEvent.ETUDIANT);
+                }
+            }
 
-            Etudiant etudiant = new Etudiant();
-            etudiant.setNumetud(numetud);
-            etudiant.setNom(nom);
-            etudiant.setPrenom(prenom);
-            etudiant.setMdp(mdp);
-            etudiant.setGroupe(groupe);
-            etudiants.add(etudiant);
-
-            //On previent les observateurs du changement
-            setChanged();
-            notifyObservers(ModeleEtudiantEvent.ETUDIANT);
         }
         catch (SQLException e){
             e.printStackTrace();
         }
+        return groupes.contains(groupe);
     }
 
     /**

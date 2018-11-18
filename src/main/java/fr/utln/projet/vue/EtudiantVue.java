@@ -115,7 +115,9 @@ public class EtudiantVue extends JFrame  {
         ajoutOkEtudiantJButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                controleurEtudiant.ajouterEtudiant();
+                if (!controleurEtudiant.ajouterEtudiant()){
+                    JOptionPane.showMessageDialog(etudiantAjoutPanel, "Choisir un groupe existant(ex : SI1A)");
+                }
             }
         });
 
@@ -152,6 +154,7 @@ public class EtudiantVue extends JFrame  {
 
                         break;
                     case ItemEvent.SELECTED:
+                        modifierEtudiantJBouton.setEnabled(true);
                         modifierGroupe(groupeEtudiantJcomboBox.getItemAt(groupeEtudiantJcomboBox.getSelectedIndex()));
                         break;
                 }
@@ -169,7 +172,6 @@ public class EtudiantVue extends JFrame  {
                         break;
                     case ItemEvent.SELECTED:
                         montrerDetail(etudiantDetailJComboBox.getItemAt(etudiantDetailJComboBox.getSelectedIndex()));
-                        setModificationEtudiant(true);
                         break;
                 }
 
@@ -389,12 +391,10 @@ public class EtudiantVue extends JFrame  {
      * @autor CLAIN CYRIL
      */
     public void setModificationEtudiant(boolean modificationEtudiantok) {
+        prenomEtudDetailTextField.setEnabled(modificationEtudiantok);
         nomEtudDetailTextField.setEnabled(true);
-        prenomEtudDetailTextField.setEnabled(true);
-        groupeEtudDetailTextField.setEnabled(true);
-        modifierEtudiantJBouton.setEnabled(true);
-        cancelModifierEtudiantJButton.setEnabled(true);
-        groupeEtudiantJcomboBox.setEnabled(true);
+        cancelModifierEtudiantJButton.setEnabled(modificationEtudiantok);
+        groupeEtudiantJcomboBox.setEnabled(modificationEtudiantok);
 
     }
 

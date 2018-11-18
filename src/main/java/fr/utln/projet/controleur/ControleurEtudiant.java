@@ -61,21 +61,27 @@ public class ControleurEtudiant {
             // test si les champs sont vide ou non pour rendre le bouton clickable
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if ((nomNouvelEtudiantModel.getLength() == 0)|| (prenomNouvelEtudiantModel.getLength() == 0) || (groupeNouvelEtudiantModel.getLength() == 0) || (numNouvelEtudiantModel.getLength() == 0) || (mdpNouvelEtudiantModel.getLength() == 0))
+
+                boolean conditionDAjout;
+                boolean conditiondeModification;
+                conditionDAjout = ((nomNouvelEtudiantModel.getLength() == 0)|| (prenomNouvelEtudiantModel.getLength() == 0) || (groupeNouvelEtudiantModel.getLength() == 0) ||(numNouvelEtudiantModel.getLength() == 0) || (mdpNouvelEtudiantModel.getLength() == 0));
+                conditiondeModification = ((prenomEtudiantModel.getLength() == 0)|| (prenomEtudiantModel.getLength() == 0));
+
+                if (conditionDAjout)
                     etudiantVue.setCreationEtudiant(false);
-                else
+                else if (!conditionDAjout)
                     etudiantVue.setCreationEtudiant(true);
 
-
-                if ((prenomEtudiantModel.getLength() == 0)|| (nomEtudiantModel.getLength() == 0))
+                if (conditiondeModification)
                  {
                     etudiantVue.setModificationEtudiant(false);
                  }
-                else
+                else if (!conditiondeModification){
                     etudiantVue.setModificationEtudiant(true);
 
-
+                }
             }
+
         };
         numNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexteEtudiant);
         nomNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexteEtudiant);
@@ -99,16 +105,15 @@ public class ControleurEtudiant {
      * @author      CLAIN Cyril
      */
 
-    public void ajouterEtudiant() {
+    public Boolean ajouterEtudiant() {
+        Boolean bool = false;
         try {
-            System.out.println(numNouvelEtudiantModel.getText(0, numNouvelEtudiantModel.getLength()));
-
-            modeleEtudiant.persisteEtudiant(
-                    numNouvelEtudiantModel.getText(0, numNouvelEtudiantModel.getLength()),
-                    nomNouvelEtudiantModel.getText(0, nomNouvelEtudiantModel.getLength()),
-                    prenomNouvelEtudiantModel.getText(0, prenomNouvelEtudiantModel.getLength()),
-                    mdpNouvelEtudiantModel.getText(0, mdpNouvelEtudiantModel.getLength()),
-                    groupeNouvelEtudiantModel.getText(0, groupeNouvelEtudiantModel.getLength())
+            bool =  modeleEtudiant.persisteEtudiant(
+                        numNouvelEtudiantModel.getText(0, numNouvelEtudiantModel.getLength()),
+                        nomNouvelEtudiantModel.getText(0, nomNouvelEtudiantModel.getLength()),
+                        prenomNouvelEtudiantModel.getText(0, prenomNouvelEtudiantModel.getLength()),
+                        mdpNouvelEtudiantModel.getText(0, mdpNouvelEtudiantModel.getLength()),
+                        groupeNouvelEtudiantModel.getText(0, groupeNouvelEtudiantModel.getLength())
 
             );
             cancelEtudiant();
@@ -117,6 +122,7 @@ public class ControleurEtudiant {
             System.out.println("erreur dans controleur");
             e.printStackTrace();
         }
+        return bool;
     }
 
 

@@ -35,13 +35,12 @@ public class DAOEtudiant {
      *
      * @author      CLAIN Cyril
      */
-    public void persisteEtudiant(String numetud, String nom, String prenom, String mdp, String groupe) throws SQLException {
+    public boolean persisteEtudiant(String numetud, String nom, String prenom, String mdp, String groupe) throws SQLException {
         // debut de connection
         this.conn = new Connexion();
         conn.connect();
-        System.out.println("DAO");
 
-
+        Boolean addlist = false;
         // requete d'ajout d'un etudiant a la base de donnée écrite en sql
         String sql = "insert into ETUDIANT "+"values (?,?,?,?,?)";
 
@@ -58,11 +57,13 @@ public class DAOEtudiant {
             System.out.println(resultSet);
             statementAjoutEtudiant.close();
             conn.close();
+            addlist = true;
 
         }
         catch (SQLException e){
             e.printStackTrace();
         }
+        return addlist;
 
     }
     /**
