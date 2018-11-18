@@ -88,11 +88,6 @@ public class ModeleEtudiant extends Observable {
             etudiant.setMdp(mdp);
             etudiant.setGroupe(groupe);
             etudiants.add(etudiant);
-            ListIterator listIterator = etudiants.listIterator();
-            while( listIterator.hasNext()){
-                Object o = listIterator.next();
-                System.out.println("iterator : "+o);
-            }
 
             //On previent les observateurs du changement
             setChanged();

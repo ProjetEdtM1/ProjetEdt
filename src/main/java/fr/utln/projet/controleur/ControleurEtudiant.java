@@ -40,16 +40,14 @@ public class ControleurEtudiant {
     private Document groupeEtudiantModel = new PlainDocument();
     private Document mdpEtudiantModel = new PlainDocument();
 
-    public Document getMdpNouvelEtudiantModel() {
-        return mdpNouvelEtudiantModel;
-    }
+
 
 
     public ControleurEtudiant(final EtudiantVue ajoutetudiantVue, ModeleEtudiant modeleEtudiant) {
         this.etudiantVue = ajoutetudiantVue;
         this.modeleEtudiant = modeleEtudiant;
 
-        DocumentListener ecouteurChangementTexte = new DocumentListener() {
+        DocumentListener ecouteurChangementTexteEtudiant = new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 changedUpdate(e);
@@ -68,25 +66,28 @@ public class ControleurEtudiant {
                 else
                     etudiantVue.setCreationEtudiant(true);
 
-                if ((nomEtudiantModel.getLength() == 0)|| (prenomEtudiantModel.getLength() == 0) || (groupeEtudiantModel.getLength() == 0) || (numEtudiantModel.getLength() == 0) || (mdpEtudiantModel.getLength() == 0)){
-                    etudiantVue.setModificationEtudiant(false);                }
+
+                if ((prenomEtudiantModel.getLength() == 0)|| (nomEtudiantModel.getLength() == 0))
+                 {
+                    etudiantVue.setModificationEtudiant(false);
+                 }
                 else
                     etudiantVue.setModificationEtudiant(true);
 
 
             }
         };
-        numNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexte);
-        nomNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexte);
-        prenomNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexte);
-        groupeNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexte);
-        mdpNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexte);
+        numNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexteEtudiant);
+        nomNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexteEtudiant);
+        prenomNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexteEtudiant);
+        groupeNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexteEtudiant);
+        mdpNouvelEtudiantModel.addDocumentListener(ecouteurChangementTexteEtudiant);
 
-        numEtudiantModel.addDocumentListener(ecouteurChangementTexte);
-        nomEtudiantModel.addDocumentListener(ecouteurChangementTexte);
-        prenomEtudiantModel.addDocumentListener(ecouteurChangementTexte);
-        groupeEtudiantModel.addDocumentListener(ecouteurChangementTexte);
-        mdpEtudiantModel.addDocumentListener(ecouteurChangementTexte);
+        numEtudiantModel.addDocumentListener(ecouteurChangementTexteEtudiant);
+        nomEtudiantModel.addDocumentListener(ecouteurChangementTexteEtudiant);
+        prenomEtudiantModel.addDocumentListener(ecouteurChangementTexteEtudiant);
+        groupeEtudiantModel.addDocumentListener(ecouteurChangementTexteEtudiant);
+        mdpEtudiantModel.addDocumentListener(ecouteurChangementTexteEtudiant);
 
 
 
@@ -220,6 +221,9 @@ public class ControleurEtudiant {
     public Document getMdpEtudiantModel() { return mdpEtudiantModel;
     }
 
+    public Document getMdpNouvelEtudiantModel() {
+        return mdpNouvelEtudiantModel;
+    }
 
     public List<String> getListGroupe() {
         return(modeleEtudiant.getListGroupe());

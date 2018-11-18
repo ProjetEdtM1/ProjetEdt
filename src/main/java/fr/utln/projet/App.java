@@ -23,17 +23,9 @@ import java.sql.Statement;
 public class App
 {
     public static void main( String[] args ) throws SQLException {
-        DAOEtudiant dao = new DAOEtudiant();
-        DAOProfesseur daoProfesseur = new DAOProfesseur();
+
         ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
         EtudiantVue etudiantVue = new EtudiantVue(modeleEtudiant);
-        AuthentificationVue authentificationVue = new AuthentificationVue();
-
-        ModuleModele moduleModele = new ModuleModele();
-        ModuleVUE moduleVUE = new ModuleVUE(moduleModele);
-        Professeur professeur = new Professeur();
-
-        daoProfesseur.persisteProfesseur("Jean","marc","P12,","beurdecacauhete");
 
 
     }}

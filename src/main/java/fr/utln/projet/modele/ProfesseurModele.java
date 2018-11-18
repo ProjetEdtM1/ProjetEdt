@@ -60,9 +60,8 @@ public class ProfesseurModele extends Observable {
     }
 
     /**
-     *  Methode d'ajout des étudiants
+     *  Methode d'ajout des Professeur
      *
-     * @param idprofesseur
      * @param nom
      * @param prenom
      * @param login
@@ -70,22 +69,19 @@ public class ProfesseurModele extends Observable {
      *
      * @author      CLAIN Cyril
      */
-    public void persisteProfesseur (String idprofesseur, String nom, String prenom, String login, String mdp) {
+    public void persisteProfesseur (String nom, String prenom, String login, String mdp) {
 
         dao.persisteProfesseur(nom, prenom,login,mdp);
 
         Professeur professeur = new Professeur();
+        String idprofesseur = Integer.toString(professeurs.size() + 1);
         professeur.setIdprofesseur(idprofesseur);
         professeur.setNom(nom);
         professeur.setPrenom(prenom);
         professeur.setMdp(mdp);
         professeur.setLogin(login);
         professeurs.add(professeur);
-        ListIterator listIterator = professeurs.listIterator();
-        while( listIterator.hasNext()){
-            Object o = listIterator.next();
-            System.out.println("iterator : "+o);
-        }
+
 
         //On previent les observateurs du changement
         setChanged();
@@ -122,7 +118,6 @@ public class ProfesseurModele extends Observable {
         for(Professeur p : professeurs){
 
             if ((p.getIdprofesseur().compareTo(id))==0) {
-                //supression Ancien etudiant ajout nouvel etudiant dans arraylist
                 professeurs.remove(p);
                 professeurs.add(professeur);
             }}

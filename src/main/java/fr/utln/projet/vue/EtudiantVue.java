@@ -76,7 +76,7 @@ public class EtudiantVue extends JFrame  {
 
     public EtudiantVue(ModeleEtudiant modeleEtudiant) throws HeadlessException {
 
-        super("supression etudiants");
+        super("CRUD  etudiants");
 
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
