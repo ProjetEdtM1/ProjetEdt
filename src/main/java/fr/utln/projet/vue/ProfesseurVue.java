@@ -97,7 +97,14 @@ public class ProfesseurVue extends JFrame{
         ajoutOkProfesseurJButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                professeurControleur.ajouterProfesseur();
+                if (loginProfesseur.getText().charAt(0) == 'p')
+                {
+                    professeurControleur.ajouterProfesseur();
+                }
+                else{
+                    JOptionPane.showMessageDialog(professeurAjoutPanel, "Le login doit commencé par p ");
+                }
+
             }
         });
 
