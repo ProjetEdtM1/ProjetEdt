@@ -111,11 +111,7 @@ public class ControleurEtudiant {
                     groupeNouvelEtudiantModel.getText(0, groupeNouvelEtudiantModel.getLength())
 
             );
-            numNouvelEtudiantModel.remove(0, numNouvelEtudiantModel.getLength());
-            nomNouvelEtudiantModel.remove(0, nomNouvelEtudiantModel.getLength());
-            prenomNouvelEtudiantModel.remove(0, prenomNouvelEtudiantModel.getLength());
-            mdpNouvelEtudiantModel.remove(0, mdpNouvelEtudiantModel.getLength());
-            groupeNouvelEtudiantModel.remove(0, groupeNouvelEtudiantModel.getLength());
+            cancelEtudiant();
         }
         catch (BadLocationException e){
             System.out.println("erreur dans controleur");
