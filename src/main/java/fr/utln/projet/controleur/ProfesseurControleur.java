@@ -28,6 +28,47 @@ public class ProfesseurControleur {
 
     private Document idNouvelProfesseurModel = new PlainDocument();
     private Document nomNouvelProfesseurModel = new PlainDocument();
+
+    public Document getIdNouvelProfesseurModel() {
+        return idNouvelProfesseurModel;
+    }
+
+    public void setIdNouvelProfesseurModel(Document idNouvelProfesseurModel) {
+        this.idNouvelProfesseurModel = idNouvelProfesseurModel;
+    }
+
+    public Document getNomNouvelProfesseurModel() {
+        return nomNouvelProfesseurModel;
+    }
+
+    public void setNomNouvelProfesseurModel(Document nomNouvelProfesseurModel) {
+        this.nomNouvelProfesseurModel = nomNouvelProfesseurModel;
+    }
+
+    public Document getPrenomNouvelProfesseurModel() {
+        return prenomNouvelProfesseurModel;
+    }
+
+    public void setPrenomNouvelProfesseurModel(Document prenomNouvelProfesseurModel) {
+        this.prenomNouvelProfesseurModel = prenomNouvelProfesseurModel;
+    }
+
+    public Document getLoginNouvelProfesseurModel() {
+        return loginNouvelProfesseurModel;
+    }
+
+    public void setLoginNouvelProfesseurModel(Document loginNouvelProfesseurModel) {
+        this.loginNouvelProfesseurModel = loginNouvelProfesseurModel;
+    }
+
+    public Document getMdpNouvelProfesseurModel() {
+        return mdpNouvelProfesseurModel;
+    }
+
+    public void setMdpNouvelProfesseurModel(Document mdpNouvelProfesseurModel) {
+        this.mdpNouvelProfesseurModel = mdpNouvelProfesseurModel;
+    }
+
     private Document prenomNouvelProfesseurModel = new PlainDocument();
     private Document loginNouvelProfesseurModel = new PlainDocument();
     private Document mdpNouvelProfesseurModel = new PlainDocument();
