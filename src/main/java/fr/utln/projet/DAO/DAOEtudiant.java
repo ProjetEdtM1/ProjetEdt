@@ -240,7 +240,6 @@ public class DAOEtudiant {
         String sqlGroupe = "UPDATE Etudiant " + "SET INTITULEGROUPE = ? WHERE NUMETUDIANT = ?";
 
         Etudiant etudiant = getEtudiant(numetud);
-        System.out.println(etudiant);
 
         try {
 

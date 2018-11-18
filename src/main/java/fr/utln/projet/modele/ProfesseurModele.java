@@ -42,9 +42,10 @@ public class ProfesseurModele extends Observable {
     }
 
     /**
-     * Methode de récuperationd 'un etudiant en fonctiond e son numEtud
+     * Methode de récuperationd 'un professeur en fonctiond e son idprofesseur
      *
      * @param idprofesseur
+     *
      * @return idprofesseur
      *
      * @author CLAIN Cyril
@@ -71,15 +72,15 @@ public class ProfesseurModele extends Observable {
      */
     public void persisteProfesseur (String idprofesseur, String nom, String prenom, String login, String mdp) {
 
-        dao.persisteProfesseur(nom, prenom, login, mdp);
+        dao.persisteProfesseur(nom, prenom,login,mdp);
 
-        Professeur etudiant = new Professeur();
-        etudiant.setIdprofesseur(idprofesseur);
-        etudiant.setNom(nom);
-        etudiant.setPrenom(prenom);
-        etudiant.setMdp(mdp);
-        etudiant.setLogin(login);
-        professeurs.add(etudiant);
+        Professeur professeur = new Professeur();
+        professeur.setIdprofesseur(idprofesseur);
+        professeur.setNom(nom);
+        professeur.setPrenom(prenom);
+        professeur.setMdp(mdp);
+        professeur.setLogin(login);
+        professeurs.add(professeur);
         ListIterator listIterator = professeurs.listIterator();
         while( listIterator.hasNext()){
             Object o = listIterator.next();
@@ -89,6 +90,48 @@ public class ProfesseurModele extends Observable {
         //On previent les observateurs du changement
         setChanged();
         notifyObservers(ModeleProfesseurEvent.PROFESSEUR);
+    }
+
+
+    /**
+     *
+     *  Methode de supression  des étudiants
+     *
+     * @param professeur
+     *
+     *  @author      CLAIN Cyril
+     */
+    public void deleteProfesseur(Professeur professeur) throws SQLException {
+        dao.deleteProfesseur(professeur.getIdprofesseur());
+        professeurs.remove(professeur);
+
+        //On previent les observateurs du changement
+        setChanged();
+        notifyObservers(ModeleProfesseurEvent.PROFESSEUR);
+    }
+
+    public void modifierProfesseur(String id, String nom, String prenom, String login, String mdp){
+
+        dao.updateProfesseur(id,nom,prenom);
+        Professeur professeur = new Professeur();
+        professeur.setNom(nom);
+        professeur.setPrenom(prenom);
+        professeur.setLogin(login);
+        professeur.setMdp(mdp);
+
+        for(Professeur p : professeurs){
+
+            if ((p.getIdprofesseur().compareTo(id))==0) {
+                //supression Ancien etudiant ajout nouvel etudiant dans arraylist
+                professeurs.remove(p);
+                professeurs.add(professeur);
+            }}
+
+        setChanged();
+        notifyObservers(ModeleProfesseurEvent.PROFESSEUR);
+
+
+
     }
 
 }

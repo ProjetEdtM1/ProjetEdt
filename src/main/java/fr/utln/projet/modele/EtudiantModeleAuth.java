@@ -26,6 +26,7 @@ public class EtudiantModeleAuth extends Observable {
     }
 
 
+
     @Override
     public synchronized void addObserver(Observer o) {
         super.addObserver(o);
@@ -40,4 +41,5 @@ public class EtudiantModeleAuth extends Observable {
     public void notifyObservers(Object arg) {
         super.notifyObservers(arg);
     }
+
 }
