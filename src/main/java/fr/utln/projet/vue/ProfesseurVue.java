@@ -54,8 +54,14 @@ public class ProfesseurVue extends JFrame{
         loginProfesseur = new JTextField(professeurControleur.getLoginNouvelProfesseurModel(),"",10);
         mdpProfesseur = new JTextField(professeurControleur.getMdpNouvelProfesseurModel(),"",10);
 
-
-        //ajoutOkProfesseurJButton.setEnabled(false);
+        ajoutCancelProfesseurJButton.setEnabled(false);
+        ajoutCancelProfesseurJButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                professeurControleur.cancelProfesseur();
+            }
+        });
+        ajoutOkProfesseurJButton.setEnabled(false);
         ajoutOkProfesseurJButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -134,5 +140,7 @@ public class ProfesseurVue extends JFrame{
 
     public void setCreationProfesseur(boolean b) {
         ajoutOkProfesseurJButton.setEnabled(b);
+        ajoutCancelProfesseurJButton.setEnabled(b);
+
     }
 }
