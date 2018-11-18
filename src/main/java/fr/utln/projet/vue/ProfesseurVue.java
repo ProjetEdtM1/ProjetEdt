@@ -14,14 +14,30 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+
+/*
+ * Nom de classe : ProfesseurVue
+ *
+ * Description   : Partie visible de mon interface permet de voir les formulaire CRUD d'un professeur
+ *
+ * Version       : 1.2
+ *
+ * Date          : 18/11/2018
+ *
+ * Copyright     : CLAIN Cyril
+ */
+
 public class ProfesseurVue extends JFrame{
     private final ProfesseurModele professeurModele;
     private final ProfesseurControleur professeurControleur;
 
     private static ProfesseurListModele professeurListModele;
 
-
+    private final JPanel professeurSuppressionPanel = new JPanel(new GridBagLayout());
     private final JPanel professeurAjoutPanel = new JPanel(new GridBagLayout());
+
+    private final JList<Professeur> professeurtSuppressionJList;
+
 
     private final JButton ajoutOkProfesseurJButton = new JButton(" Ajouter");
     private final JButton ajoutCancelProfesseurJButton = new JButton("cancel");
@@ -46,8 +62,17 @@ public class ProfesseurVue extends JFrame{
         setSize(width / 2, height / 2);
         this.professeurModele = professeurModele;
         this.professeurControleur = new ProfesseurControleur(this, professeurModele);
+        this.professeurListModele = new ProfesseurListModele(professeurControleur.getListProfesseur());
 
-       // professeurModele.addObserver(professeurListModele);
+        professeurModele.addObserver(professeurListModele);
+
+        professeurtSuppressionJList = new JList<>(professeurListModele);
+        professeurtSuppressionJList.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                //setSuppressionProfesseur((professeurtSuppressionJList.getSelectedValue() != null));
+            }
+        });
 
         nomProfesseur = new JTextField(professeurControleur.getNomNouvelProfesseurModel(),"",10);
         prenomprofesseur = new JTextField(professeurControleur.getPrenomNouvelProfesseurModel(),"",10);
@@ -75,7 +100,7 @@ public class ProfesseurVue extends JFrame{
         GridBagConstraints c = new GridBagConstraints();
 
 
-        // Ajout d'un etudiant
+        // Ajout d'un professeur
         professeurAjoutPanel.setBorder(BorderFactory.createTitledBorder("Ajout"));
 
         c.gridx = 0;
@@ -125,9 +150,22 @@ public class ProfesseurVue extends JFrame{
         c.gridx = 1;
         c.gridy = 5;
         professeurAjoutPanel.add(ajoutCancelProfesseurJButton, c);
+        //Suppression professeur
+        c.fill = GridBagConstraints.BOTH;
+        c.gridheight = 1;
+        c.weighty = 0.8;
+        c.gridx = 0;
+        c.gridy = 2;
+        professeurSuppressionPanel.add(professeurtSuppressionJList, c);
 
         //Ajout des panel de suppression et  d'ajout consultation
         getContentPane().setLayout(new GridBagLayout());
+
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        getContentPane().add(professeurSuppressionPanel, c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;

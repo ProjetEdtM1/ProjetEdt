@@ -31,5 +31,7 @@ public class App
         ProfesseurModele professeurModele = new ProfesseurModele();
         ProfesseurVue professeurVue = new ProfesseurVue(professeurModele);
         AuthentificationVue authentificationVue = new AuthentificationVue();
+        //ModuleModele moduleModele = new ModuleModele();
+        //ModuleVUE moduleVUE = new ModuleVUE(moduleModele);
 
     }}

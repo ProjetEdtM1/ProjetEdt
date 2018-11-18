@@ -17,7 +17,7 @@ import java.awt.event.ItemListener;
 /*
  * Nom de classe : EtudiantVue
  *
- * Description   : Partie visible de mon interface permet de voir le formulaire d'ajout d'étudiant
+ * Description   : Partie visible de mon interface permet de voir les formulaire CRUD d'étudiant
  *
  * Version       : 2.2
  *

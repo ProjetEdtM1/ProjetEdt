@@ -14,6 +14,7 @@ package fr.utln.projet.controleur;
  */
 
 import fr.utln.projet.modele.ProfesseurModele;
+import fr.utln.projet.utilisateur.Professeur;
 import fr.utln.projet.vue.ProfesseurVue;
 
 import javax.swing.event.DocumentEvent;
@@ -21,6 +22,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
+import java.util.List;
 
 public class ProfesseurControleur {
     private ProfesseurVue professeurVue;
@@ -139,4 +141,7 @@ public class ProfesseurControleur {
         this.mdpNouvelProfesseurModel = mdpNouvelProfesseurModel;
     }
 
+    public List<Professeur> getListProfesseur() {
+        return(professeurModele.getProfesseurs());
+    }
 }
