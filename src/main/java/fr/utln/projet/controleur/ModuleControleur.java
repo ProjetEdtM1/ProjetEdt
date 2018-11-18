@@ -1,6 +1,7 @@
 package fr.utln.projet.controleur;
 
 import fr.utln.projet.modele.ModuleModele;
+import fr.utln.projet.module.Module;
 import fr.utln.projet.vue.ModuleVUE;
 
 import javax.swing.event.DocumentEvent;
@@ -11,6 +12,7 @@ import javax.swing.text.PlainDocument;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ModuleControleur{
     private ModuleVUE moduleVUE;
@@ -25,7 +27,6 @@ public class ModuleControleur{
     public ModuleControleur(final ModuleVUE moduleVue, ModuleModele moduleModele) {
         this.moduleVUE = moduleVue;
         this.moduleModele = moduleModele;
-        System.out.println("aa " + moduleModele);
 
 
         DocumentListener ecouterChangementTexte = new DocumentListener() {
@@ -41,7 +42,6 @@ public class ModuleControleur{
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                // System.out.println("YOOO");
                 if(intituleNouveauModuleModele.getLength() == 0) {
                     moduleVUE.setBoutonAjouter(false);
                 }
@@ -61,22 +61,8 @@ public class ModuleControleur{
     /* methode pour ajouter un Module */
 
     public void ajouterModule() {
-//        String a;
 
         try {
-//            a = intituleNouveauModuleModele.getText(0, intituleNouveauModuleModele.getLength());
-//
-//            System.out.println("fef" + intituleNouveauModuleModele.getLength());
-//
-//
-//            System.out.println("ff" + a);
-
-//            System.out.println("intitule " + intituleNouveauModuleModele.getText(0, intituleNouveauModuleModele.getLength()));
-//            System.out.println("nbHCm " + nbHCmNouveauModuleModele.getText(0, nbHCmNouveauModuleModele.getLength()));
-//            System.out.println("nbHTd " + nbHTdNouveauModuleModele.getText(0, nbHTdNouveauModuleModele.getLength()));
-//            System.out.println("nbHTp " + nbHTpNouveauModuleModele.getText(0, nbHTpNouveauModuleModele.getLength()));
-
-            System.out.println("ff " + moduleModele);
 
             moduleModele.ajouterModule(
                     intituleNouveauModuleModele.getText(0, intituleNouveauModuleModele.getLength()),
@@ -96,6 +82,12 @@ public class ModuleControleur{
         }
     }
 
+//    Methode pour supprimer un module
+
+    public void supprimerModule() {
+
+    }
+
     public Document getIntituleNouveauModuleModele() {
         return intituleNouveauModuleModele;
     }
@@ -110,5 +102,9 @@ public class ModuleControleur{
 
     public Document getNbHTpNouveauModuleModele() {
         return nbHTpNouveauModuleModele;
+    }
+
+    public List<Module> getListModule() {
+        return moduleModele.getModule();
     }
 }

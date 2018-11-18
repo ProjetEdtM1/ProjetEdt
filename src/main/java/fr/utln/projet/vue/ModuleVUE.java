@@ -14,11 +14,11 @@ import java.awt.event.ActionListener;
 public class ModuleVUE extends Fenetre {
     public static ModuleControleur moduleControleur;
     public static ModuleModele moduleModele;
-//    public static ModuleListeModele moduleListeModele;
+    public static ModuleListeModele moduleListeModele;
 
     public static JButton ajout = new JButton("Ajouter");
     public static JButton annuler = new JButton("Annuler");
-//    public static JButton supprimer = new JButton("Supprimer");
+    public static JButton supprimer = new JButton("Supprimer");
 
     public static JTextField ajoutmodule = new JTextField();
     public static JTextField nbHeureCm = new JTextField();
@@ -26,11 +26,11 @@ public class ModuleVUE extends Fenetre {
     public static JTextField nbHeureTp = new JTextField();
 
     public static JLabel intituleModule = new JLabel("Intitulé Module ");
-    public static JLabel heureCm = new JLabel("nombre d'heures total des cours magistraux");
-    public static JLabel heureTd = new JLabel("nombre d'heures total des travaux dirigés");
-    public static JLabel heureTp = new JLabel("nombre d'heures total des travaux pratiques");
+    public static JLabel heureCm = new JLabel("nombre d'heures total des CM");
+    public static JLabel heureTd = new JLabel("nombre d'heures total des TD");
+    public static JLabel heureTp = new JLabel("nombre d'heures total des TP");
 
-//    public static JList<Module> supprimerModule;
+    public static JList supprimerModule;
 
     public ModuleVUE(ModuleModele moduleModele) {
         super();
@@ -42,13 +42,16 @@ public class ModuleVUE extends Fenetre {
 
         this.moduleModele = moduleModele;
         this.moduleControleur = new ModuleControleur(this, moduleModele);
-//        this.moduleListeModele = new ModuleListeModele(moduleModele.getModule());
-//        System.out.println("aa " + moduleListeModele.getClass().getName());
+        this.moduleListeModele = new ModuleListeModele(moduleControleur.getListModule());
+        System.out.println("muduleListeModele: " + moduleListeModele.getSize());
 
-//        moduleModele.addObserver(moduleListeModele);
+        moduleModele.addObserver(moduleListeModele);
+        supprimerModule = new JList();
+        System.out.println("ALLLO " + supprimerModule.getSize());
 
-  //       supprimerModule = new JList<Module> (moduleListeModele);
-//         supprimerModule.add();
+
+//        supprimerModule = new JList<>(moduleListeModele);
+//        supprimerModule.add();
 
         ajout.setEnabled(false);
         ajout.addActionListener(new ActionListener() {
@@ -63,10 +66,18 @@ public class ModuleVUE extends Fenetre {
         nbHeureTd = new JTextField(moduleControleur.getNbHTdNouveauModuleModele(),"",10);
         nbHeureTp = new JTextField(moduleControleur.getNbHTpNouveauModuleModele(),"",10);
 
+        supprimer.setEnabled(false);
+        supprimer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moduleControleur.supprimerModule();
+            }
+        });
+
 
         // placement des JLabel sur la colonne 1
 
-        contrainte.gridx = 1;
+        contrainte.gridx = 0;
         contrainte.gridy = 1;
         global.add(intituleModule, contrainte);
 
@@ -95,17 +106,24 @@ public class ModuleVUE extends Fenetre {
         contrainte.gridy = 4;
         global.add(nbHeureTp, contrainte);
 
+        // placement de la JList de modules pour la suppression
+
+        contrainte.gridx = 3;
+        contrainte.gridy = 1;
+        global.add(supprimerModule, contrainte);
+
         // Placement des JButton en bas
 
+        contrainte.gridx = 1;
         contrainte.gridy = 5;
         global.add(annuler, contrainte);
 
-        contrainte.gridx = 1;
+        contrainte.gridx = 0;
         global.add(ajout, contrainte);
 
-        contrainte.gridx = 1;
-        contrainte.gridy = 10;
-//        global.add(supprimer, contrainte);
+        contrainte.gridx = 3;
+        contrainte.gridy = 2;
+        global.add(supprimer, contrainte);
 
 
 
