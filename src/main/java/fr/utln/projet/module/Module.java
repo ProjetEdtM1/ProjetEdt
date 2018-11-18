@@ -59,4 +59,11 @@ public class Module {
     public int getNbHeureTP() {
         return nbHeureTP;
     }
+
+    public String toString(){
+        return "Intitulé " + getIntitule() + ", NbHCm " + getNbHeureCm() + ", NbHTd " + getNbHeureTd() +
+                ", NbHTp " + getNbHeureTP();
+    }
+
+
 }

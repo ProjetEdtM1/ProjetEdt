@@ -45,7 +45,7 @@ public class ModuleDAO {
 
     }
 
-    public List<Module> listModule() {
+    public List<Module> creationListModule() {
         this.conn = new Connexion();
         conn.connect();
         System.out.println("connection a la bd pour la methode lister");
@@ -63,6 +63,7 @@ public class ModuleDAO {
             while(res.next()) {
                 Module module = new Module.Builder(res.getString(1)).nbHeureCm(res.getInt(2)).nbHeureTd(res.getInt(3)).nbHeureTp(res.getInt(4)).build();
                 moduleList.add(module);
+//                System.out.println("LISTE: " + module.getIntitule());
             }
 
             stmt.close();

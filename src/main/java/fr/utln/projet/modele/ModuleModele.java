@@ -15,10 +15,10 @@ public class ModuleModele extends Observable {
 
     List<Module> module = new ArrayList();
 
-    public enum ModuleModeleEvent {MODULE}
+//    public enum ModuleModeleEvent {MODULE}
 
     public List<Module> getModule() {
-        module = moduleDao.listModule();
+        module = moduleDao.creationListModule();
         return module;
     }
 
