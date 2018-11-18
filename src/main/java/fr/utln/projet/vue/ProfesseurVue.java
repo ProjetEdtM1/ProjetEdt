@@ -11,8 +11,6 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 
 /*
@@ -37,7 +35,7 @@ public class ProfesseurVue extends JFrame{
     private final JPanel professeurAjoutPanel = new JPanel(new GridBagLayout());
 
     private final JList<Professeur> professeurtSuppressionJList;
-
+    private final JButton suppressionProfesseurJButton = new JButton(" Supprimer");
 
     private final JButton ajoutOkProfesseurJButton = new JButton(" Ajouter");
     private final JButton ajoutCancelProfesseurJButton = new JButton("cancel");
@@ -70,7 +68,16 @@ public class ProfesseurVue extends JFrame{
         professeurtSuppressionJList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                //setSuppressionProfesseur((professeurtSuppressionJList.getSelectedValue() != null));
+                setSuppressionProfesseurJButton((professeurtSuppressionJList.getSelectedValue() != null));
+            }
+        });
+
+        suppressionProfesseurJButton.setEnabled(false);
+        suppressionProfesseurJButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                professeurControleur.deleteProfesseur(professeurtSuppressionJList.getSelectedValue());
+                setSuppressionProfesseurJButton((professeurtSuppressionJList.getSelectedValue() == null));
             }
         });
 
@@ -150,7 +157,16 @@ public class ProfesseurVue extends JFrame{
         c.gridx = 1;
         c.gridy = 5;
         professeurAjoutPanel.add(ajoutCancelProfesseurJButton, c);
+
         //Suppression professeur
+
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridheight = 1;
+        c.weighty = 0.2;
+        c.gridx = 0;
+        c.gridy = 1;
+        professeurSuppressionPanel.add(suppressionProfesseurJButton, c);
+
         c.fill = GridBagConstraints.BOTH;
         c.gridheight = 1;
         c.weighty = 0.8;
@@ -174,6 +190,11 @@ public class ProfesseurVue extends JFrame{
 
 
         setVisible(true);
+    }
+
+    private void setSuppressionProfesseurJButton(boolean b) {
+        suppressionProfesseurJButton.setEnabled(b);
+
     }
 
     public void setCreationProfesseur(boolean b) {

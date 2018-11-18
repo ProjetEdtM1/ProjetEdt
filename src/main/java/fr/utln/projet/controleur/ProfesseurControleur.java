@@ -22,6 +22,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
+import java.sql.SQLException;
 import java.util.List;
 
 public class ProfesseurControleur {
@@ -101,6 +102,15 @@ public class ProfesseurControleur {
         }
 
     }
+
+    public void deleteProfesseur(Professeur professeur) {
+        try {
+            professeurModele.deleteProfesseur(professeur);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Document getIdNouvelProfesseurModel() {
         return idNouvelProfesseurModel;
     }
@@ -144,4 +154,5 @@ public class ProfesseurControleur {
     public List<Professeur> getListProfesseur() {
         return(professeurModele.getProfesseurs());
     }
+
 }
