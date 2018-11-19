@@ -23,6 +23,10 @@ public class ProfesseurControleurAuth {
 
     }
 
+    public boolean connecterProfesseurRef(String login,String mdp){
+        return this.professeurModeleAuth.connecterProfesseurRef(login,mdp);
+    }
+
     public AuthentificationVue getAuthentificationVue() {
         return authentificationVue;
     }

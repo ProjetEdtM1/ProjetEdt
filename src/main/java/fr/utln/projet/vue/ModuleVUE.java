@@ -10,6 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class ModuleVUE extends Fenetre {
     public static ModuleControleur moduleControleur;
@@ -32,8 +34,13 @@ public class ModuleVUE extends Fenetre {
 
     public static JList supprimerModule;
 
-    public ModuleVUE(ModuleModele moduleModele) {
+    private MenuProfRefVue menuProfRefVue;
+
+    public ModuleVUE(ModuleModele moduleModele, final MenuProfRefVue menuProfRefVue) {
         super();
+
+        this.menuProfRefVue = menuProfRefVue;
+
         JPanel global = new JPanel();
         this.setTitle("Ajouter un module");
 
@@ -128,6 +135,43 @@ public class ModuleVUE extends Fenetre {
 
 
         getContentPane().add(global);
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonModule();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonModule();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
 
 //        ajout.addActionListener(new ActionListener() {
