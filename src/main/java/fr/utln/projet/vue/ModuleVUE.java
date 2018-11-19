@@ -41,7 +41,7 @@ public class ModuleVUE extends Fenetre {
         this.menuProfRefVue = menuProfRefVue;
 
         JPanel global = new JPanel();
-        this.setTitle("Ajouter un module");
+        this.setTitle("Gestion des modules");
 
         global.setLayout(new GridBagLayout());
         GridBagConstraints contrainte = new GridBagConstraints();
@@ -53,15 +53,17 @@ public class ModuleVUE extends Fenetre {
         System.out.println("moduleListeModele: " + moduleListeModele.getSize());
 
 
+//        /&1LUmudulelist<etudiant>
+
         moduleModele.addObserver(moduleListeModele);
 
         for (Module m: moduleListeModele.listeModule) {
-            System.out.println(m);
+            moduleListeModele.addElement(m);
         }
 
         String liste[] = {"1", "2", "3"};
 
-//        supprimerModule = new JList<>(moduleListeModele);
+//        supprimerModule = new JList<>(liste);
 
         System.out.println("ALLLO " + supprimerModule.getMaxSelectionIndex());
 
@@ -208,9 +210,4 @@ public class ModuleVUE extends Fenetre {
         ajout.setEnabled(gris);
     }
 
-
-//    public static void main(String[] args) {
-//        ModuleModele moduleModele = new ModuleModele();
-//        new ModuleVUE(moduleModele);
-//    }
 }
