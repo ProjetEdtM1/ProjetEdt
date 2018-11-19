@@ -243,6 +243,30 @@ public class DAOProfesseur {
 
         }
 
+    /**
+     * Connexion d'un professeur référent
+     * @param login
+     * @param mdp
+     * @return vrai si le login et le mot de passe correspondent bien à un professeur référent
+     */
+    public Boolean connexionProfesseurRef(String login,String mdp){
+        conn.connect();
+        if(connexionProfesseur(login,mdp)){
+            try {
+                PreparedStatement pstmt = conn.getConn().prepareStatement("SELECT *" +
+                        " FROM PROMOTION,PROFESSEUR WHERE PROFESSEUR.login = ? AND PROFESSEUR.idProfesseur = PROMOTION.idProfesseur");
+                pstmt.setString(1,login);
+                ResultSet res = pstmt.executeQuery();
+                if(res.next()) return true;
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return false;
+        }else
+            return false;
+
+    }
+
     }
 
 

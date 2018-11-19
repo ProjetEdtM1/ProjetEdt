@@ -9,10 +9,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 
 /*
  * Nom de classe : EtudiantVue
@@ -73,10 +70,14 @@ public class EtudiantVue extends JFrame  {
     private final JLabel prenomEtudDetaillabel = new JLabel("prenom :");
     private final JLabel groupeEtudDetaillabel = new JLabel(" groupe :");
 
+    private MenuProfRefVue menuProfRefVue;
 
-    public EtudiantVue(ModeleEtudiant modeleEtudiant) throws HeadlessException {
+
+    public EtudiantVue(ModeleEtudiant modeleEtudiant, final MenuProfRefVue menuProfRefVue) throws HeadlessException {
 
         super("CRUD  etudiants");
+
+        this.menuProfRefVue = menuProfRefVue;
 
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
@@ -196,7 +197,7 @@ public class EtudiantVue extends JFrame  {
         groupeEtudDetailTextField.setEnabled(false);
 
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GridBagConstraints c = new GridBagConstraints();
 
@@ -359,6 +360,43 @@ public class EtudiantVue extends JFrame  {
 
 
         setVisible(true);
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonEtudiant();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonEtudiant();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
     }
 
     /**

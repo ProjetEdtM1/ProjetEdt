@@ -25,6 +25,13 @@ public class ProfesseurModeleAuth extends Observable {
         return  bool;
     }
 
+    public boolean connecterProfesseurRef(String login, String mdp){
+        Boolean bool = professeurDAO.connexionProfesseurRef(login,mdp);
+        notifyObservers();
+        setChanged();
+        return bool;
+    }
+
     @Override
     public synchronized void addObserver(Observer o) {
         super.addObserver(o);
