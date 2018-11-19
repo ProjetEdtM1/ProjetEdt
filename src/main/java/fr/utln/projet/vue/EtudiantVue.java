@@ -25,7 +25,7 @@ import java.awt.event.*;
 
 public class EtudiantVue extends JFrame  {
 
-
+    private final MenuProfRefVue menuProfRefVue;
     private final ModeleEtudiant modeleEtudiant;
     private final ControleurEtudiant controleurEtudiant;
 
@@ -51,7 +51,7 @@ public class EtudiantVue extends JFrame  {
     private final JTextField nometud;
     private final JTextField prenometud;
     private final JTextField groupetud;
-    private final JPasswordField mdpEtudiant;
+    private final JTextField mdpEtudiant;
 
     private static JPanel etudiantDetailPanel = new JPanel(new GridBagLayout());
     private final JButton modifierEtudiantJBouton = new JButton("valider");
@@ -70,14 +70,11 @@ public class EtudiantVue extends JFrame  {
     private final JLabel prenomEtudDetaillabel = new JLabel("prenom :");
     private final JLabel groupeEtudDetaillabel = new JLabel(" groupe :");
 
-    private MenuProfRefVue menuProfRefVue;
 
 
     public EtudiantVue(ModeleEtudiant modeleEtudiant, final MenuProfRefVue menuProfRefVue) throws HeadlessException {
 
         super("CRUD  etudiants");
-
-        this.menuProfRefVue = menuProfRefVue;
 
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
@@ -88,6 +85,7 @@ public class EtudiantVue extends JFrame  {
         this.controleurEtudiant = new ControleurEtudiant(this,modeleEtudiant);
         this.etudiantListModel = new EtudiantListModel(controleurEtudiant.getListEtudiant());
         this.groupeListModele = new GroupeListModele(controleurEtudiant.getListGroupe());
+        this.menuProfRefVue = menuProfRefVue;
 
 
         modeleEtudiant.addObserver(etudiantListModel);
@@ -136,7 +134,7 @@ public class EtudiantVue extends JFrame  {
         nometud = new JTextField(controleurEtudiant.getNomNouvelEtudiantModel(),"",10);
         prenometud = new JTextField(controleurEtudiant.getPrenomNouvelEtudiantModel(),"",10);
         groupetud = new JTextField(controleurEtudiant.getGroupeNouvelEtudiantModel(),"",10);
-        mdpEtudiant = new JPasswordField(controleurEtudiant.getMdpNouvelEtudiantModel(),"",10);
+        mdpEtudiant = new JTextField(controleurEtudiant.getMdpNouvelEtudiantModel(),"",10);
 
 
         // Champ de modification  d'étudiant
@@ -197,8 +195,45 @@ public class EtudiantVue extends JFrame  {
         groupeEtudDetailTextField.setEnabled(false);
 
 
-       // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonEtudiant();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+               menuProfRefVue.setTrueBoutonEtudiant();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
+
+        // placement des widget
         GridBagConstraints c = new GridBagConstraints();
 
         //Le détail d'un Etudiant
@@ -358,45 +393,8 @@ public class EtudiantVue extends JFrame  {
         getContentPane().add(etudiantDetailPanel, c);
 
 
-
         setVisible(true);
 
-        addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                menuProfRefVue.setTrueBoutonEtudiant();
-            }
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-                menuProfRefVue.setTrueBoutonEtudiant();
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowActivated(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent e) {
-
-            }
-        });
     }
 
     /**
