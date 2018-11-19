@@ -17,6 +17,10 @@ public class ModuleVUE extends Fenetre {
     public static ModuleModele moduleModele;
     public static ModuleListeModele moduleListeModele;
 
+    public static JPanel ajoutModulePanel = new JPanel(new GridBagLayout());
+    public static JPanel suppressionModulePanel = new JPanel(new GridBagLayout());
+
+
     public static JButton ajout = new JButton("Ajouter");
     public static JButton annuler = new JButton("Annuler");
     public static JButton supprimer = new JButton("Supprimer");
@@ -37,37 +41,27 @@ public class ModuleVUE extends Fenetre {
 
     public ModuleVUE(ModuleModele moduleModele, final MenuProfRefVue menuProfRefVue) {
         super();
+        this.setTitle("Gestion des Module");
 
         this.menuProfRefVue = menuProfRefVue;
 
-        JPanel global = new JPanel();
-        this.setTitle("Gestion des modules");
-
-        global.setLayout(new GridBagLayout());
+//        JPanel global = new JPanel();
+//        this.setTitle("Gestion des modules");
+//
+        getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints contrainte = new GridBagConstraints();
 
         this.moduleModele = moduleModele;
         this.moduleControleur = new ModuleControleur(this, moduleModele);
         this.moduleListeModele = new ModuleListeModele(moduleControleur.getListModule());
         this.supprimerModule = new JList<Module>(moduleListeModele);
-        System.out.println("moduleListeModele: " + moduleListeModele.getSize());
 
-
-//        /&1LUmudulelist<etudiant>
 
         moduleModele.addObserver(moduleListeModele);
 
         for (Module m: moduleListeModele.listeModule) {
             moduleListeModele.addElement(m);
         }
-
-        String liste[] = {"1", "2", "3"};
-
-//        supprimerModule = new JList<>(liste);
-
-        System.out.println("ALLLO " + supprimerModule.getMaxSelectionIndex());
-
-//        supprimerModule.add();
 
         ajout.setEnabled(false);
         ajout.addActionListener(new ActionListener() {
@@ -77,11 +71,6 @@ public class ModuleVUE extends Fenetre {
             }
         });
 
-        ajoutmodule = new JTextField(moduleControleur.getIntituleNouveauModuleModele(),"",10);
-        nbHeureCm = new JTextField(moduleControleur.getNbHCmNouveauModuleModele(),"",10);
-        nbHeureTd = new JTextField(moduleControleur.getNbHTdNouveauModuleModele(),"",10);
-        nbHeureTp = new JTextField(moduleControleur.getNbHTpNouveauModuleModele(),"",10);
-
         supprimer.setEnabled(false);
         supprimer.addActionListener(new ActionListener() {
             @Override
@@ -90,60 +79,76 @@ public class ModuleVUE extends Fenetre {
             }
         });
 
+        ajoutmodule = new JTextField(moduleControleur.getIntituleNouveauModuleModele(),"",10);
+        nbHeureCm = new JTextField(moduleControleur.getNbHCmNouveauModuleModele(),"",10);
+        nbHeureTd = new JTextField(moduleControleur.getNbHTdNouveauModuleModele(),"",10);
+        nbHeureTp = new JTextField(moduleControleur.getNbHTpNouveauModuleModele(),"",10);
+
 
         // placement des JLabel sur la colonne 1
 
+        System.out.println("YO");
+
         contrainte.gridx = 0;
         contrainte.gridy = 1;
-        global.add(intituleModule, contrainte);
+        ajoutModulePanel.add(intituleModule, contrainte);
 
         contrainte.gridy = 2;
-        global.add(heureCm, contrainte);
+        ajoutModulePanel.add(heureCm, contrainte);
 
         contrainte.gridy = 3;
-        global.add(heureTd, contrainte);
+        ajoutModulePanel.add(heureTd, contrainte);
 
         contrainte.gridy = 4;
-        global.add(heureTp, contrainte);
+        ajoutModulePanel.add(heureTp, contrainte);
 
-
+        System.out.println("YO");
         // placement des JTExtField sur la colonne 2
 
         contrainte.gridx = 2;
         contrainte.gridy = 1;
-        global.add(ajoutmodule, contrainte);
+        ajoutModulePanel.add(ajoutmodule, contrainte);
 
         contrainte.gridy = 2;
-        global.add(nbHeureCm, contrainte);
+        ajoutModulePanel.add(nbHeureCm, contrainte);
 
         contrainte.gridy = 3;
-        global.add(nbHeureTd, contrainte);
+        ajoutModulePanel.add(nbHeureTd, contrainte);
 
         contrainte.gridy = 4;
-        global.add(nbHeureTp, contrainte);
+        ajoutModulePanel.add(nbHeureTp, contrainte);
 
         // placement de la JList de modules pour la suppression
+        ajoutModulePanel.setBorder(BorderFactory.createTitledBorder("Ajout"));
+        suppressionModulePanel.setBorder(BorderFactory.createTitledBorder("Supprimer"));
+
 
         contrainte.gridx = 3;
         contrainte.gridy = 1;
-        global.add(supprimerModule, contrainte);
+        suppressionModulePanel.add(supprimerModule, contrainte);
 
         // Placement des JButton en bas
 
         contrainte.gridx = 1;
         contrainte.gridy = 5;
-        global.add(annuler, contrainte);
+        ajoutModulePanel.add(annuler, contrainte);
 
         contrainte.gridx = 0;
-        global.add(ajout, contrainte);
+        ajoutModulePanel.add(ajout, contrainte);
 
         contrainte.gridx = 3;
         contrainte.gridy = 2;
-        global.add(supprimer, contrainte);
+        suppressionModulePanel.add(supprimer, contrainte);
 
+        System.out.println("YO");
 
+        contrainte.gridx = 0;
+        contrainte.gridy = 0;
+        getContentPane().add(ajoutModulePanel, contrainte);
 
-        getContentPane().add(global);
+        contrainte.gridx = 1;
+        contrainte.gridy = 0;
+        getContentPane().add(suppressionModulePanel, contrainte);
 
         addWindowListener(new WindowListener() {
             @Override
