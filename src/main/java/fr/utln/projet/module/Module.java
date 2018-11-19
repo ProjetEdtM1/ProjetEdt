@@ -60,6 +60,7 @@ public class Module {
         return nbHeureTP;
     }
 
+    @Override
     public String toString(){
         return "Intitulé " + getIntitule() + ", NbHCm " + getNbHeureCm() + ", NbHTd " + getNbHeureTd() +
                 ", NbHTp " + getNbHeureTP();

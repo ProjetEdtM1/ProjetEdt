@@ -1,7 +1,6 @@
 package fr.utln.projet.vue;
 
 import fr.utln.projet.controleur.ModuleControleur;
-//import fr.utln.projet.modele.ModuleListeModele;
 import fr.utln.projet.modele.ModuleListeModele;
 import fr.utln.projet.modele.ModuleModele;
 import fr.utln.projet.module.Module;
@@ -32,7 +31,7 @@ public class ModuleVUE extends Fenetre {
     public static JLabel heureTd = new JLabel("nombre d'heures total des TD");
     public static JLabel heureTp = new JLabel("nombre d'heures total des TP");
 
-    public static JList<Module> supprimerModule;
+    public JList<Module> supprimerModule;
 
     private MenuProfRefVue menuProfRefVue;
 
@@ -50,14 +49,22 @@ public class ModuleVUE extends Fenetre {
         this.moduleModele = moduleModele;
         this.moduleControleur = new ModuleControleur(this, moduleModele);
         this.moduleListeModele = new ModuleListeModele(moduleControleur.getListModule());
+        this.supprimerModule = new JList<Module>(moduleListeModele);
         System.out.println("moduleListeModele: " + moduleListeModele.getSize());
 
+
         moduleModele.addObserver(moduleListeModele);
-        //supprimerModule = new JList();
-        System.out.println("ALLLO " + supprimerModule.getSize());
 
+        for (Module m: moduleListeModele.listeModule) {
+            System.out.println(m);
+        }
 
-        supprimerModule = new JList<>(moduleListeModele);
+        String liste[] = {"1", "2", "3"};
+
+//        supprimerModule = new JList<>(moduleListeModele);
+
+        System.out.println("ALLLO " + supprimerModule.getMaxSelectionIndex());
+
 //        supprimerModule.add();
 
         ajout.setEnabled(false);

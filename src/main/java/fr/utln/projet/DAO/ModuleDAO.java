@@ -58,7 +58,7 @@ public class ModuleDAO {
             Statement stmt = conn.getConn().createStatement();
 
             ResultSet res = stmt.executeQuery(req);
-            System.out.println(res);
+//            System.out.println(res);
 
             while(res.next()) {
                 Module module = new Module.Builder(res.getString(1)).nbHeureCm(res.getInt(2)).nbHeureTd(res.getInt(3)).nbHeureTp(res.getInt(4)).build();

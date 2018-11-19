@@ -150,14 +150,14 @@ CREATE TABLE IF NOT EXISTS RESERVER (
 --
 
 CREATE TABLE IF NOT EXISTS SUIVRE (
-  numEtudiant varchar(10) references ETUDIANT(numEtudiant),
+  intituleGroupe varchar(10) references GROUPE(intituleGroupe),
   idProfesseur integer references PROFESSEUR(idProfesseur),
   intituleModule varchar(11) references MODULE(intituleModule),
   dateCours date,
   heureDebCours date,
   heureFinCours date,
   numeroSalle integer,
-  Primary KEY(numEtudiant, idProfesseur, intituleModule, dateCours, heureDebCours)
+  Primary KEY(intituleGroupe, idProfesseur, intituleModule, dateCours, heureDebCours)
 );
 
 -- /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

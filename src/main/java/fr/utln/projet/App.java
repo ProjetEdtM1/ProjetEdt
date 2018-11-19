@@ -8,11 +8,8 @@ import fr.utln.projet.modele.ProfesseurModele;
 import fr.utln.projet.module.Module;
 import fr.utln.projet.utilisateur.Professeur;
 import fr.utln.projet.utilisateur.Utilisateur;
-import fr.utln.projet.vue.AuthentificationVue;
-import fr.utln.projet.vue.EtudiantVue;
+import fr.utln.projet.vue.*;
 import fr.utln.projet.modele.ModeleEtudiant;
-import fr.utln.projet.vue.ModuleVUE;
-import fr.utln.projet.vue.ProfesseurVue;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,13 +23,12 @@ public class App
 {
     public static void main( String[] args ) throws SQLException {
 
-
-       // ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
+        // ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
         //EtudiantVue etudiantVue = new EtudiantVue(modeleEtudiant);
         //ProfesseurModele professeurModele = new ProfesseurModele();
         //ProfesseurVue professeurVue = new ProfesseurVue(professeurModele);
-        AuthentificationVue authentificationVue = new AuthentificationVue();
-        //ModuleModele moduleModele = new ModuleModele();
-        //ModuleVUE moduleVUE = new ModuleVUE(moduleModele);
+//        AuthentificationVue authentificationVue = new AuthentificationVue();
+//        ModuleModele moduleModele = new ModuleModele();
+        MenuProfRefVue a = new MenuProfRefVue("coucou");
 
     }}
