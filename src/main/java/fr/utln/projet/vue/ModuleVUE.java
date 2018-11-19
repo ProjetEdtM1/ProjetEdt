@@ -30,7 +30,7 @@ public class ModuleVUE extends Fenetre {
     public static JLabel heureTd = new JLabel("nombre d'heures total des TD");
     public static JLabel heureTp = new JLabel("nombre d'heures total des TP");
 
-    public static JList supprimerModule;
+    public static JList<Module> supprimerModule;
 
     public ModuleVUE(ModuleModele moduleModele) {
         super();
@@ -43,14 +43,14 @@ public class ModuleVUE extends Fenetre {
         this.moduleModele = moduleModele;
         this.moduleControleur = new ModuleControleur(this, moduleModele);
         this.moduleListeModele = new ModuleListeModele(moduleControleur.getListModule());
-        System.out.println("muduleListeModele: " + moduleListeModele.getSize());
+        System.out.println("moduleListeModele: " + moduleListeModele.getSize());
 
         moduleModele.addObserver(moduleListeModele);
-        supprimerModule = new JList();
+        //supprimerModule = new JList();
         System.out.println("ALLLO " + supprimerModule.getSize());
 
 
-//        supprimerModule = new JList<>(moduleListeModele);
+        supprimerModule = new JList<>(moduleListeModele);
 //        supprimerModule.add();
 
         ajout.setEnabled(false);
