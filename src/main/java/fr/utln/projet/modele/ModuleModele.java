@@ -50,13 +50,6 @@ public class ModuleModele extends Observable {
         try {
             int intNbHCm = 0, intNbHTd = 0, intNbHTp = 0;
 
-//            try {
-//                convertion(nbHCm);
-//            } catch (NumberFormatException e) {
-//                System.out.println("erreur de conversion pour nbHCm");
-//            }
-
-
             if (convertion(nbHCm)) {
                 intNbHCm = convertionIntStr(nbHCm);
             }
@@ -88,5 +81,11 @@ public class ModuleModele extends Observable {
 //        public void supprimerModule (Module module){
 //
 //        }
+    }
+
+    public void supprimerModule (Module module) {
+        moduleDao.supprimerModule(module.getIntitule());
+        setChanged();
+        notifyObservers();
     }
 }

@@ -5,6 +5,7 @@ import fr.utln.projet.bdd.Connexion;
 import fr.utln.projet.module.Module;
 import fr.utln.projet.bdd.InitStatement;
 
+import java.lang.reflect.Type;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class ModuleDAO {
             stmt.setObject(3, nbHTd, Types.INTEGER);
             stmt.setObject(4, nbHTp, Types.INTEGER);
 
-            int res = stmt.executeUpdate();
+            stmt.executeUpdate();
 
             // message de confirmation
             System.out.println("J'ai bien ajoute le module " + intitule);
@@ -43,6 +44,30 @@ public class ModuleDAO {
             e.printStackTrace();
         }
 
+    }
+
+    public int supprimerModule (String intitule) {
+        this.conn = new Connexion();
+        conn.connect();
+        int res = 0;
+
+        String req = "DELETE FROM module WHERE INTITULEMODULE = ?";
+
+        try {
+
+            PreparedStatement stmt = conn.getConn().prepareStatement(req);
+
+            stmt.setObject(1, intitule, Types.VARCHAR);
+
+            res = stmt.executeUpdate();
+
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return res;
     }
 
     public List<Module> creationListModule() {

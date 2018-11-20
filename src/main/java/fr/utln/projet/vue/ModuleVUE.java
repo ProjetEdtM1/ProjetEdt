@@ -6,6 +6,8 @@ import fr.utln.projet.modele.ModuleModele;
 import fr.utln.projet.module.Module;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -72,10 +74,18 @@ public class ModuleVUE extends Fenetre {
         });
 
         supprimer.setEnabled(false);
+        supprimerModule.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                setBoutonSupprimer(supprimerModule.getSelectedValue() != null);
+            }
+        });
+
         supprimer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                moduleControleur.supprimerModule();
+                moduleControleur.supprimerModule(supprimerModule.getSelectedValue());
+                setBoutonSupprimer(supprimerModule.getSelectedValue() == null);
             }
         });
 
@@ -87,7 +97,6 @@ public class ModuleVUE extends Fenetre {
 
         // placement des JLabel sur la colonne 1
 
-        System.out.println("YO");
 
         contrainte.gridx = 0;
         contrainte.gridy = 1;
@@ -102,7 +111,6 @@ public class ModuleVUE extends Fenetre {
         contrainte.gridy = 4;
         ajoutModulePanel.add(heureTp, contrainte);
 
-        System.out.println("YO");
         // placement des JTExtField sur la colonne 2
 
         contrainte.gridx = 2;
@@ -140,7 +148,6 @@ public class ModuleVUE extends Fenetre {
         contrainte.gridy = 2;
         suppressionModulePanel.add(supprimer, contrainte);
 
-        System.out.println("YO");
 
         contrainte.gridx = 0;
         contrainte.gridy = 0;
@@ -213,6 +220,10 @@ public class ModuleVUE extends Fenetre {
 
     public void setBoutonAjouter (boolean gris) {
         ajout.setEnabled(gris);
+    }
+
+    public void setBoutonSupprimer(boolean gris) {
+        supprimer.setEnabled(gris);
     }
 
 }

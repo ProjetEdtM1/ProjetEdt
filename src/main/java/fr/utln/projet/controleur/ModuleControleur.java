@@ -45,9 +45,11 @@ public class ModuleControleur{
                 if(intituleNouveauModuleModele.getLength() == 0) {
                     moduleVUE.setBoutonAjouter(false);
                 }
-                else {
+                else if (intituleNouveauModuleModele.getLength() != 0) {
                     moduleVUE.setBoutonAjouter(true);
                 }
+
+//                if()
             }
         };
 
@@ -84,8 +86,8 @@ public class ModuleControleur{
 
 //    Methode pour supprimer un module
 
-    public void supprimerModule() {
-
+    public void supprimerModule(Module module) {
+        moduleModele.supprimerModule(module);
     }
 
     public Document getIntituleNouveauModuleModele() {
