@@ -14,20 +14,23 @@ public class ModuleListeModele extends DefaultComboBoxModel<Module> implements O
         this.listeModule = module;
     }
 
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (!listeModule.contains(getSelectedItem()))
+            setSelectedItem(null);
+        else
+            System.out.println(getSelectedItem() + " in " + listeModule);
+        fireContentsChanged(this, 0, listeModule.size() - 1);
+    }
+
+    @Override
     public int getSize() {
         return listeModule.size();
     }
 
-    public Module getElement(int i){
-        return this.listeModule.get(i);
-    }
-
     @Override
-    public void update(Observable o, Object arg) {
-        //if (!listeModule.contains(getSelectedItem()))
-            //setSelectedItem(null);
-       // else
-            System.out.println(getSelectedItem() + " in " + listeModule);
-            fireContentsChanged(this, 0, listeModule.size() - 1);
+    public Module getElementAt(int index) {
+        return listeModule.get(index);
     }
 }

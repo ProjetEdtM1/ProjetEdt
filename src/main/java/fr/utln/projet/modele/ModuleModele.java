@@ -13,7 +13,7 @@ public class ModuleModele extends Observable {
 
     private List<Module> listeModule = new ArrayList();
 
-//    public enum ModuleModeleEvent {MODULE}
+    public enum ModeleModuleEvent {MODULE}
 
     public List<Module> getListeModule() {
         listeModule = moduleDao.creationListModule();
@@ -89,5 +89,29 @@ public class ModuleModele extends Observable {
         setChanged();
         notifyObservers();
         return i;
+    }
+
+    /**
+     * Permet de modifier un Module
+     * @param intuleModule
+     * @param nbHeureCm
+     * @param nbHeureTd
+     * @param nbHeureTp
+     * @author Nicolas Guigou
+     */
+    public void modifierModule(String intuleModule, int nbHeureCm, int nbHeureTd, int nbHeureTp){
+        moduleDao.updateModule(intuleModule,nbHeureCm,nbHeureTd,nbHeureTp);
+        Module module = new Module.Builder(intuleModule).
+                nbHeureCm(nbHeureCm).
+                nbHeureTd(nbHeureTd).
+                nbHeureTp(nbHeureTp).build();
+        for (Module mod :listeModule) {
+            if(mod.getIntitule().compareTo(intuleModule)==0){
+                listeModule.remove(mod);
+                listeModule.add(module);
+            }
+        }
+        setChanged();
+        notifyObservers(ModeleModuleEvent.MODULE);
     }
 }

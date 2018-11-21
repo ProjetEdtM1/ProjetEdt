@@ -104,4 +104,70 @@ public class ModuleDAO {
 
     return moduleList;
     }
+
+    /**
+     * Récupération d'un module dans la base de données en fonction de l'intitulé passé en paramètre
+     * @param intituleModule
+     * @return Un module avec les bons attributs
+     */
+    public Module getModule(String intituleModule){
+        this.conn = new Connexion();
+        conn.connect();
+
+        String sql = "SELECT * FROM MODULE "+"where INTITULEMODULE = ?";
+        Module module;
+        try{
+            PreparedStatement statementSelectModuleFromID = conn.getConn().prepareStatement(sql);
+            statementSelectModuleFromID.setObject(1,intituleModule, Types.VARCHAR);
+            ResultSet resDetailsModule = statementSelectModuleFromID.executeQuery();
+            resDetailsModule.next();
+            module = new Module.Builder(intituleModule)
+                    .nbHeureCm(resDetailsModule.getInt(2))
+                    .nbHeureTd(resDetailsModule.getInt(3))
+                    .nbHeureTp(resDetailsModule.getInt(4)).build();
+            return module;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        module = null;
+        return module;
+    }
+
+    /**
+     * Modification d'un module dans la base de données
+     * @param intituleModule
+     * @param nbHeureCm
+     * @param nbHeureTd
+     * @param nbHeureTp
+     * @author Nicolas Guigou
+     */
+    public void updateModule(String intituleModule, int nbHeureCm, int nbHeureTd, int nbHeureTp ){
+        String sqlCM = "UPDATE MODULE SET NBHEURECM WHERE INTITULEMODULE = ?";
+        String sqlTD = "UPDATE MODULE SET NBHEURETD WHERE INTITULEMODULE = ?";
+        String sqlTP = "UPDATE MODULE SET NBHEURETP WHERE INTITULEMODULE = ?";
+
+        Module module = getModule(intituleModule);
+        try {
+            if (module.getIntitule() != intituleModule) {
+                PreparedStatement statementSelectModuleFromID = conn.getConn().prepareStatement(sqlCM);
+                statementSelectModuleFromID.setObject(1, nbHeureCm, Types.INTEGER);
+                statementSelectModuleFromID.setObject(2, intituleModule, Types.VARCHAR);
+                int resDetailUnModule = statementSelectModuleFromID.executeUpdate();
+            }
+            if (module.getIntitule() != intituleModule) {
+                PreparedStatement statementSelectModuleFromID = conn.getConn().prepareStatement(sqlTD);
+                statementSelectModuleFromID.setObject(1, nbHeureTd, Types.INTEGER);
+                statementSelectModuleFromID.setObject(2, intituleModule, Types.VARCHAR);
+                int resDetailUnModule = statementSelectModuleFromID.executeUpdate();
+            }
+            if (module.getIntitule() != intituleModule) {
+                PreparedStatement statementSelectModuleFromID = conn.getConn().prepareStatement(sqlTP);
+                statementSelectModuleFromID.setObject(1, nbHeureTp, Types.INTEGER);
+                statementSelectModuleFromID.setObject(2, intituleModule, Types.VARCHAR);
+                int resDetailUnModule = statementSelectModuleFromID.executeUpdate();
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 }
