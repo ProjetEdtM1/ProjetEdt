@@ -9,9 +9,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.List;
 
 public class ModuleControleur{
@@ -86,8 +83,9 @@ public class ModuleControleur{
 
 //    Methode pour supprimer un module
 
-    public void supprimerModule(Module module) {
-        moduleModele.supprimerModule(module);
+    public boolean supprimerModule(Module module) {
+        boolean i = moduleModele.supprimerModule(module);
+        return i;
     }
 
     public Document getIntituleNouveauModuleModele() {
@@ -107,6 +105,6 @@ public class ModuleControleur{
     }
 
     public List<Module> getListModule() {
-        return moduleModele.getModule();
+        return moduleModele.getListeModule();
     }
 }

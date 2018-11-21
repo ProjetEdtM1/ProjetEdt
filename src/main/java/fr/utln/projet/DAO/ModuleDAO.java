@@ -46,10 +46,11 @@ public class ModuleDAO {
 
     }
 
-    public int supprimerModule (String intitule) {
+    public boolean supprimerModule (String intitule) {
         this.conn = new Connexion();
         conn.connect();
         int res = 0;
+        System.out.println("yo " + intitule);
 
         String req = "DELETE FROM module WHERE INTITULEMODULE = ?";
 
@@ -67,7 +68,10 @@ public class ModuleDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return res;
+        if (res == 1)
+            return true;
+        else
+            return false;
     }
 
     public List<Module> creationListModule() {

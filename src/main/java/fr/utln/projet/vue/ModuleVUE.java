@@ -226,4 +226,5 @@ public class ModuleVUE extends Fenetre {
         supprimer.setEnabled(gris);
     }
 
+
 }

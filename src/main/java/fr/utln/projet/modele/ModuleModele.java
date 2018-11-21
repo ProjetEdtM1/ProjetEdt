@@ -8,24 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import static java.lang.Integer.*;
-
 public class ModuleModele extends Observable {
     private ModuleDAO moduleDao = new ModuleDAO();
 
-    List<Module> module = new ArrayList();
+    private List<Module> listeModule = new ArrayList();
 
 //    public enum ModuleModeleEvent {MODULE}
 
-    public List<Module> getModule() {
-        module = moduleDao.creationListModule();
-        return module;
+    public List<Module> getListeModule() {
+        listeModule = moduleDao.creationListModule();
+        return listeModule;
     }
 
-//    public Module getModule(final String intitule) {
-//        Module module;
-//        // chercher un module dans la DB
-//        return module;
+//    public Module getListeModule(final String intitule) {
+//        Module listeModule;
+//        // chercher un listeModule dans la DB
+//        return listeModule;
 //    }
 
     public int convertionIntStr(String mot) {
@@ -63,9 +61,9 @@ public class ModuleModele extends Observable {
 
             moduleDao.persistModule(intitule, intNbHCm, intNbHTd, intNbHTp);
 
-            // Module module = new Module.Builder(intitule).nbHeureCm(intNbHCm).nbHeureTd(intNbHTd).nbHeureTp(intNbHTp).build();
+            // Module listeModule = new Module.Builder(intitule).nbHeureCm(intNbHCm).nbHeureTd(intNbHTd).nbHeureTp(intNbHTp).build();
 
-            // ajouter le module a la bd
+            // ajouter le listeModule a la bd
             // on previent les observateurs du changement
             setChanged();
             notifyObservers();
@@ -75,17 +73,21 @@ public class ModuleModele extends Observable {
 
 
 //    public void supprimerModule(final String intitule) {
-//        supprimerModule(getModule(intitule));
+//        supprimerModule(getListeModule(intitule));
 //    }
 
-//        public void supprimerModule (Module module){
+//        public void supprimerModule (Module listeModule){
 //
 //        }
     }
 
-    public void supprimerModule (Module module) {
-        moduleDao.supprimerModule(module.getIntitule());
+    public boolean supprimerModule (Module nouveauModule) {
+        System.out.println("toto " + nouveauModule.getIntitule());
+        boolean i = moduleDao.supprimerModule(nouveauModule.getIntitule());
+        System.out.println("AHHAAHHA " + nouveauModule);
+        listeModule.remove(nouveauModule);
         setChanged();
         notifyObservers();
+        return i;
     }
 }

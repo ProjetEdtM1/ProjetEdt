@@ -24,10 +24,10 @@ public class ModuleListeModele extends DefaultComboBoxModel<Module> implements O
 
     @Override
     public void update(Observable o, Object arg) {
-//        if (!listeModule.contains(getSelectedItem()))
-//            setSelectedItem(null);
-//        else
-//            System.out.println(getSelectedItem() + " in " + listeModule);
-//            fireContentsChanged(this, 0, listeModule.size() - 1);
+        //if (!listeModule.contains(getSelectedItem()))
+            //setSelectedItem(null);
+       // else
+            System.out.println(getSelectedItem() + " in " + listeModule);
+            fireContentsChanged(this, 0, listeModule.size() - 1);
     }
 }
