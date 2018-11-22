@@ -20,11 +20,6 @@ public class ModuleModele extends Observable {
         return listeModule;
     }
 
-//    public Module getListeModule(final String intitule) {
-//        Module listeModule;
-//        // chercher un listeModule dans la DB
-//        return listeModule;
-//    }
 
     public int convertionIntStr(String mot) {
         try {
@@ -61,8 +56,6 @@ public class ModuleModele extends Observable {
 
             moduleDao.persistModule(intitule, intNbHCm, intNbHTd, intNbHTp);
 
-            // Module listeModule = new Module.Builder(intitule).nbHeureCm(intNbHCm).nbHeureTd(intNbHTd).nbHeureTp(intNbHTp).build();
-
             // ajouter le listeModule a la bd
             // on previent les observateurs du changement
             setChanged();
@@ -72,13 +65,6 @@ public class ModuleModele extends Observable {
         }
 
 
-//    public void supprimerModule(final String intitule) {
-//        supprimerModule(getListeModule(intitule));
-//    }
-
-//        public void supprimerModule (Module listeModule){
-//
-//        }
     }
 
     public boolean supprimerModule (Module nouveauModule) {

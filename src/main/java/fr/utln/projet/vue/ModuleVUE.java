@@ -29,16 +29,16 @@ public class ModuleVUE extends Fenetre {
     public static JTextField nbHeureTd = new JTextField();
     public static JTextField nbHeureTp = new JTextField();
 
-    public static JLabel intituleModule = new JLabel("Intitulé Module ");
-    public static JLabel heureCm = new JLabel("nombre d'heures total des CM");
-    public static JLabel heureTd = new JLabel("nombre d'heures total des TD");
-    public static JLabel heureTp = new JLabel("nombre d'heures total des TP");
+    public static JLabel intituleModule = new JLabel("Intitulé Module :");
+    public static JLabel heureCm = new JLabel("Heure(s) CM :");
+    public static JLabel heureTd = new JLabel("Heure(s) TD :");
+    public static JLabel heureTp = new JLabel("Heure(s) TP :");
 
     public JList<Module> supprimerModule;
 
     private static JPanel moduleDetailPanel = new JPanel(new GridBagLayout());
     private final JButton modifierModuleJBouton = new JButton("valider");
-    private final JButton cancelModifierModuleJButton = new JButton("annuler ");
+    private final JButton cancelModifierModuleJButton = new JButton("annuler");
 
     private final JComboBox<Module> moduleDetailJComboBox;
 
@@ -48,7 +48,7 @@ public class ModuleVUE extends Fenetre {
     private static JTextField nbHtdDetailTextField = new JTextField();
     private static JTextField nbHtpDetailTextField = new JTextField();
 
-    private final JLabel intituleModuleDetaillabel = new JLabel("Intitulé Module :");;
+    private final JLabel intituleModuleDetaillabel = new JLabel("Intitulé Module :");
     private final JLabel nbHcmDetaillabel = new JLabel("Heure(s) CM :");
     private final JLabel nbHtdDetaillabel = new JLabel("Heure(s) TD :");
     private final JLabel nbHtpDetaillabel = new JLabel("Heure(s) TP :");
@@ -75,9 +75,9 @@ public class ModuleVUE extends Fenetre {
 
         moduleModele.addObserver(moduleListeModele);
 
-        for (Module m: moduleListeModele.listeModule) {
-            moduleListeModele.addElement(m);
-        }
+//        for (Module m: moduleListeModele.listeModule) {
+//            moduleListeModele.addElement(m);
+//        }
 
         ajout.setEnabled(false);
         ajout.addActionListener(new ActionListener() {
@@ -98,8 +98,13 @@ public class ModuleVUE extends Fenetre {
         supprimer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                moduleControleur.supprimerModule(supprimerModule.getSelectedValue());
-                setBoutonSupprimer(supprimerModule.getSelectedValue() == null);
+                if (moduleControleur.supprimerModule(supprimerModule.getSelectedValue()))
+                {
+                    setBoutonSupprimer(supprimerModule.getSelectedValue() == null);
+                    System.out.println("YO ");
+                }
+                else
+                    System.out.println("LU ");
             }
         });
 
@@ -223,7 +228,7 @@ public class ModuleVUE extends Fenetre {
         c.gridx = 0;
         c.gridy = 1;
         c.gridwidth = 1;
-        moduleDetailPanel.add(intituleModule,c);
+        moduleDetailPanel.add(intituleModuleDetaillabel,c);
 
         c.gridx = 1;
         c.gridy = 1;

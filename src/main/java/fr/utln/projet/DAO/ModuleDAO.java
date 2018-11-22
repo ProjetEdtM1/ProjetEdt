@@ -46,6 +46,14 @@ public class ModuleDAO {
 
     }
 
+
+    /**
+     * Methode pour supprimer un module
+     * @param intitule
+     * @return
+     */
+
+
     public boolean supprimerModule (String intitule) {
         this.conn = new Connexion();
         conn.connect();

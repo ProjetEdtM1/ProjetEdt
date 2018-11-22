@@ -17,7 +17,7 @@ public class App
         //EtudiantVue etudiantVue = new EtudiantVue(modeleEtudiant);
         //ProfesseurModele professeurModele = new ProfesseurModele();
         //ProfesseurVue professeurVue = new ProfesseurVue(professeurModele);
-        // AuthentificationVue authentificationVue = new AuthentificationVue();
+//         AuthentificationVue authentificationVue = new AuthentificationVue();
 //        ModuleModele moduleModele = new ModuleModele();
         MenuProfRefVue a = new MenuProfRefVue("coucou");
 
