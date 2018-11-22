@@ -360,4 +360,9 @@ public class ProfesseurVue extends JFrame{
             prenomProfDetailTextField = new JTextField(professeurControleur.getPrenomProfesseurModel(), professeur.getPrenom(), 10);
         }
     }
+
+    public void setModification(boolean b) {
+        nomProfDetailTextField.setEnabled(true);
+        prenomProfDetailTextField.setEnabled(b);
+    }
 }
