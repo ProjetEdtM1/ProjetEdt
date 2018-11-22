@@ -106,14 +106,14 @@ public class ProfesseurModele extends Observable {
         notifyObservers(ModeleProfesseurEvent.PROFESSEUR);
     }
 
-    public void modifierProfesseur(String id, String nom, String prenom, String login, String mdp){
+    public void modifierProfesseur(String id, String nom, String prenom){
 
         dao.updateProfesseur(id,nom,prenom);
         Professeur professeur = new Professeur();
         professeur.setNom(nom);
         professeur.setPrenom(prenom);
-        professeur.setLogin(login);
-        professeur.setMdp(mdp);
+        //professeur.setLogin(login);
+        //professeur.setMdp(mdp);
 
         for(Professeur p : professeurs){
 

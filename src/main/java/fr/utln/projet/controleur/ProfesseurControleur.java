@@ -35,6 +35,12 @@ public class ProfesseurControleur {
     private Document loginNouvelProfesseurModel = new PlainDocument();
     private Document mdpNouvelProfesseurModel = new PlainDocument();
 
+    //variable pour modifier
+
+    private Document IdProfesseurModel = new PlainDocument();
+    private Document nomProfesseurModel = new PlainDocument();
+    private Document prenomProfesseurModel = new PlainDocument();
+
     public ProfesseurControleur(final ProfesseurVue professeurVue, ProfesseurModele professeurModele) {
         this.professeurVue = professeurVue;
         this.professeurModele = professeurModele;
@@ -59,6 +65,10 @@ public class ProfesseurControleur {
         prenomNouvelProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
         loginNouvelProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
         mdpNouvelProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
+
+        IdProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
+        nomProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
+        prenomProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
     }
 
     /**
@@ -111,6 +121,20 @@ public class ProfesseurControleur {
         }
     }
 
+    public void modifierProfesseur() {
+        try {
+
+            professeurModele.modifierProfesseur(
+                    IdProfesseurModel.getText(0, IdProfesseurModel.getLength()),
+                    nomProfesseurModel.getText(0, nomProfesseurModel.getLength()),
+                    prenomProfesseurModel.getText(0, prenomProfesseurModel.getLength())
+
+            );
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+    }
+
     public Document getIdNouvelProfesseurModel() {
         return idNouvelProfesseurModel;
     }
@@ -153,6 +177,30 @@ public class ProfesseurControleur {
 
     public List<Professeur> getListProfesseur() {
         return(professeurModele.getProfesseurs());
+    }
+
+    public Document getIdProfesseurModel() {
+        return IdProfesseurModel;
+    }
+
+    public void setIdProfesseurModel(Document idProfesseurModel) {
+        IdProfesseurModel = idProfesseurModel;
+    }
+
+    public Document getNomProfesseurModel() {
+        return nomProfesseurModel;
+    }
+
+    public void setNomProfesseurModel(Document nomProfesseurModel) {
+        nomProfesseurModel = nomProfesseurModel;
+    }
+
+    public Document getPrenomProfesseurModel() {
+        return prenomProfesseurModel;
+    }
+
+    public void setPrenomProfesseurModel(Document prenomProfesseurModel) {
+        prenomProfesseurModel = prenomProfesseurModel;
     }
 
 }

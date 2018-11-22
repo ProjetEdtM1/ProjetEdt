@@ -278,7 +278,6 @@ public class EtudiantVue extends JFrame  {
         c.gridx = 1;
         c.gridy = 4;
         etudiantDetailPanel.add(groupeEtudiantJcomboBox,c);
-        //etudiantDetailPanel.add(groupeEtudDetailTextField, c);
 
         c.gridx = 1;
         c.gridy = 5;
@@ -289,8 +288,6 @@ public class EtudiantVue extends JFrame  {
         c.gridx = 0;
         etudiantDetailPanel.add(modifierEtudiantJBouton,c);
 
-       /* c.gridx = 5;
-        c.gridy = 0;*/
 
 
 
