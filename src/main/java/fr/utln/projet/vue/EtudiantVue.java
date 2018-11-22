@@ -185,8 +185,14 @@ public class EtudiantVue extends JFrame  {
                 controleurEtudiant.modifierEtudiant();
             }
         });
-        cancelModifierEtudiantJButton.setEnabled(false);
 
+        cancelModifierEtudiantJButton.setEnabled(false);
+        cancelModifierEtudiantJButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                montrerDetail(etudiantDetailJComboBox.getItemAt(etudiantDetailJComboBox.getSelectedIndex()));
+            }
+        });
 
         /* bloque l'écriture dans les champs text me servira a afficher suelement */
         numEtudDetailTextField.setEnabled(false);
