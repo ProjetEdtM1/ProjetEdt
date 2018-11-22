@@ -170,11 +170,6 @@ public class ControleurEtudiant {
      */
     public void modifierEtudiant() {
         try {
-            System.out.println(numEtudiantModel.getLength());
-            System.out.println(nomEtudiantModel.getLength());
-            System.out.println(prenomEtudiantModel.getLength());
-            System.out.println(groupeEtudiantModel.getLength());
-
             modeleEtudiant.modifiereEtudiant(
                     numEtudiantModel.getText(0, numEtudiantModel.getLength()),
                     nomEtudiantModel.getText(0, nomEtudiantModel.getLength()),

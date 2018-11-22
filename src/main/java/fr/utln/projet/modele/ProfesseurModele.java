@@ -25,6 +25,9 @@ public class ProfesseurModele extends Observable {
 
     private DAOProfesseur dao = new DAOProfesseur();
 
+    public void updateProfesseur() {
+    }
+
     public enum ModeleProfesseurEvent {PROFESSEUR}
 
 

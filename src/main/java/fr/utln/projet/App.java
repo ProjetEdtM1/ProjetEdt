@@ -31,4 +31,5 @@ public class App
 //        ModuleModele moduleModele = new ModuleModele();
         MenuProfRefVue a = new MenuProfRefVue("coucou");
 
+
     }}

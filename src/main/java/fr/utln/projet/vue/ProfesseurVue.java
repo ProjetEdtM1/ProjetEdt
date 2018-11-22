@@ -209,4 +209,7 @@ public class ProfesseurVue extends JFrame{
         ajoutCancelProfesseurJButton.setEnabled(b);
 
     }
+
+    public void setModificationProfesseur(boolean b) {
+    }
 }

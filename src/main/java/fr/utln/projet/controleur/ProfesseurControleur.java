@@ -29,11 +29,20 @@ public class ProfesseurControleur {
     private ProfesseurVue professeurVue;
     private ProfesseurModele professeurModele;
 
+    // Vairable utilisé a l'ajout d'un nouveau professeur en bd
     private Document idNouvelProfesseurModel = new PlainDocument();
     private Document nomNouvelProfesseurModel = new PlainDocument();
     private Document prenomNouvelProfesseurModel = new PlainDocument();
     private Document loginNouvelProfesseurModel = new PlainDocument();
     private Document mdpNouvelProfesseurModel = new PlainDocument();
+
+    // Vairable utilisé a la modification d'un professeur en bd
+    private Document idProfesseurModel = new PlainDocument();
+    private Document nomProfesseurModel = new PlainDocument();
+    private Document prenomProfesseurModel = new PlainDocument();
+    private Document loginProfesseurModel = new PlainDocument();
+    private Document mdpProfesseurModel = new PlainDocument();
+
 
     public ProfesseurControleur(final ProfesseurVue professeurVue, ProfesseurModele professeurModele) {
         this.professeurVue = professeurVue;
@@ -48,10 +57,21 @@ public class ProfesseurControleur {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if ((nomNouvelProfesseurModel.getLength() == 0)|| (prenomNouvelProfesseurModel.getLength() == 0) || (loginNouvelProfesseurModel.getLength() == 0) || (mdpNouvelProfesseurModel.getLength() == 0))
+                Boolean conditionDAjout = (nomNouvelProfesseurModel.getLength() == 0)|| (prenomNouvelProfesseurModel.getLength() == 0) ||(loginNouvelProfesseurModel.getLength() == 0) || (mdpNouvelProfesseurModel.getLength() == 0);
+                Boolean conditionModification = ((prenomNouvelProfesseurModel.getLength() == 0)|| (nomNouvelProfesseurModel.getLength() == 0) || (loginProfesseurModel.getLength() == 0) || mdpProfesseurModel.getLength() == 0);
+                if (conditionDAjout)
                     professeurVue.setCreationProfesseur(false);
-                else
+                else if (!conditionDAjout)
                     professeurVue.setCreationProfesseur(true);
+
+                if (conditionModification)
+                {
+                    professeurVue.setModificationProfesseur(false);
+                }
+                else if (!conditionModification){
+                    professeurVue.setModificationProfesseur(true);
+
+                }
             }
         };
         idNouvelProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
@@ -59,6 +79,12 @@ public class ProfesseurControleur {
         prenomNouvelProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
         loginNouvelProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
         mdpNouvelProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
+
+       idProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
+       nomProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
+       prenomProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
+       loginProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
+       mdpProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
     }
 
     /**
@@ -109,6 +135,10 @@ public class ProfesseurControleur {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void ModificationProfesseur(){
+        professeurModele.updateProfesseur();
     }
 
     public Document getIdNouvelProfesseurModel() {
