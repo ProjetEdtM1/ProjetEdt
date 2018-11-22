@@ -16,9 +16,9 @@ import java.awt.event.*;
  *
  * Description   : Partie visible de mon interface permet de voir les formulaire CRUD d'étudiant
  *
- * Version       : 2.2
+ * Version       : 2.3
  *
- * Date          : 16/11/2018
+ * Date          : 21/11/2018
  *
  * Copyright     : CLAIN Cyril
  */
@@ -60,10 +60,10 @@ public class EtudiantVue extends JFrame  {
     private final JComboBox<Etudiant> etudiantDetailJComboBox;
     private final JComboBox<String> groupeEtudiantJcomboBox;
 
-    private static JTextField numEtudDetailTextField;// = new JTextField();
-    private static JTextField nomEtudDetailTextField;// = new JTextField();
-    private static JTextField prenomEtudDetailTextField;// = new JTextField();
-    private static JTextField groupeEtudDetailTextField;// = new JTextField();
+    private static JTextField numEtudDetailTextField;
+    private static JTextField nomEtudDetailTextField;
+    private static JTextField prenomEtudDetailTextField;
+    private static JTextField groupeEtudDetailTextField;
 
     private final JLabel numEtudDetaillabel = new JLabel(" num etud :");;
     private final JLabel nomEtudDetaillabel = new JLabel("Nom :");
@@ -150,7 +150,7 @@ public class EtudiantVue extends JFrame  {
             public void itemStateChanged(ItemEvent e) {
                 switch (e.getStateChange()) {
                     case ItemEvent.DESELECTED:
-
+                        modifierEtudiantJBouton.setEnabled(false);
                         break;
                     case ItemEvent.SELECTED:
                         modifierEtudiantJBouton.setEnabled(true);
@@ -183,6 +183,10 @@ public class EtudiantVue extends JFrame  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controleurEtudiant.modifierEtudiant();
+                etudiantDetailJComboBox.setSelectedIndex(-1);
+                groupeEtudiantJcomboBox.setSelectedIndex(-1);
+
+
             }
         });
 
