@@ -85,7 +85,7 @@ public class ProfesseurControleur {
      * @author      CLAIN Cyril
      */
 
-    public void ajouterProfesseur() {
+    public void persisteProfesseur() {
         try {
 
             professeurModele.persisteProfesseur(
@@ -97,7 +97,6 @@ public class ProfesseurControleur {
             cancelProfesseur();
         }
         catch (BadLocationException e){
-            System.out.println("erreur dans controleur");
             e.printStackTrace();
         }
     }
@@ -131,7 +130,7 @@ public class ProfesseurControleur {
 
     public void modifierProfesseur() {
         try {
-
+            System.out.println("heeeey"+IdProfesseurModel);
             professeurModele.modifierProfesseur(
                     IdProfesseurModel.getText(0, IdProfesseurModel.getLength()),
                     nomProfesseurModel.getText(0, nomProfesseurModel.getLength()),

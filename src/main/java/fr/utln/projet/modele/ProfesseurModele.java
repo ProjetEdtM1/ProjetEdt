@@ -112,20 +112,18 @@ public class ProfesseurModele extends Observable {
         Professeur professeur = new Professeur();
         professeur.setNom(nom);
         professeur.setPrenom(prenom);
-        //professeur.setLogin(login);
-        //professeur.setMdp(mdp);
+        professeur.setIdprofesseur(id);
 
-        for(Professeur p : professeurs){
-
-            if ((p.getIdprofesseur().compareTo(id))==0) {
+        for(Professeur p : professeurs) {
+            if ((p.getIdprofesseur().compareTo(id)) == 0) {
                 professeurs.remove(p);
                 professeurs.add(professeur);
-            }}
+            }
+        }
+
 
         setChanged();
         notifyObservers(ModeleProfesseurEvent.PROFESSEUR);
-
-
 
     }
 

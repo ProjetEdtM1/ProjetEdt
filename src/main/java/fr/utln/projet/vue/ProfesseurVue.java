@@ -153,7 +153,7 @@ public class ProfesseurVue extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if (loginProfesseur.getText().charAt(0) == 'p')
                 {
-                    professeurControleur.ajouterProfesseur();
+                    professeurControleur.persisteProfesseur();
                 }
                 else{
                     JOptionPane.showMessageDialog(professeurAjoutPanel, "Le login doit commencé par p ");
@@ -350,6 +350,7 @@ public class ProfesseurVue extends JFrame{
             prenomProfDetailTextField.setText("");
         }
         else {
+            System.out.println("prof : "+professeur.getIdprofesseur());
             numProfDetailTextField.setText(professeur.getIdprofesseur());
             numProfDetailTextField = new JTextField(professeurControleur.getIdProfesseurModel(), professeur.getIdprofesseur(), 10);
 
