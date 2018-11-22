@@ -42,7 +42,7 @@ public class MenuProfRefVue extends JFrame {
             }
         });
         panelGeneral.add(boutonGererProf);
-        this.boutonGererEtudiants.addActionListener(new ActionListener() {
+        this.boutonGererProf.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 new ProfesseurVue(new ProfesseurModele(),getInstance());
