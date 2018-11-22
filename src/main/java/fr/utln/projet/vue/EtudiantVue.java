@@ -79,7 +79,7 @@ public class EtudiantVue extends JFrame  {
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
         int width = (int) dimension.getWidth();
-        setSize(width / 2, height / 2);
+        setSize(3 * width / 4, 3 * height / 4);
 
         this.modeleEtudiant = modeleEtudiant;
         this.controleurEtudiant = new ControleurEtudiant(this,modeleEtudiant);
@@ -183,7 +183,7 @@ public class EtudiantVue extends JFrame  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controleurEtudiant.modifierEtudiant();
-                etudiantDetailJComboBox.setSelectedIndex(-1);
+                etudiantDetailJComboBox.setSelectedIndex(-1);// unselect value in JCOMBOBOX
                 groupeEtudiantJcomboBox.setSelectedIndex(-1);
 
 
