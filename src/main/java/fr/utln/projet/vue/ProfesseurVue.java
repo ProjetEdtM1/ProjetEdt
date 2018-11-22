@@ -11,6 +11,8 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 
 /*
@@ -50,9 +52,13 @@ public class ProfesseurVue extends JFrame{
     private final JTextField loginProfesseur;
     private final JTextField mdpProfesseur;
 
-    public ProfesseurVue(ProfesseurModele professeurModele) {
+    private MenuProfRefVue menuProfRefVue;
+
+    public ProfesseurVue(ProfesseurModele professeurModele,final MenuProfRefVue menuProfRefVue) {
 
         super("CRUD  professeur");
+
+        this.menuProfRefVue = menuProfRefVue;
 
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
@@ -108,8 +114,6 @@ public class ProfesseurVue extends JFrame{
             }
         });
 
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GridBagConstraints c = new GridBagConstraints();
 
@@ -195,6 +199,42 @@ public class ProfesseurVue extends JFrame{
         c.gridy = 0;
         getContentPane().add(professeurAjoutPanel, c);
 
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonProf();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonProf();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
         setVisible(true);
     }
