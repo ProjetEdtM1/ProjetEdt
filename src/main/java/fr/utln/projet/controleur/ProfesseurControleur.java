@@ -54,10 +54,18 @@ public class ProfesseurControleur {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if ((nomNouvelProfesseurModel.getLength() == 0)|| (prenomNouvelProfesseurModel.getLength() == 0) || (loginNouvelProfesseurModel.getLength() == 0) || (mdpNouvelProfesseurModel.getLength() == 0))
+                Boolean conditionAjout = (nomNouvelProfesseurModel.getLength() == 0)|| (prenomNouvelProfesseurModel.getLength() == 0) || (loginNouvelProfesseurModel.getLength() == 0) || (mdpNouvelProfesseurModel.getLength() == 0);
+                Boolean conditionModif = ((nomProfesseurModel.getLength() == 0) || prenomProfesseurModel.getLength() == 0);
+                if (conditionAjout)
                     professeurVue.setCreationProfesseur(false);
-                else
+                else if (!conditionAjout)
                     professeurVue.setCreationProfesseur(true);
+                if (conditionModif)
+                    professeurVue.setModification(false);
+                else if(!conditionModif)
+                    professeurVue.setModification(true);
+
+
             }
         };
         idNouvelProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
