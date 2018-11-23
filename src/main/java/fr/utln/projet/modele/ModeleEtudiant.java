@@ -122,18 +122,20 @@ public class ModeleEtudiant extends Observable {
     public void modifiereEtudiant(String numetud, String nom, String prenom, String groupe){
 
         dao.updateEtudiant(numetud,nom,prenom,groupe);
-        Etudiant etudiant = new Etudiant();
+        /*Etudiant etudiant = new Etudiant();
         etudiant.setNumetud(numetud);
         etudiant.setNom(nom);
         etudiant.setPrenom(prenom);
         etudiant.setGroupe(groupe);
 
+*/
         for(Etudiant e : etudiants){
 
             if ((e.getNumetud().compareTo(numetud))==0) {
-                //supression Ancien etudiant ajout nouvel etudiant dans arraylist
-                etudiants.remove(e);
-                etudiants.add(etudiant);
+
+                e.setPrenom(prenom);
+                e.setNom(nom);
+
             }}
 
         setChanged();

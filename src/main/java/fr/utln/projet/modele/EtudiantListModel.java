@@ -34,6 +34,9 @@ public class EtudiantListModel extends DefaultComboBoxModel<Etudiant> implements
 
     @Override
     public Etudiant getElementAt(int index) {
-        return etudiants.get(index);
+        if (etudiants.size() > index)
+            return etudiants.get(index);
+
+        return null;
     }
 }

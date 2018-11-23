@@ -198,7 +198,7 @@ public class EtudiantVue extends JFrame  {
             }
         });
 
-        /* bloque l'écriture dans les champs text me servira a afficher suelement */
+        /* bloque l'écriture dans les champs text tant qu'il n'y as pas d'étudiant choisit */
         numEtudDetailTextField.setEnabled(false);
         nomEtudDetailTextField.setEnabled(false);
         prenomEtudDetailTextField.setEnabled(false);
