@@ -200,10 +200,10 @@ public class DAOProfesseur {
     }
 
         /**
-         * Methode qui retroune un Etudiant trouvé en Base de donnée en fonction de son numetud(clef primaire)
+         * Methode qui retroune un Professeur trouvé en Base de donnée en fonction de son numetud(clef primaire)
          *
          * @param IdPRofesseur
-         * @return instance Etudiant
+         * @return instance Professeur
          *
          * @author CLAIN Cyril
          */
@@ -215,7 +215,7 @@ public class DAOProfesseur {
             Professeur professeur = new Professeur();
 
 
-            //requette de selection des Etudiant
+            //requette de selection des Professeur
             String sql = "SELECT * FROM PROFESSEUR "+"where IDPROFESSEUR = ?";
             System.out.println("num etud : "+IdPRofesseur);
             try {
@@ -234,7 +234,7 @@ public class DAOProfesseur {
             }
 
             catch (SQLException e1) {
-                System.out.println("error in getEtudiant : "+e1.getMessage());
+                System.out.println("error in getProfesseur : "+e1.getMessage());
 
             }
 
