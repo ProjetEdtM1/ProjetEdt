@@ -6,16 +6,19 @@ import fr.utln.projet.modele.ModuleModele;
 import fr.utln.projet.module.Module;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.*;
 
 public class ModuleVUE extends Fenetre {
     public static ModuleControleur moduleControleur;
     public static ModuleModele moduleModele;
     public static ModuleListeModele moduleListeModele;
+
+    public static JPanel ajoutModulePanel = new JPanel(new GridBagLayout());
+    public static JPanel suppressionModulePanel = new JPanel(new GridBagLayout());
+
 
     public static JButton ajout = new JButton("Ajouter");
     public static JButton annuler = new JButton("Annuler");
@@ -26,46 +29,55 @@ public class ModuleVUE extends Fenetre {
     public static JTextField nbHeureTd = new JTextField();
     public static JTextField nbHeureTp = new JTextField();
 
-    public static JLabel intituleModule = new JLabel("Intitulé Module ");
-    public static JLabel heureCm = new JLabel("nombre d'heures total des CM");
-    public static JLabel heureTd = new JLabel("nombre d'heures total des TD");
-    public static JLabel heureTp = new JLabel("nombre d'heures total des TP");
+    public static JLabel intituleModule = new JLabel("Intitulé Module :");
+    public static JLabel heureCm = new JLabel("Heure(s) CM :");
+    public static JLabel heureTd = new JLabel("Heure(s) TD :");
+    public static JLabel heureTp = new JLabel("Heure(s) TP :");
 
     public JList<Module> supprimerModule;
+
+    private static JPanel moduleDetailPanel = new JPanel(new GridBagLayout());
+    private final JButton modifierModuleJBouton = new JButton("valider");
+    private final JButton cancelModifierModuleJButton = new JButton("annuler");
+
+    private final JComboBox<Module> moduleDetailJComboBox;
+
+
+    private static JTextField intituleDetailTextField = new JTextField();
+    private static JTextField nbHcmDetailTextField = new JTextField();
+    private static JTextField nbHtdDetailTextField = new JTextField();
+    private static JTextField nbHtpDetailTextField = new JTextField();
+
+    private final JLabel intituleModuleDetaillabel = new JLabel("Intitulé Module :");
+    private final JLabel nbHcmDetaillabel = new JLabel("Heure(s) CM :");
+    private final JLabel nbHtdDetaillabel = new JLabel("Heure(s) TD :");
+    private final JLabel nbHtpDetaillabel = new JLabel("Heure(s) TP :");
 
     private MenuProfRefVue menuProfRefVue;
 
     public ModuleVUE(ModuleModele moduleModele, final MenuProfRefVue menuProfRefVue) {
         super();
+        this.setTitle("Gestion des Module");
 
         this.menuProfRefVue = menuProfRefVue;
 
-        JPanel global = new JPanel();
-        this.setTitle("Ajouter un module");
-
-        global.setLayout(new GridBagLayout());
+//        JPanel global = new JPanel();
+//        this.setTitle("Gestion des modules");
+//
+        getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints contrainte = new GridBagConstraints();
 
         this.moduleModele = moduleModele;
         this.moduleControleur = new ModuleControleur(this, moduleModele);
         this.moduleListeModele = new ModuleListeModele(moduleControleur.getListModule());
         this.supprimerModule = new JList<Module>(moduleListeModele);
-        System.out.println("moduleListeModele: " + moduleListeModele.getSize());
 
 
         moduleModele.addObserver(moduleListeModele);
 
-        for (Module m: moduleListeModele.listeModule) {
-            System.out.println(m);
-        }
-
-        String liste[] = {"1", "2", "3"};
-
-//        supprimerModule = new JList<>(moduleListeModele);
-
-        System.out.println("ALLLO " + supprimerModule.getMaxSelectionIndex());
-
-//        supprimerModule.add();
+//        for (Module m: moduleListeModele.listeModule) {
+//            moduleListeModele.addElement(m);
+//        }
 
         ajout.setEnabled(false);
         ajout.addActionListener(new ActionListener() {
@@ -75,73 +87,189 @@ public class ModuleVUE extends Fenetre {
             }
         });
 
+        supprimer.setEnabled(false);
+        supprimerModule.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                setBoutonSupprimer(supprimerModule.getSelectedValue() != null);
+            }
+        });
+
+        supprimer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (moduleControleur.supprimerModule(supprimerModule.getSelectedValue()))
+                {
+                    setBoutonSupprimer(supprimerModule.getSelectedValue() == null);
+                    System.out.println("YO ");
+                }
+                else
+                    System.out.println("LU ");
+            }
+        });
+
         ajoutmodule = new JTextField(moduleControleur.getIntituleNouveauModuleModele(),"",10);
         nbHeureCm = new JTextField(moduleControleur.getNbHCmNouveauModuleModele(),"",10);
         nbHeureTd = new JTextField(moduleControleur.getNbHTdNouveauModuleModele(),"",10);
         nbHeureTp = new JTextField(moduleControleur.getNbHTpNouveauModuleModele(),"",10);
 
-        supprimer.setEnabled(false);
-        supprimer.addActionListener(new ActionListener() {
+        intituleDetailTextField = new JTextField(moduleControleur.getIntituleModuleModele(),"",10);
+        nbHcmDetailTextField = new JTextField(moduleControleur.getNbHCmModuleModele(),"",10);
+        nbHtdDetailTextField = new JTextField(moduleControleur.getNbHTdModuleModele(),"",10);
+        nbHtpDetailTextField = new JTextField(moduleControleur.getNbHTpModuleModele(),"",10);
+
+
+        // Liste des modules pouvant être modifiés
+        moduleDetailJComboBox = new JComboBox<Module>(moduleListeModele);
+
+        moduleDetailJComboBox.addItemListener(new ItemListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                moduleControleur.supprimerModule();
+            public void itemStateChanged(ItemEvent e) {
+                switch (e.getStateChange()) {
+                    case ItemEvent.DESELECTED:
+                        montrerDetail(null);
+                        break;
+                    case ItemEvent.SELECTED:
+                        montrerDetail(moduleDetailJComboBox.getItemAt(moduleDetailJComboBox.getSelectedIndex()));
+                        break;
+                }
             }
         });
 
+        modifierModuleJBouton.setEnabled(false);
+        modifierModuleJBouton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moduleControleur.modifierEtudiant();
+            }
+        });
+
+        cancelModifierModuleJButton.setEnabled(false);
+
+        intituleDetailTextField.setEnabled(false);
+        nbHcmDetailTextField.setEnabled(false);
+        nbHtdDetailTextField.setEnabled(false);
+        nbHtpDetailTextField.setEnabled(false);
 
         // placement des JLabel sur la colonne 1
 
+
         contrainte.gridx = 0;
         contrainte.gridy = 1;
-        global.add(intituleModule, contrainte);
+        ajoutModulePanel.add(intituleModule, contrainte);
 
         contrainte.gridy = 2;
-        global.add(heureCm, contrainte);
+        ajoutModulePanel.add(heureCm, contrainte);
 
         contrainte.gridy = 3;
-        global.add(heureTd, contrainte);
+        ajoutModulePanel.add(heureTd, contrainte);
 
         contrainte.gridy = 4;
-        global.add(heureTp, contrainte);
-
+        ajoutModulePanel.add(heureTp, contrainte);
 
         // placement des JTExtField sur la colonne 2
 
         contrainte.gridx = 2;
         contrainte.gridy = 1;
-        global.add(ajoutmodule, contrainte);
+        ajoutModulePanel.add(ajoutmodule, contrainte);
 
         contrainte.gridy = 2;
-        global.add(nbHeureCm, contrainte);
+        ajoutModulePanel.add(nbHeureCm, contrainte);
 
         contrainte.gridy = 3;
-        global.add(nbHeureTd, contrainte);
+        ajoutModulePanel.add(nbHeureTd, contrainte);
 
         contrainte.gridy = 4;
-        global.add(nbHeureTp, contrainte);
+        ajoutModulePanel.add(nbHeureTp, contrainte);
 
         // placement de la JList de modules pour la suppression
+        ajoutModulePanel.setBorder(BorderFactory.createTitledBorder("Ajout"));
+        suppressionModulePanel.setBorder(BorderFactory.createTitledBorder("Supprimer"));
+
 
         contrainte.gridx = 3;
         contrainte.gridy = 1;
-        global.add(supprimerModule, contrainte);
+        suppressionModulePanel.add(supprimerModule, contrainte);
 
         // Placement des JButton en bas
 
         contrainte.gridx = 1;
         contrainte.gridy = 5;
-        global.add(annuler, contrainte);
+        ajoutModulePanel.add(annuler, contrainte);
 
         contrainte.gridx = 0;
-        global.add(ajout, contrainte);
+        ajoutModulePanel.add(ajout, contrainte);
 
         contrainte.gridx = 3;
         contrainte.gridy = 2;
-        global.add(supprimer, contrainte);
+        suppressionModulePanel.add(supprimer, contrainte);
 
 
+        contrainte.gridx = 0;
+        contrainte.gridy = 0;
+        getContentPane().add(ajoutModulePanel, contrainte);
 
-        getContentPane().add(global);
+        contrainte.gridx = 1;
+        contrainte.gridy = 0;
+        getContentPane().add(suppressionModulePanel, contrainte);
+
+        //modification module
+
+        moduleDetailPanel.setBorder(BorderFactory.createTitledBorder("Détails modules"));
+
+        GridBagConstraints c = new GridBagConstraints();
+
+        c.fill = GridBagConstraints.BOTH;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 2;
+        moduleDetailPanel.add(moduleDetailJComboBox, c);
+
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 1;
+        moduleDetailPanel.add(intituleModuleDetaillabel,c);
+
+        c.gridx = 1;
+        c.gridy = 1;
+        moduleDetailPanel.add(intituleDetailTextField,c);
+
+        c.gridx = 0;
+        c.gridy = 2;
+        moduleDetailPanel.add(nbHcmDetaillabel,c);
+
+        c.gridx = 1;
+        c.gridy = 2;
+        moduleDetailPanel.add(nbHcmDetailTextField,c);
+
+        c.gridx = 0;
+        c.gridy = 3;
+        moduleDetailPanel.add(nbHtdDetaillabel,c);
+
+        c.gridx = 1;
+        c.gridy = 3;
+        moduleDetailPanel.add(nbHtdDetailTextField,c);
+
+        c.gridx = 0;
+        c.gridy = 4;
+        moduleDetailPanel.add(nbHtpDetaillabel,c);
+
+        c.gridx = 1;
+        c.gridy = 4;
+        moduleDetailPanel.add(nbHtpDetailTextField,c);
+
+        c.gridx = 1;
+        c.gridy = 5;
+        c.gridwidth = 1;
+        moduleDetailPanel.add(cancelModifierModuleJButton,c);
+
+        c.gridy = 5;
+        c.gridx = 0;
+        moduleDetailPanel.add(modifierModuleJBouton,c);
+
+        c.gridx = 2;
+        c.gridy = 0;
+        getContentPane().add(moduleDetailPanel,c);
 
         addWindowListener(new WindowListener() {
             @Override
@@ -208,9 +336,39 @@ public class ModuleVUE extends Fenetre {
         ajout.setEnabled(gris);
     }
 
+    public void setBoutonSupprimer(boolean gris) {
+        supprimer.setEnabled(gris);
+    }
 
-//    public static void main(String[] args) {
-//        ModuleModele moduleModele = new ModuleModele();
-//        new ModuleVUE(moduleModele);
-//    }
+    public void setBoutonModifier(boolean gris){
+        nbHcmDetailTextField.setEnabled(true);
+        nbHtdDetailTextField.setEnabled(true);
+        nbHtpDetailTextField.setEnabled(true);
+        modifierModuleJBouton.setEnabled(true);
+        cancelModifierModuleJButton.setEnabled(true);
+    }
+
+    public void montrerDetail(Module module){
+        if (module == null){
+            intituleDetailTextField.setText("");
+            nbHcmDetailTextField.setText("");
+            nbHtdDetailTextField.setText("");
+            nbHtpDetailTextField.setText("");
+        }
+        else{
+            intituleDetailTextField.setText(module.getIntitule());
+            intituleDetailTextField= new JTextField(moduleControleur.getIntituleModuleModele(),module.getIntitule(),10);
+
+            nbHcmDetailTextField.setText(String.valueOf(module.getNbHeureCm()));
+            nbHcmDetailTextField= new JTextField(moduleControleur.getNbHCmModuleModele(),String.valueOf(module.getNbHeureCm()),10);
+
+            nbHtdDetailTextField.setText(String.valueOf(module.getNbHeureTd()));
+            nbHtdDetailTextField= new JTextField(moduleControleur.getNbHTdModuleModele(),String.valueOf(module.getNbHeureTd()),10);
+
+            nbHtpDetailTextField.setText(String.valueOf(module.getNbHeureTP()));
+            nbHtpDetailTextField= new JTextField(moduleControleur.getNbHTpModuleModele(),String.valueOf(module.getNbHeureTP()),10);
+        }
+    }
+
+
 }

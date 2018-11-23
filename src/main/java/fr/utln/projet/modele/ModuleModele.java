@@ -8,25 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
-import static java.lang.Integer.*;
-
 public class ModuleModele extends Observable {
     private ModuleDAO moduleDao = new ModuleDAO();
 
-    List<Module> module = new ArrayList();
+    private List<Module> listeModule = new ArrayList();
 
-//    public enum ModuleModeleEvent {MODULE}
+    public enum ModeleModuleEvent {MODULE}
 
-    public List<Module> getModule() {
-        module = moduleDao.creationListModule();
-        return module;
+    public List<Module> getListeModule() {
+        listeModule = moduleDao.creationListModule();
+        return listeModule;
     }
 
-//    public Module getModule(final String intitule) {
-//        Module module;
-//        // chercher un module dans la DB
-//        return module;
-//    }
 
     public int convertionIntStr(String mot) {
         try {
@@ -50,13 +43,6 @@ public class ModuleModele extends Observable {
         try {
             int intNbHCm = 0, intNbHTd = 0, intNbHTp = 0;
 
-//            try {
-//                convertion(nbHCm);
-//            } catch (NumberFormatException e) {
-//                System.out.println("erreur de conversion pour nbHCm");
-//            }
-
-
             if (convertion(nbHCm)) {
                 intNbHCm = convertionIntStr(nbHCm);
             }
@@ -70,9 +56,7 @@ public class ModuleModele extends Observable {
 
             moduleDao.persistModule(intitule, intNbHCm, intNbHTd, intNbHTp);
 
-            // Module module = new Module.Builder(intitule).nbHeureCm(intNbHCm).nbHeureTd(intNbHTd).nbHeureTp(intNbHTp).build();
-
-            // ajouter le module a la bd
+            // ajouter le listeModule a la bd
             // on previent les observateurs du changement
             setChanged();
             notifyObservers();
@@ -81,12 +65,39 @@ public class ModuleModele extends Observable {
         }
 
 
-//    public void supprimerModule(final String intitule) {
-//        supprimerModule(getModule(intitule));
-//    }
+    }
 
-//        public void supprimerModule (Module module){
-//
-//        }
+    public boolean supprimerModule (Module nouveauModule) {
+        System.out.println("toto " + nouveauModule.getIntitule());
+        boolean i = moduleDao.supprimerModule(nouveauModule.getIntitule());
+        System.out.println("AHHAAHHA " + nouveauModule);
+        listeModule.remove(nouveauModule);
+        setChanged();
+        notifyObservers();
+        return i;
+    }
+
+    /**
+     * Permet de modifier un Module
+     * @param intuleModule
+     * @param nbHeureCm
+     * @param nbHeureTd
+     * @param nbHeureTp
+     * @author Nicolas Guigou
+     */
+    public void modifierModule(String intuleModule, int nbHeureCm, int nbHeureTd, int nbHeureTp){
+        moduleDao.updateModule(intuleModule,nbHeureCm,nbHeureTd,nbHeureTp);
+        Module module = new Module.Builder(intuleModule).
+                nbHeureCm(nbHeureCm).
+                nbHeureTd(nbHeureTd).
+                nbHeureTp(nbHeureTp).build();
+        for (Module mod :listeModule) {
+            if(mod.getIntitule().compareTo(intuleModule)==0){
+                listeModule.remove(mod);
+                listeModule.add(module);
+            }
+        }
+        setChanged();
+        notifyObservers(ModeleModuleEvent.MODULE);
     }
 }

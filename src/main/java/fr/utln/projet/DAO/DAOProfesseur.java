@@ -179,16 +179,16 @@ public class DAOProfesseur {
 
             if (professeur.getNom() != nom) {
                 PreparedStatement statementSelectProfesseurFromID = conn.getConn().prepareStatement(sqlNom);
-                statementSelectProfesseurFromID.setObject(1, IdPRofesseur, Types.VARCHAR);
-                statementSelectProfesseurFromID.setObject(2, nom, Types.VARCHAR);
+                statementSelectProfesseurFromID.setObject(2, IdPRofesseur, Types.VARCHAR);
+                statementSelectProfesseurFromID.setObject(1, nom, Types.VARCHAR);
                 int resDetailUnProfesseur = statementSelectProfesseurFromID.executeUpdate();
 
 
             }
             if (professeur.getPrenom() != prenom) {
                 PreparedStatement statementSelectProfesseurFromID = conn.getConn().prepareStatement(sqlPrenom);
-                statementSelectProfesseurFromID.setObject(1, IdPRofesseur, Types.VARCHAR);
-                statementSelectProfesseurFromID.setObject(2, prenom, Types.VARCHAR);
+                statementSelectProfesseurFromID.setObject(2, IdPRofesseur, Types.VARCHAR);
+                statementSelectProfesseurFromID.setObject(1, prenom, Types.VARCHAR);
                 int resDetailUnProfesseur = statementSelectProfesseurFromID.executeUpdate();
 
             }

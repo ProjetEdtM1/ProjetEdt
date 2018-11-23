@@ -16,9 +16,9 @@ import java.awt.event.*;
  *
  * Description   : Partie visible de mon interface permet de voir les formulaire CRUD d'étudiant
  *
- * Version       : 2.2
+ * Version       : 2.3
  *
- * Date          : 16/11/2018
+ * Date          : 21/11/2018
  *
  * Copyright     : CLAIN Cyril
  */
@@ -60,10 +60,10 @@ public class EtudiantVue extends JFrame  {
     private final JComboBox<Etudiant> etudiantDetailJComboBox;
     private final JComboBox<String> groupeEtudiantJcomboBox;
 
-    private static JTextField numEtudDetailTextField;// = new JTextField();
-    private static JTextField nomEtudDetailTextField;// = new JTextField();
-    private static JTextField prenomEtudDetailTextField;// = new JTextField();
-    private static JTextField groupeEtudDetailTextField;// = new JTextField();
+    private static JTextField numEtudDetailTextField;
+    private static JTextField nomEtudDetailTextField;
+    private static JTextField prenomEtudDetailTextField;
+    private static JTextField groupeEtudDetailTextField;
 
     private final JLabel numEtudDetaillabel = new JLabel(" num etud :");;
     private final JLabel nomEtudDetaillabel = new JLabel("Nom :");
@@ -79,7 +79,7 @@ public class EtudiantVue extends JFrame  {
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
         int width = (int) dimension.getWidth();
-        setSize(width / 2, height / 2);
+        setSize(3 * width / 4, 3 * height / 4);
 
         this.modeleEtudiant = modeleEtudiant;
         this.controleurEtudiant = new ControleurEtudiant(this,modeleEtudiant);
@@ -150,7 +150,7 @@ public class EtudiantVue extends JFrame  {
             public void itemStateChanged(ItemEvent e) {
                 switch (e.getStateChange()) {
                     case ItemEvent.DESELECTED:
-
+                        modifierEtudiantJBouton.setEnabled(false);
                         break;
                     case ItemEvent.SELECTED:
                         modifierEtudiantJBouton.setEnabled(true);
@@ -183,10 +183,20 @@ public class EtudiantVue extends JFrame  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controleurEtudiant.modifierEtudiant();
+                etudiantDetailJComboBox.setSelectedIndex(-1);// unselect value in JCOMBOBOX
+                groupeEtudiantJcomboBox.setSelectedIndex(-1);
+
+
             }
         });
-        cancelModifierEtudiantJButton.setEnabled(false);
 
+        cancelModifierEtudiantJButton.setEnabled(false);
+        cancelModifierEtudiantJButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                montrerDetail(etudiantDetailJComboBox.getItemAt(etudiantDetailJComboBox.getSelectedIndex()));
+            }
+        });
 
         /* bloque l'écriture dans les champs text me servira a afficher suelement */
         numEtudDetailTextField.setEnabled(false);
@@ -278,7 +288,6 @@ public class EtudiantVue extends JFrame  {
         c.gridx = 1;
         c.gridy = 4;
         etudiantDetailPanel.add(groupeEtudiantJcomboBox,c);
-        //etudiantDetailPanel.add(groupeEtudDetailTextField, c);
 
         c.gridx = 1;
         c.gridy = 5;
@@ -289,8 +298,6 @@ public class EtudiantVue extends JFrame  {
         c.gridx = 0;
         etudiantDetailPanel.add(modifierEtudiantJBouton,c);
 
-       /* c.gridx = 5;
-        c.gridy = 0;*/
 
 
 

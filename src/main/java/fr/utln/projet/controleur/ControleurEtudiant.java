@@ -170,6 +170,7 @@ public class ControleurEtudiant {
      */
     public void modifierEtudiant() {
         try {
+
             modeleEtudiant.modifiereEtudiant(
                     numEtudiantModel.getText(0, numEtudiantModel.getLength()),
                     nomEtudiantModel.getText(0, nomEtudiantModel.getLength()),

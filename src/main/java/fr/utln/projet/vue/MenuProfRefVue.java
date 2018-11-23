@@ -2,6 +2,7 @@ package fr.utln.projet.vue;
 
 import fr.utln.projet.modele.ModeleEtudiant;
 import fr.utln.projet.modele.ModuleModele;
+import fr.utln.projet.modele.ProfesseurModele;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +12,7 @@ import java.awt.event.ActionListener;
 public class MenuProfRefVue extends JFrame {
     private  JButton boutonGererModules = new JButton("Gérer modules");
     private  JButton boutonGererEtudiants = new JButton("Gérer étudiants");
+    private  JButton boutonGererProf = new JButton("Gérer professeurs");
 
     private String loginProfRef;
 
@@ -39,6 +41,14 @@ public class MenuProfRefVue extends JFrame {
                 boutonGererEtudiants.setEnabled(false);
             }
         });
+        panelGeneral.add(boutonGererProf);
+        this.boutonGererProf.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ProfesseurVue(new ProfesseurModele(),getInstance());
+                boutonGererProf.setEnabled(false);
+            }
+        });
 
         contentPane.add(panelGeneral);
 
@@ -56,5 +66,9 @@ public class MenuProfRefVue extends JFrame {
 
     public void setTrueBoutonEtudiant(){
         this.boutonGererEtudiants.setEnabled(true);
+    }
+
+    public void setTrueBoutonProf(){
+        this.boutonGererProf.setEnabled(true);
     }
 }

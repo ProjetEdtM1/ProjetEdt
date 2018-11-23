@@ -9,9 +9,6 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.List;
 
 public class ModuleControleur{
@@ -22,6 +19,12 @@ public class ModuleControleur{
     private Document nbHCmNouveauModuleModele = new PlainDocument();
     private Document nbHTdNouveauModuleModele = new PlainDocument();
     private Document nbHTpNouveauModuleModele = new PlainDocument();
+
+    private Document intituleModuleModele = new PlainDocument();
+    private Document nbHCmModuleModele = new PlainDocument();
+    private Document nbHTdModuleModele = new PlainDocument();
+    private Document nbHTpModuleModele = new PlainDocument();
+
 
 
     public ModuleControleur(final ModuleVUE moduleVue, ModuleModele moduleModele) {
@@ -42,11 +45,24 @@ public class ModuleControleur{
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if(intituleNouveauModuleModele.getLength() == 0) {
+
+                //todo Modifier les conditions d'ajout
+                boolean conditionAjout = ((intituleNouveauModuleModele.getLength()==0) || (nbHCmNouveauModuleModele.getLength()==0) ||
+                        (nbHTdNouveauModuleModele.getLength()==0) || (nbHTpNouveauModuleModele.getLength()==0));
+                boolean conditionModif = ((nbHCmModuleModele.getLength()==0) ||
+                        (nbHTdModuleModele.getLength()==0) || (nbHTpModuleModele.getLength()==0));
+
+                if(conditionAjout) {
                     moduleVUE.setBoutonAjouter(false);
                 }
-                else {
-                    moduleVUE.setBoutonAjouter(true);
+                else if (!conditionAjout) {
+                   moduleVUE.setBoutonAjouter(true);
+                }
+                if(conditionModif){
+                    moduleVUE.setBoutonModifier(false);
+                }
+                else if(!conditionModif){
+                    moduleVUE.setBoutonModifier(true);
                 }
             }
         };
@@ -55,6 +71,11 @@ public class ModuleControleur{
         nbHCmNouveauModuleModele.addDocumentListener(ecouterChangementTexte);
         nbHTdNouveauModuleModele.addDocumentListener(ecouterChangementTexte);
         nbHTpNouveauModuleModele.addDocumentListener(ecouterChangementTexte);
+
+        intituleModuleModele.addDocumentListener(ecouterChangementTexte);
+        nbHCmModuleModele.addDocumentListener(ecouterChangementTexte);
+        nbHTdModuleModele.addDocumentListener(ecouterChangementTexte);
+        nbHTpModuleModele.addDocumentListener(ecouterChangementTexte);
 
     }
 
@@ -83,9 +104,42 @@ public class ModuleControleur{
     }
 
 //    Methode pour supprimer un module
+//todo Revoir cette fonction
+    public boolean supprimerModule(Module module) {
+        boolean i = moduleModele.supprimerModule(module);
+        return i;
+    }
 
-    public void supprimerModule() {
+    /**
+     * Modifie un étudiant avec les champs saisient par l'utilisateur
+     * @author Nicolas Guigou
+     */
+    public void modifierEtudiant(){
+        try {
+            moduleModele.modifierModule(intituleModuleModele.getText(0,intituleModuleModele.getLength()),
+                    convertionIntStr(nbHCmModuleModele.getText(0,nbHCmModuleModele.getLength())),
+                    convertionIntStr(nbHTdModuleModele.getText(0,nbHTdModuleModele.getLength())),
+                    convertionIntStr(nbHTpModuleModele.getText(0,nbHTpModuleModele.getLength())));
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public int convertionIntStr(String mot) {
+        try {
+            int res = Integer.parseInt(mot);
+            return res;
+        } catch (NumberFormatException e) {
+            System.out.println("Vous n'avez pas entré un nombre");
+        }
+        return -1;
+    }
+
+    public boolean convertion(String mot) {
+        if (convertionIntStr(mot) < 0) {
+            return false;
+        }
+        return true;
     }
 
     public Document getIntituleNouveauModuleModele() {
@@ -104,7 +158,23 @@ public class ModuleControleur{
         return nbHTpNouveauModuleModele;
     }
 
+    public Document getIntituleModuleModele() {
+        return intituleModuleModele;
+    }
+
+    public Document getNbHCmModuleModele() {
+        return nbHCmModuleModele;
+    }
+
+    public Document getNbHTdModuleModele() {
+        return nbHTdModuleModele;
+    }
+
+    public Document getNbHTpModuleModele() {
+        return nbHTpModuleModele;
+    }
+
     public List<Module> getListModule() {
-        return moduleModele.getModule();
+        return moduleModele.getListeModule();
     }
 }

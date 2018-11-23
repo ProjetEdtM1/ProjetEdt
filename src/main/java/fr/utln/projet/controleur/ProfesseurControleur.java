@@ -57,21 +57,19 @@ public class ProfesseurControleur {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                Boolean conditionDAjout = (nomNouvelProfesseurModel.getLength() == 0)|| (prenomNouvelProfesseurModel.getLength() == 0) ||(loginNouvelProfesseurModel.getLength() == 0) || (mdpNouvelProfesseurModel.getLength() == 0);
-                Boolean conditionModification = ((prenomNouvelProfesseurModel.getLength() == 0)|| (nomNouvelProfesseurModel.getLength() == 0) || (loginProfesseurModel.getLength() == 0) || mdpProfesseurModel.getLength() == 0);
-                if (conditionDAjout)
+
+                Boolean conditionAjout = (nomNouvelProfesseurModel.getLength() == 0)|| (prenomNouvelProfesseurModel.getLength() == 0) || (loginNouvelProfesseurModel.getLength() == 0) || (mdpNouvelProfesseurModel.getLength() == 0);
+                Boolean conditionModif = ((nomProfesseurModel.getLength() == 0) || prenomProfesseurModel.getLength() == 0);
+                if (conditionAjout)
                     professeurVue.setCreationProfesseur(false);
-                else if (!conditionDAjout)
+                else if (!conditionAjout)
                     professeurVue.setCreationProfesseur(true);
+                if (conditionModif)
+                    professeurVue.setModification(false);
+                else if(!conditionModif)
+                    professeurVue.setModification(true);
 
-                if (conditionModification)
-                {
-                    professeurVue.setModificationProfesseur(false);
-                }
-                else if (!conditionModification){
-                    professeurVue.setModificationProfesseur(true);
 
-                }
             }
         };
         idNouvelProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
@@ -85,6 +83,7 @@ public class ProfesseurControleur {
        prenomProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
        loginProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
        mdpProfesseurModel.addDocumentListener(ecouteurchangementtexProfesseur);
+
     }
 
     /**
@@ -93,7 +92,7 @@ public class ProfesseurControleur {
      * @author      CLAIN Cyril
      */
 
-    public void ajouterProfesseur() {
+    public void persisteProfesseur() {
         try {
 
             professeurModele.persisteProfesseur(
@@ -105,7 +104,6 @@ public class ProfesseurControleur {
             cancelProfesseur();
         }
         catch (BadLocationException e){
-            System.out.println("erreur dans controleur");
             e.printStackTrace();
         }
     }
@@ -137,8 +135,19 @@ public class ProfesseurControleur {
         }
     }
 
-    public void ModificationProfesseur(){
-        professeurModele.updateProfesseur();
+
+    public void modifierProfesseur() {
+        try {
+            System.out.println("heeeey"+idProfesseurModel);
+            professeurModele.modifierProfesseur(
+                    idProfesseurModel.getText(0, idProfesseurModel.getLength()),
+                    nomProfesseurModel.getText(0, nomProfesseurModel.getLength()),
+                    prenomProfesseurModel.getText(0, prenomProfesseurModel.getLength())
+
+            );
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
     }
 
     public Document getIdNouvelProfesseurModel() {
@@ -183,6 +192,30 @@ public class ProfesseurControleur {
 
     public List<Professeur> getListProfesseur() {
         return(professeurModele.getProfesseurs());
+    }
+
+    public Document getIdProfesseurModel() {
+        return idProfesseurModel;
+    }
+
+    public void setIdProfesseurModel(Document idProfesseurModel) {
+        idProfesseurModel = idProfesseurModel;
+    }
+
+    public Document getNomProfesseurModel() {
+        return nomProfesseurModel;
+    }
+
+    public void setNomProfesseurModel(Document nomProfesseurModel) {
+        nomProfesseurModel = nomProfesseurModel;
+    }
+
+    public Document getPrenomProfesseurModel() {
+        return prenomProfesseurModel;
+    }
+
+    public void setPrenomProfesseurModel(Document prenomProfesseurModel) {
+        prenomProfesseurModel = prenomProfesseurModel;
     }
 
 }

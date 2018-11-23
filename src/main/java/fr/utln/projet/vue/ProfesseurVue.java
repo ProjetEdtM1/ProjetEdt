@@ -9,8 +9,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 
 /*
@@ -28,6 +27,7 @@ import java.awt.event.ActionListener;
 public class ProfesseurVue extends JFrame{
     private final ProfesseurModele professeurModele;
     private final ProfesseurControleur professeurControleur;
+    private MenuProfRefVue menuProfRefVue;
 
     private static ProfesseurListModele professeurListModele;
 
@@ -50,7 +50,24 @@ public class ProfesseurVue extends JFrame{
     private final JTextField loginProfesseur;
     private final JTextField mdpProfesseur;
 
-    public ProfesseurVue(ProfesseurModele professeurModele) {
+    private static JPanel professeurDetailPanel = new JPanel(new GridBagLayout());
+    private final JButton modifierProfesseurJBouton = new JButton("valider");
+    private final JButton cancelModifierProfesseurJButton = new JButton("annuler ");
+
+    private final JComboBox<Professeur> profeseurDetailJComboBox;
+
+    private static JTextField numProfDetailTextField;
+    private static JTextField nomProfDetailTextField;
+    private static JTextField prenomProfDetailTextField;
+
+    private final JLabel numProfDetaillabel = new JLabel(" id Professeur :");;
+    private final JLabel nomProfDetaillabel = new JLabel("Nom :");
+    private final JLabel prenomProfDetaillabel = new JLabel("prenom :");
+
+
+
+
+    public ProfesseurVue(ProfesseurModele professeurModele,final MenuProfRefVue menuProfRefVue) {
 
         super("CRUD  professeur");
 
@@ -61,6 +78,7 @@ public class ProfesseurVue extends JFrame{
         this.professeurModele = professeurModele;
         this.professeurControleur = new ProfesseurControleur(this, professeurModele);
         this.professeurListModele = new ProfesseurListModele(professeurControleur.getListProfesseur());
+        this.menuProfRefVue = menuProfRefVue;
 
         professeurModele.addObserver(professeurListModele);
 
@@ -81,10 +99,46 @@ public class ProfesseurVue extends JFrame{
             }
         });
 
+        // variable ajout professeur
         nomProfesseur = new JTextField(professeurControleur.getNomNouvelProfesseurModel(),"",10);
         prenomprofesseur = new JTextField(professeurControleur.getPrenomNouvelProfesseurModel(),"",10);
         loginProfesseur = new JTextField(professeurControleur.getLoginNouvelProfesseurModel(),"",10);
         mdpProfesseur = new JTextField(professeurControleur.getMdpNouvelProfesseurModel(),"",10);
+
+        //variable modification professeur
+        numProfDetailTextField = new JTextField(professeurControleur.getIdProfesseurModel(),"",10);
+        nomProfDetailTextField = new JTextField(professeurControleur.getNomProfesseurModel(),"",10);
+        prenomProfDetailTextField = new JTextField(professeurControleur.getPrenomProfesseurModel(),"",10);
+
+        numProfDetailTextField.setEnabled(false);
+        nomProfDetailTextField.setEnabled(false);
+        prenomProfDetailTextField.setEnabled(false);
+        modifierProfesseurJBouton.setEnabled(false);
+
+        modifierProfesseurJBouton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                professeurControleur.modifierProfesseur();
+            }
+        });
+
+        profeseurDetailJComboBox = new JComboBox<Professeur>(professeurListModele);
+
+        profeseurDetailJComboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                switch (e.getStateChange()) {
+                    case ItemEvent.DESELECTED:
+                        montrerDetail(null);
+                        break;
+                    case ItemEvent.SELECTED:
+                        modifierProfesseurJBouton.setEnabled(true);
+                        montrerDetail(profeseurDetailJComboBox.getItemAt(profeseurDetailJComboBox.getSelectedIndex()));
+                        break;
+                }
+
+            }
+        });
 
         ajoutCancelProfesseurJButton.setEnabled(false);
         ajoutCancelProfesseurJButton.addActionListener(new ActionListener() {
@@ -99,7 +153,7 @@ public class ProfesseurVue extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 if (loginProfesseur.getText().charAt(0) == 'p')
                 {
-                    professeurControleur.ajouterProfesseur();
+                    professeurControleur.persisteProfesseur();
                 }
                 else{
                     JOptionPane.showMessageDialog(professeurAjoutPanel, "Le login doit commencé par p ");
@@ -109,10 +163,48 @@ public class ProfesseurVue extends JFrame{
         });
 
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         GridBagConstraints c = new GridBagConstraints();
 
+        professeurDetailPanel.setBorder(BorderFactory.createTitledBorder("Détails profeseur"));
+
+        c.fill = GridBagConstraints.BOTH;
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridwidth = 2;
+        professeurDetailPanel.add(profeseurDetailJComboBox, c);
+
+        c.gridx = 0;
+        c.gridy = 1;
+        c.gridwidth = 1;
+        professeurDetailPanel.add(numProfDetaillabel, c);
+
+        c.gridx = 1;
+        c.gridy = 1;
+        professeurDetailPanel.add(numProfDetailTextField, c);
+
+        c.gridx = 0;
+        c.gridy = 2;
+        professeurDetailPanel.add(nomProfDetaillabel, c);
+
+        c.gridx = 1;
+        c.gridy = 2;
+        professeurDetailPanel.add(nomProfDetailTextField, c);
+
+        c.gridx = 0;
+        c.gridy = 3;
+        professeurDetailPanel.add(prenomProfDetaillabel, c);
+
+        c.gridx = 1;
+        c.gridy = 3;
+        professeurDetailPanel.add(prenomProfDetailTextField, c);
+
+        c.gridx = 0;
+        c.gridy = 4;
+        professeurDetailPanel.add(modifierProfesseurJBouton,c);
+
+        c.gridy = 4;
+        c.gridx = 1;
+        professeurDetailPanel.add(cancelModifierProfesseurJButton,c);
 
         // Ajout d'un professeur
         professeurAjoutPanel.setBorder(BorderFactory.createTitledBorder("Ajout"));
@@ -195,6 +287,47 @@ public class ProfesseurVue extends JFrame{
         c.gridy = 0;
         getContentPane().add(professeurAjoutPanel, c);
 
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 2;
+        c.gridy = 0;
+        getContentPane().add(professeurDetailPanel, c);
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonProf();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonProf();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
         setVisible(true);
     }
@@ -210,6 +343,28 @@ public class ProfesseurVue extends JFrame{
 
     }
 
-    public void setModificationProfesseur(boolean b) {
+
+    public void montrerDetail(Professeur professeur){
+        if (professeur == null){
+            numProfDetailTextField.setText("");
+            nomProfDetailTextField.setText("");
+            prenomProfDetailTextField.setText("");
+        }
+        else {
+            System.out.println("prof : "+professeur.getIdprofesseur());
+            numProfDetailTextField.setText(professeur.getIdprofesseur());
+            numProfDetailTextField = new JTextField(professeurControleur.getIdProfesseurModel(), professeur.getIdprofesseur(), 10);
+
+            nomProfDetailTextField.setText(professeur.getNom());
+            nomProfDetailTextField = new JTextField(professeurControleur.getNomProfesseurModel(), professeur.getNom(), 10);
+
+            prenomProfDetailTextField.setText(professeur.getPrenom());
+            prenomProfDetailTextField = new JTextField(professeurControleur.getPrenomProfesseurModel(), professeur.getPrenom(), 10);
+        }
+    }
+
+    public void setModification(boolean b) {
+        nomProfDetailTextField.setEnabled(true);
+        prenomProfDetailTextField.setEnabled(b);
     }
 }

@@ -14,13 +14,6 @@ public class ModuleListeModele extends DefaultComboBoxModel<Module> implements O
         this.listeModule = module;
     }
 
-    public int getSize() {
-        return listeModule.size();
-    }
-
-    public Module getElement(int i){
-        return this.listeModule.get(i);
-    }
 
     @Override
     public void update(Observable o, Object arg) {
@@ -28,6 +21,16 @@ public class ModuleListeModele extends DefaultComboBoxModel<Module> implements O
             setSelectedItem(null);
         else
             System.out.println(getSelectedItem() + " in " + listeModule);
-            fireContentsChanged(this, 0, listeModule.size() - 1);
+        fireContentsChanged(this, 0, listeModule.size() - 1);
+    }
+
+    @Override
+    public int getSize() {
+        return listeModule.size();
+    }
+
+    @Override
+    public Module getElementAt(int index) {
+        return listeModule.get(index);
     }
 }
