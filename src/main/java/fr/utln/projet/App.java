@@ -1,6 +1,7 @@
 package fr.utln.projet;
 
 
+import fr.utln.projet.modele.SalleModele;
 import fr.utln.projet.vue.*;
 
 import java.sql.SQLException;
@@ -22,9 +23,7 @@ public class App
 //         AuthentificationVue authentificationVue = new AuthentificationVue();
 //        ModuleModele moduleModele = new ModuleModele();
         MenuProfRefVue a = new MenuProfRefVue("coucou");
-        List<Integer> supplierNames = new ArrayList<>();
-        int test = 1;
-        supplierNames.add(test);
-        System.out.println("taille : " + supplierNames.size() + "'\' element(tailel) : " + supplierNames.get(supplierNames.size()-1));
+        SalleModele salleModele = new SalleModele();
+        SalleVue salleVue = new SalleVue(salleModele);
 
     }}

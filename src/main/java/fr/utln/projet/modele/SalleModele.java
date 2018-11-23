@@ -72,11 +72,7 @@ public Salle getSalle(final Integer idSalle){
         }
         Salle salle = new Salle();
         salle.setNumerosalle(numSalle);
-        ListIterator listIterator = salles.listIterator();
-        while( listIterator.hasNext()){
-            Object o = listIterator.next();
-            System.out.println("iterator : "+o);
-        }
+        salles.add(salle);
 
         //On previent les observateurs du changement
         setChanged();

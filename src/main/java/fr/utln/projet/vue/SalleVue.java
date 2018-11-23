@@ -39,7 +39,7 @@ public class SalleVue  extends JFrame {
     private final JButton ajoutOkSalleJButton = new JButton(" Ajouter");
     private final JButton ajoutCancelSalleJButton = new JButton("cancel");
 
-    private final JLabel numSallelabel = new JLabel("nom : ");
+    private final JLabel numSallelabel = new JLabel("Numero de salle : ");
 
     private final JTextField numSalle;
 
