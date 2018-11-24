@@ -112,17 +112,15 @@ public class ProfesseurModele extends Observable {
     public void modifierProfesseur(String id, String nom, String prenom){
 
         dao.updateProfesseur(id,nom,prenom);
-        Professeur professeur = new Professeur();
-        professeur.setNom(nom);
-        professeur.setPrenom(prenom);
-        professeur.setIdprofesseur(id);
 
-        for(Professeur p : professeurs) {
-            if ((p.getIdprofesseur().compareTo(id)) == 0) {
-                professeurs.remove(p);
-                professeurs.add(professeur);
-            }
-        }
+        for(Professeur p : professeurs){
+
+            if ((p.getIdprofesseur().compareTo(id))==0) {
+
+                p.setPrenom(prenom);
+                p.setNom(nom);
+
+            }}
 
 
         setChanged();

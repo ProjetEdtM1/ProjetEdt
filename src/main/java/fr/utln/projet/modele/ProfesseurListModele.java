@@ -35,6 +35,9 @@ public class ProfesseurListModele extends DefaultComboBoxModel<Professeur> imple
 
     @Override
     public Professeur getElementAt(int index) {
-        return professeurs.get(index);
+        if (professeurs.size() > index)
+            return professeurs.get(index);
+        return null;
     }
+
 }

@@ -121,7 +121,7 @@ public class ProfesseurVue extends JFrame{
                 montrerDetail(profeseurDetailJComboBox.getItemAt(profeseurDetailJComboBox.getSelectedIndex()));
             }
         });
-        
+
         modifierProfesseurJBouton.setEnabled(false);
         modifierProfesseurJBouton.addActionListener(new ActionListener() {
             @Override
