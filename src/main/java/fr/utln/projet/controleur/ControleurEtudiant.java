@@ -230,7 +230,7 @@ public class ControleurEtudiant {
 
     public boolean numetudDansBase() {
         try {
-            return(modeleEtudiant.numetudDansBase(numEtudiantModel.getText(0,nomEtudiantModel.getLength())));
+            return(modeleEtudiant.numetudDansBase(numNouvelEtudiantModel.getText(0,numNouvelEtudiantModel.getLength())));
         } catch (BadLocationException e) {
             e.printStackTrace();
         }

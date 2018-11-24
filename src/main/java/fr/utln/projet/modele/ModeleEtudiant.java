@@ -149,14 +149,11 @@ public class ModeleEtudiant extends Observable {
      * @author CLAIN Cyril
      */
     public boolean numetudDansBase(String numetud) {
+        List<String> numEtudlist = new ArrayList();
         for(Etudiant e : etudiants){
-
-            if ((e.getNumetud().compareTo(numetud))==0) {
-                return false;
-
+            numEtudlist.add(e.getNumetud());
             }
-        }
-        return true;
+        return numEtudlist.contains(numetud);
 
     }
 

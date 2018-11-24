@@ -480,6 +480,8 @@ public class EtudiantVue extends JFrame  {
             JOptionPane.showMessageDialog(etudiantAjoutPanel, "Ce numero etudiant est deja pris");
             test = false;
         }
+        System.out.println("test : "+test);
+        System.out.println("id : "+controleurEtudiant.numetudDansBase());
 
         return test;
 
