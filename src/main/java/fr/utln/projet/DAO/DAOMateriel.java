@@ -28,23 +28,25 @@ public class DAOMateriel {
      * Requette SQL d'ajout dans la table Materiel
      *
      * @param idMateriel
+     * @param nomMateriel
      * @throws SQLException
      *
      * @author      CLAIN Cyril
      */
-    public boolean persisteMateriel(Integer idMateriel) throws SQLException {
+    public boolean persisteMateriel(Integer idMateriel, String nomMateriel) throws SQLException {
 
         // debut de connection
         this.conn = new Connexion();
         conn.connect();
 
         Boolean addlist = false;
-        String sql = "insert into MATERIEL "+"values (?)";
+        String sql = "insert into MATERIEL "+"values (?,?)";
 
 
         try {
             PreparedStatement statementAjoutMAteriel = conn.getConn().prepareStatement(sql);
             statementAjoutMAteriel.setObject(1,idMateriel, Types.INTEGER);
+            statementAjoutMAteriel.setObject(2,nomMateriel, Types.VARCHAR);
             int resultSet = statementAjoutMAteriel.executeUpdate();
             System.out.println(resultSet);
             statementAjoutMAteriel.close();

@@ -9,6 +9,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
+import javax.swing.text.PlainDocument;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -31,6 +32,8 @@ public class MaterielControleur {
     private MaterielModele materielModele;
 
     private Document numNouvelleIdMateriel = new NumberDocument();
+    private Document nomNouveauMateriel = new PlainDocument();
+
 
     public MaterielControleur(final MaterielVue materielVue, MaterielModele materielModele) {
         this.materielVue = materielVue;
@@ -52,6 +55,7 @@ public class MaterielControleur {
             }
         };
         numNouvelleIdMateriel.addDocumentListener(ecouteurchangementtexMateriel);
+        nomNouveauMateriel.addDocumentListener(ecouteurchangementtexMateriel);
 
     }
 
@@ -65,7 +69,10 @@ public class MaterielControleur {
         boolean resultat = false;
         try {
 
-            resultat = materielModele.persisteMateriel(numNouvelleIdMateriel.getText(0, numNouvelleIdMateriel.getLength()));
+            resultat = materielModele.persisteMateriel(
+                    numNouvelleIdMateriel.getText(0, numNouvelleIdMateriel.getLength()),
+                    nomNouveauMateriel.getText(0,nomNouveauMateriel.getLength())
+                    );
             cancelMateriel();
         }
         catch (BadLocationException e){
@@ -107,5 +114,13 @@ public class MaterielControleur {
 
     public List<Materiel> getListMateriel() {
         return(materielModele.getMateriel());
+    }
+
+    public Document getNomNouveauMateriel() {
+        return nomNouveauMateriel;
+    }
+
+    public void setNomNouveauMateriel(Document nomNouveauMateriel) {
+        nomNouveauMateriel = nomNouveauMateriel;
     }
 }

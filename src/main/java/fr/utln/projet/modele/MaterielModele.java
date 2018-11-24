@@ -62,9 +62,11 @@ public class MaterielModele  extends Observable  {
      *
      * @param idMateriel
      *
+     * @param nomMateriel
+     *
      * @author      CLAIN Cyril
      */
-    public boolean persisteMateriel (String idMateriel) {
+    public boolean persisteMateriel(String idMateriel, String nomMateriel) {
 
         boolean resultat = false;
 
@@ -75,7 +77,7 @@ public class MaterielModele  extends Observable  {
 
         if (!(materiels.contains(materiel))){
             try {
-                if(dao.persisteMateriel(intidMateriel)){
+                if(dao.persisteMateriel(intidMateriel,nomMateriel)){
                     materiels.add(materiel);
                 }
             }

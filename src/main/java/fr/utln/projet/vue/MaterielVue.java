@@ -41,8 +41,10 @@ public class MaterielVue extends JFrame {
     private final JButton ajoutCancelMaterielJButton = new JButton("cancel");
 
     private final JLabel numMateriellabel = new JLabel("Numero de materiel : ");
+    private final JLabel nomMateriellabel = new JLabel("Nom de materiel : ");
 
     private final JTextField numMateriel;
+    private final JTextField nomMateriel;
 
 
     public MaterielVue(MaterielModele materielModele) {
@@ -76,6 +78,8 @@ public class MaterielVue extends JFrame {
             }
         });
         numMateriel = new JTextField(materielControleur.getNumNouvelleIdMateriel(),"",10);
+        nomMateriel = new JTextField(materielControleur.getNomNouveauMateriel(),"",10);
+
 
         ajoutCancelMaterielJButton.setEnabled(false);
         ajoutCancelMaterielJButton.addActionListener(new ActionListener() {
@@ -116,10 +120,20 @@ public class MaterielVue extends JFrame {
         c.gridx = 0;
         c.gridy = 1;
         c.gridwidth = 1;
-        materielAjoutPanel.add(ajoutOkMaterielJButton, c);
+        materielAjoutPanel.add(nomMateriellabel, c);
 
         c.gridx = 1;
         c.gridy = 1;
+        c.gridwidth = 1;
+        materielAjoutPanel.add(nomMateriel, c);
+
+        c.gridx = 0;
+        c.gridy = 2;
+        c.gridwidth = 1;
+        materielAjoutPanel.add(ajoutOkMaterielJButton, c);
+
+        c.gridx = 1;
+        c.gridy = 2;
         c.gridwidth = 1;
         materielAjoutPanel.add(ajoutCancelMaterielJButton, c);
 
