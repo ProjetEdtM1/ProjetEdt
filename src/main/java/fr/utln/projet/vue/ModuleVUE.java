@@ -101,7 +101,6 @@ public class ModuleVUE extends Fenetre {
                 if (moduleControleur.supprimerModule(supprimerModule.getSelectedValue()))
                 {
                     setBoutonSupprimer(supprimerModule.getSelectedValue() == null);
-                    System.out.println("YO ");
                 }
                 else
                     System.out.println("LU ");
@@ -145,6 +144,12 @@ public class ModuleVUE extends Fenetre {
         });
 
         cancelModifierModuleJButton.setEnabled(false);
+        cancelModifierModuleJButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                montrerDetail(moduleDetailJComboBox.getItemAt(moduleDetailJComboBox.getSelectedIndex()));
+            }
+        });
 
         intituleDetailTextField.setEnabled(false);
         nbHcmDetailTextField.setEnabled(false);

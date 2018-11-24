@@ -77,7 +77,7 @@ public class ModuleModele extends Observable {
             setChanged();
             notifyObservers(ModeleModuleEvent.MODULE);
         }
-        
+
         return moduleDao.supprimerModule(nouveauModule.getIntitule());
     }
 
