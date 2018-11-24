@@ -58,8 +58,10 @@ public class ModuleModele extends Observable {
 
             // ajouter le listeModule a la bd
             // on previent les observateurs du changement
+
             setChanged();
-            notifyObservers();
+            notifyObservers(ModeleModuleEvent.MODULE);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,12 +70,12 @@ public class ModuleModele extends Observable {
     }
 
     public boolean supprimerModule (Module nouveauModule) {
-        System.out.println("toto " + nouveauModule.getIntitule());
+
         boolean i = moduleDao.supprimerModule(nouveauModule.getIntitule());
-        System.out.println("AHHAAHHA " + nouveauModule);
+
         listeModule.remove(nouveauModule);
         setChanged();
-        notifyObservers();
+        notifyObservers(ModeleModuleEvent.MODULE);
         return i;
     }
 
