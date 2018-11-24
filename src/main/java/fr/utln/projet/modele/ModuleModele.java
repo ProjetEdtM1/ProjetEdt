@@ -52,6 +52,9 @@ public class ModuleModele extends Observable {
 
 
             moduleDao.persistModule(intitule, intNbHCm, intNbHTd, intNbHTp);
+            Module module = new Module.Builder(intitule).nbHeureCm(intNbHCm).nbHeureTd(intNbHTd).nbHeureTp(intNbHTp).build();
+            listeModule.add(module);
+
 
             // ajouter le listeModule a la bd
             // on previent les observateurs du changement
