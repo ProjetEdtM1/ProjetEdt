@@ -16,18 +16,13 @@ public class ModuleDAO {
     public void persistModule(String intitule, int nbHCm, int nbHTd, int nbHTp) throws SQLException {
         this.conn = new Connexion();
         conn.connect();
-        System.out.println("connection a la bd pour la methode ajout");
 
         String req = "insert into module (INTITULEMODULE, NBHEURECM, NBHEURETD, NBHEURETP)" + "values (?, ?, ?, ?)";
 
         try {
 
             PreparedStatement stmt = conn.getConn().prepareStatement(req);
-            System.out.println("YO " + stmt);
-            System.out.println("int " + intitule);
-            System.out.println("CM " + nbHCm);
-            System.out.println("TD " + nbHTd);
-            System.out.println("TP " + nbHTp);
+
 
             stmt.setObject(1, intitule, Types.VARCHAR);
             stmt.setObject(2, nbHCm, Types.INTEGER);
@@ -37,7 +32,6 @@ public class ModuleDAO {
             stmt.executeUpdate();
 
             // message de confirmation
-            System.out.println("J'ai bien ajoute le module " + intitule);
             stmt.close();
             conn.close();
         } catch (SQLException e) {
@@ -58,7 +52,6 @@ public class ModuleDAO {
         this.conn = new Connexion();
         conn.connect();
         int res = 0;
-        System.out.println("yo " + intitule);
 
         String req = "DELETE FROM module WHERE INTITULEMODULE = ?";
 
@@ -85,7 +78,6 @@ public class ModuleDAO {
     public List<Module> creationListModule() {
         this.conn = new Connexion();
         conn.connect();
-        System.out.println("connection a la bd pour la methode lister");
 
         List<Module> moduleList = new ArrayList<Module>();
 
@@ -95,12 +87,10 @@ public class ModuleDAO {
             Statement stmt = conn.getConn().createStatement();
 
             ResultSet res = stmt.executeQuery(req);
-//            System.out.println(res);
 
             while(res.next()) {
                 Module module = new Module.Builder(res.getString(1)).nbHeureCm(res.getInt(2)).nbHeureTd(res.getInt(3)).nbHeureTp(res.getInt(4)).build();
                 moduleList.add(module);
-//                System.out.println("LISTE: " + module.getIntitule());
             }
 
             stmt.close();
@@ -150,9 +140,9 @@ public class ModuleDAO {
      * @author Nicolas Guigou
      */
     public void updateModule(String intituleModule, int nbHeureCm, int nbHeureTd, int nbHeureTp ){
-        String sqlCM = "UPDATE MODULE SET NBHEURECM WHERE INTITULEMODULE = ?";
-        String sqlTD = "UPDATE MODULE SET NBHEURETD WHERE INTITULEMODULE = ?";
-        String sqlTP = "UPDATE MODULE SET NBHEURETP WHERE INTITULEMODULE = ?";
+        String sqlCM = "UPDATE MODULE" +" SET NBHEURECM = ? WHERE INTITULEMODULE = ?";
+        String sqlTD = "UPDATE MODULE SET NBHEURETD = ? WHERE INTITULEMODULE = ?";
+        String sqlTP = "UPDATE MODULE SET NBHEURETP = ? WHERE INTITULEMODULE = ?";
 
         Module module = getModule(intituleModule);
         try {

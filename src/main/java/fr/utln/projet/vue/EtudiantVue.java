@@ -104,7 +104,8 @@ public class EtudiantVue extends JFrame  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controleurEtudiant.deleteEtudiant(etudiantSuppressionJList.getSelectedValue());
-                setSuppressionEtudiant((etudiantSuppressionJList.getSelectedValue() == null));
+                //setSuppressionEtudiant((etudiantSuppressionJList.getSelectedValue() == null));
+                supprimerEtudiantJButton.setEnabled(false);
 
             }
         });

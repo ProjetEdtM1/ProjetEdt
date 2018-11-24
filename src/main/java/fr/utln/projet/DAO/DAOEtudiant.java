@@ -54,7 +54,6 @@ public class DAOEtudiant {
             statementAjoutEtudiant.setObject(4, mdp, Types.VARCHAR);
             statementAjoutEtudiant.setObject(5,groupe, Types.VARCHAR);
             int resultSet = statementAjoutEtudiant.executeUpdate();
-            System.out.println(resultSet);
             statementAjoutEtudiant.close();
             conn.close();
             addlist = true;
@@ -85,7 +84,6 @@ public class DAOEtudiant {
             PreparedStatement statementSupresisonEtudiant = conn.getConn().prepareStatement(sql);
             statementSupresisonEtudiant.setObject(1,numetud, Types.VARCHAR);
             int resultSet = statementSupresisonEtudiant.executeUpdate();
-            System.out.println(resultSet);
             statementSupresisonEtudiant.close();
             conn.close();
 
@@ -111,7 +109,6 @@ public class DAOEtudiant {
         try {
             Statement statementSelectall = conn.getConn().createStatement();
             ResultSet resListeDesEtudiant = statementSelectall.executeQuery(sql);
-            System.out.println(resListeDesEtudiant);
             while(resListeDesEtudiant.next()){
                 Etudiant etudiant = new Etudiant();
                 etudiant.setNumetud(resListeDesEtudiant.getString(1));
@@ -151,21 +148,16 @@ public class DAOEtudiant {
 
         //requette de selection des Etudiant
         String sql = "SELECT * FROM ETUDIANT "+"where NUMETUDIANT = ?";
-        System.out.println("num etud : "+numetud);
         try {
             PreparedStatement statementSelectEtudiantFromID = conn.getConn().prepareStatement(sql);
-            System.out.println("statement pret");
             statementSelectEtudiantFromID.setObject(1,numetud, Types.VARCHAR);
-            System.out.println("param ajouter ");
             ResultSet resDetailUnEtudiant = statementSelectEtudiantFromID.executeQuery();
            // affin d'axeder au 1er elmt de la liste
             resDetailUnEtudiant.next();
 
             etudiant.setNumetud(resDetailUnEtudiant.getString(1));
-            System.out.println(resDetailUnEtudiant.getString(1));
             etudiant.setNom(resDetailUnEtudiant.getString(2));
             etudiant.setPrenom(resDetailUnEtudiant.getString(3));
-            System.out.println(resDetailUnEtudiant.getString(3));
             etudiant.setMdp(resDetailUnEtudiant.getString(4));
             etudiant.setGroupe(resDetailUnEtudiant.getString(5));
         }
@@ -260,8 +252,7 @@ public class DAOEtudiant {
 
             }
             if (etudiant.getPrenom() != prenom) {
-                System.out.println(etudiant.getPrenom());
-                System.out.println(prenom);
+
                 PreparedStatement statementSelectEtudiantFromID = conn.getConn().prepareStatement(sqlPrenom);
                 statementSelectEtudiantFromID.setObject(1, prenom, Types.VARCHAR);
                 statementSelectEtudiantFromID.setObject(2, numetud, Types.VARCHAR);

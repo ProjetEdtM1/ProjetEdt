@@ -20,7 +20,6 @@ public class ModuleListeModele extends DefaultComboBoxModel<Module> implements O
         if (!listeModule.contains(getSelectedItem()))
             setSelectedItem(null);
         else
-            System.out.println(getSelectedItem() + " in " + listeModule);
         fireContentsChanged(this, 0, listeModule.size() - 1);
     }
 

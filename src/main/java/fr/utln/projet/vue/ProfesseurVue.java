@@ -95,7 +95,9 @@ public class ProfesseurVue extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 professeurControleur.deleteProfesseur(professeurtSuppressionJList.getSelectedValue());
-                setSuppressionProfesseurJButton((professeurtSuppressionJList.getSelectedValue() == null));
+                //setSuppressionProfesseurJButton((professeurtSuppressionJList.getSelectedValue() == null));
+                suppressionProfesseurJButton.setEnabled(false);
+
             }
         });
 

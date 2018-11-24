@@ -109,12 +109,9 @@ public class ModuleVUE extends Fenetre {
         supprimer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (moduleControleur.supprimerModule(supprimerModule.getSelectedValue()))
-                {
-                    setBoutonSupprimer(supprimerModule.getSelectedValue() == null);
-                }
-                else
-                    System.out.println("LU ");
+               moduleControleur.supprimerModule(supprimerModule.getSelectedValue());
+               supprimer.setEnabled(false);
+
             }
         });
 
