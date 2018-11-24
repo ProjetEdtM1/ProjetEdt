@@ -113,8 +113,16 @@ public class ProfesseurVue extends JFrame{
         numProfDetailTextField.setEnabled(false);
         nomProfDetailTextField.setEnabled(false);
         prenomProfDetailTextField.setEnabled(false);
-        modifierProfesseurJBouton.setEnabled(false);
 
+        cancelModifierProfesseurJButton.setEnabled(false);
+        cancelModifierProfesseurJButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                montrerDetail(profeseurDetailJComboBox.getItemAt(profeseurDetailJComboBox.getSelectedIndex()));
+            }
+        });
+        
+        modifierProfesseurJBouton.setEnabled(false);
         modifierProfesseurJBouton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -132,7 +140,6 @@ public class ProfesseurVue extends JFrame{
                         montrerDetail(null);
                         break;
                     case ItemEvent.SELECTED:
-                        modifierProfesseurJBouton.setEnabled(true);
                         montrerDetail(profeseurDetailJComboBox.getItemAt(profeseurDetailJComboBox.getSelectedIndex()));
                         break;
                 }
@@ -158,6 +165,44 @@ public class ProfesseurVue extends JFrame{
                 else{
                     JOptionPane.showMessageDialog(professeurAjoutPanel, "Le login doit commencé par p ");
                 }
+
+            }
+        });
+
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonProf();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonProf();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
 
             }
         });
@@ -292,45 +337,10 @@ public class ProfesseurVue extends JFrame{
         c.gridy = 0;
         getContentPane().add(professeurDetailPanel, c);
 
-        addWindowListener(new WindowListener() {
-            @Override
-            public void windowOpened(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowClosing(WindowEvent e) {
-                menuProfRefVue.setTrueBoutonProf();
-            }
-
-            @Override
-            public void windowClosed(WindowEvent e) {
-                menuProfRefVue.setTrueBoutonProf();
-            }
-
-            @Override
-            public void windowIconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeiconified(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowActivated(WindowEvent e) {
-
-            }
-
-            @Override
-            public void windowDeactivated(WindowEvent e) {
-
-            }
-        });
 
         setVisible(true);
     }
+
 
     private void setSuppressionProfesseurJButton(boolean b) {
         suppressionProfesseurJButton.setEnabled(b);
@@ -366,5 +376,7 @@ public class ProfesseurVue extends JFrame{
     public void setModification(boolean b) {
         nomProfDetailTextField.setEnabled(true);
         prenomProfDetailTextField.setEnabled(b);
+        modifierProfesseurJBouton.setEnabled(b);
+        cancelModifierProfesseurJButton.setEnabled(b);
     }
 }
