@@ -92,16 +92,28 @@ public class ModuleControleur{
                     nbHTdNouveauModuleModele.getText(0, nbHTdNouveauModuleModele.getLength()),
                     nbHTpNouveauModuleModele.getText(0, nbHTpNouveauModuleModele.getLength())
             );
+            cancel();
+
+        }
+        catch (BadLocationException e){
+            System.out.println("erreur");
+            e.printStackTrace();
+
+        }
+    }
+
+    public void cancel() {
+        try {
 
             intituleNouveauModuleModele.remove(0, intituleNouveauModuleModele.getLength());
             nbHCmNouveauModuleModele.remove(0, nbHCmNouveauModuleModele.getLength());
             nbHTdNouveauModuleModele.remove(0, nbHTdNouveauModuleModele.getLength());
             nbHTpNouveauModuleModele.remove(0, nbHTpNouveauModuleModele.getLength());
-        } catch (BadLocationException e){
-            System.out.println("erreur");
-            e.printStackTrace();
 
+        } catch (BadLocationException e) {
+            e.printStackTrace();
         }
+
     }
 
 //    Methode pour supprimer un module
@@ -178,4 +190,5 @@ public class ModuleControleur{
     public List<Module> getListModule() {
         return moduleModele.getListeModule();
     }
+
 }

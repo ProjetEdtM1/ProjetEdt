@@ -16,6 +16,7 @@ import java.text.NumberFormat;
 public class ModuleVUE extends Fenetre {
     public static ModuleControleur moduleControleur;
     public static ModuleModele moduleModele;
+
     public static ModuleListeModele moduleListeModele;
 
     public static JPanel ajoutModulePanel = new JPanel(new GridBagLayout());
@@ -86,6 +87,14 @@ public class ModuleVUE extends Fenetre {
             @Override
             public void actionPerformed(ActionEvent e) {
                 moduleControleur.ajouterModule();
+            }
+        });
+
+        annuler.setEnabled(false);
+        annuler.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                moduleControleur.cancel();
             }
         });
 
@@ -336,11 +345,11 @@ public class ModuleVUE extends Fenetre {
 //            }
 //        });
 
-
     }
 
-    public void setBoutonAjouter (boolean gris) {
-        ajout.setEnabled(gris);
+    public void setBoutonAjouter (boolean b) {
+        annuler.setEnabled(b);
+        ajout.setEnabled(b);
     }
 
     public void setBoutonSupprimer(boolean gris) {
