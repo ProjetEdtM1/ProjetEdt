@@ -108,5 +108,5 @@ public class MaterielModele  extends Observable  {
         setChanged();
         notifyObservers(ModeleMaterielEvent.MATERIEL_EVENT);
     }
-    
+
 }
