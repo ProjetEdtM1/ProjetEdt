@@ -63,21 +63,33 @@ public Salle getSalle(final Integer idSalle){
      *
      * @author      CLAIN Cyril
      */
-    public void persisteSalle (String idSalle) {
-        int numSalle = Integer.valueOf(idSalle);
-        try {
-            dao.persisteSalle(numSalle);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        Salle salle = new Salle();
-        salle.setNumerosalle(numSalle);
-        salles.add(salle);
+    public boolean persisteSalle (String idSalle) {
+        boolean resultat = false;
+        // affichage de la tailel car erreur : Integer.java:592 : lorsque que la chaine de caractere a une taille inférieur a 0
+        // System.out.println(idSalle.length());
+        int numSalle = Integer.parseInt(idSalle.trim());
 
-        //On previent les observateurs du changement
-        setChanged();
-        notifyObservers(ModeleSalleEvent.Salle);
+        Salle nouvelleSalle = new Salle();
+        nouvelleSalle.setNumerosalle(numSalle);
+        if (!(salles.contains(nouvelleSalle))){
+            try {
+                if(dao.persisteSalle(numSalle)){
+                    salles.add(nouvelleSalle);
+                }
+                }
+                catch (SQLException e) {
+                e.printStackTrace();
+            }
+            resultat = true;
+        }
+
+            //On previent les observateurs du changement
+
+            setChanged();
+            notifyObservers(ModeleSalleEvent.Salle);
+        return resultat;
     }
+
     /**
      *
      *  Methode de supression  des étudiants
@@ -94,5 +106,7 @@ public Salle getSalle(final Integer idSalle){
         setChanged();
         notifyObservers(ModeleSalleEvent.Salle);
     }
+
+
 
 }

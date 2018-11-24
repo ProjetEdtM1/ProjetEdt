@@ -228,7 +228,7 @@ public class ModuleVUE extends Fenetre {
 
         //modification module
 
-        moduleDetailPanel.setBorder(BorderFactory.createTitledBorder("Détails modules"));
+        moduleDetailPanel.setBorder(BorderFactory.createTitledBorder("Modification modules"));
 
         GridBagConstraints c = new GridBagConstraints();
 

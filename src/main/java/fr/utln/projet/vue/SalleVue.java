@@ -71,7 +71,7 @@ public class SalleVue  extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 salleControleur.deleteSalle(salleJList.getSelectedValue());
-                setSuppressionSalleJButton((salleJList.getSelectedValue() == null));
+                suppressionSalleJButton.setEnabled(false);
             }
         });
         numSalle = new JTextField(salleControleur.getNumNouvelleSalle(),"",10);
@@ -87,7 +87,9 @@ public class SalleVue  extends JFrame {
         ajoutOkSalleJButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                salleControleur.persisteSalle();
+                if(!(salleControleur.persisteSalle()))
+                    JOptionPane.showMessageDialog(salleAjoutPanel, "Le numero de salle est deja pris ");
+
             }
         });
 

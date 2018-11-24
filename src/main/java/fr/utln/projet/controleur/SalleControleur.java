@@ -1,5 +1,6 @@
 package fr.utln.projet.controleur;
 
+import com.sun.deploy.panel.NumberDocument;
 import fr.utln.projet.modele.SalleModele;
 import fr.utln.projet.utilisateur.Salle;
 import fr.utln.projet.vue.SalleVue;
@@ -8,7 +9,6 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
-import javax.swing.text.PlainDocument;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -29,7 +29,7 @@ public class SalleControleur {
     private SalleVue salleVue;
     private SalleModele SalleModele;
 
-    private Document numNouvelleSalle = new PlainDocument();
+    private Document numNouvelleSalle = new NumberDocument();
 
     public SalleControleur(final SalleVue salleVue, SalleModele SalleModele) {
         this.salleVue = salleVue;
@@ -60,17 +60,18 @@ public class SalleControleur {
      * @author      CLAIN Cyril
      */
 
-    public void persisteSalle() {
+    public boolean persisteSalle() {
+        boolean resultat = false;
         try {
 
-            SalleModele.persisteSalle(
-                    numNouvelleSalle.getText(0, numNouvelleSalle.getLength()));
+            resultat = SalleModele.persisteSalle(numNouvelleSalle.getText(0, numNouvelleSalle.getLength()));
             cancelSalle();
         }
         catch (BadLocationException e){
             System.out.println("erreur dans controleur");
             e.printStackTrace();
         }
+        return resultat;
     }
 
     /**

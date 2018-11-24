@@ -163,4 +163,38 @@ public class DAOSalle {
 
     }
 
+    /**
+     * Methode de creation d'une liste de numero de salle ( présent en BD)
+     *
+     * @return liste d'entier
+     *
+     * @author CLAIN Cyril
+     */
+    public List<Integer> creationListIdSalle(){
+        // debut de connection
+        this.conn = new Connexion();
+        conn.connect();
+
+        List<Integer> ListIdSalle = new ArrayList<>();
+        //requette de selection des Etudiant
+        String sql = "SELECT NUMEROSALLE FROM SALLE";
+        try {
+            Statement statementSelectall = conn.getConn().createStatement();
+            ResultSet resListeDesSalles = statementSelectall.executeQuery(sql);
+            while(resListeDesSalles.next()){
+
+                ListIdSalle.add(resListeDesSalles.getInt(1));
+            }
+
+            statementSelectall.close();
+            conn.close();
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return ListIdSalle;
+    }
+
 }
