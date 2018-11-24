@@ -91,16 +91,17 @@ public class ModuleModele extends Observable {
      */
     public void modifierModule(String intuleModule, int nbHeureCm, int nbHeureTd, int nbHeureTp){
         moduleDao.updateModule(intuleModule,nbHeureCm,nbHeureTd,nbHeureTp);
-        Module module = new Module.Builder(intuleModule).
-                nbHeureCm(nbHeureCm).
-                nbHeureTd(nbHeureTd).
-                nbHeureTp(nbHeureTp).build();
-        for (Module mod :listeModule) {
-            if(mod.getIntitule().compareTo(intuleModule)==0){
-                listeModule.remove(mod);
-                listeModule.add(module);
-            }
-        }
+        for(Module m : listeModule){
+
+            if ((m.getIntitule().compareTo(intuleModule))==0) {
+
+                m.setNbHeureCm(nbHeureCm);
+                m.setNbHeureTd(nbHeureTd);
+                m.setNbHeureTP(nbHeureTp);
+
+
+            }}
+
         setChanged();
         notifyObservers(ModeleModuleEvent.MODULE);
     }

@@ -60,6 +60,22 @@ public class Module {
         return nbHeureTP;
     }
 
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
+    }
+
+    public void setNbHeureCm(int nbHeureCm) {
+        this.nbHeureCm = nbHeureCm;
+    }
+
+    public void setNbHeureTd(int nbHeureTd) {
+        this.nbHeureTd = nbHeureTd;
+    }
+
+    public void setNbHeureTP(int nbHeureTP) {
+        this.nbHeureTP = nbHeureTP;
+    }
+
     @Override
     public String toString(){
         return "Intitulé " + getIntitule() + ", NbHCm " + getNbHeureCm() + ", NbHTd " + getNbHeureTd() +
