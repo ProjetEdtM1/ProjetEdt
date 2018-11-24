@@ -11,6 +11,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.text.NumberFormat;
 
 public class ModuleVUE extends Fenetre {
     public static ModuleControleur moduleControleur;
@@ -45,7 +46,7 @@ public class ModuleVUE extends Fenetre {
 
 
     private static JTextField intituleDetailTextField = new JTextField();
-    private static JTextField nbHcmDetailTextField = new JTextField();
+    private static JTextField nbHcmDetailTextField = new JFormattedTextField(NumberFormat.getInstance());
     private static JTextField nbHtdDetailTextField = new JTextField();
     private static JTextField nbHtpDetailTextField = new JTextField();
 
@@ -175,7 +176,7 @@ public class ModuleVUE extends Fenetre {
 
         // placement des JTExtField sur la colonne 2
 
-        contrainte.gridx = 2;
+        contrainte.gridx = 1;
         contrainte.gridy = 1;
         ajoutModulePanel.add(ajoutmodule, contrainte);
 
