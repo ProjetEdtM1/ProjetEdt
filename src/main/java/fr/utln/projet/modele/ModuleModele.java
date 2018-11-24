@@ -71,12 +71,14 @@ public class ModuleModele extends Observable {
 
     public boolean supprimerModule (Module nouveauModule) {
 
-        boolean i = moduleDao.supprimerModule(nouveauModule.getIntitule());
+        if (moduleDao.supprimerModule(nouveauModule.getIntitule()));{
 
-        listeModule.remove(nouveauModule);
-        setChanged();
-        notifyObservers(ModeleModuleEvent.MODULE);
-        return i;
+            listeModule.remove(nouveauModule);
+            setChanged();
+            notifyObservers(ModeleModuleEvent.MODULE);
+        }
+        
+        return moduleDao.supprimerModule(nouveauModule.getIntitule());
     }
 
     /**
