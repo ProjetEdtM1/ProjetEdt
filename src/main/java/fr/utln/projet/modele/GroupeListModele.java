@@ -39,4 +39,8 @@ public class GroupeListModele extends DefaultComboBoxModel<String> implements Ob
     public String getElementAt(int index) {
         return groupesList.get(index);
     }
+
+    public boolean contains(String groupe) {
+        return groupesList.contains(groupe);
+    }
 }

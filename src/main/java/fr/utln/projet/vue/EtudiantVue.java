@@ -114,8 +114,9 @@ public class EtudiantVue extends JFrame  {
         ajoutOkEtudiantJButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!controleurEtudiant.ajouterEtudiant()){
-                    JOptionPane.showMessageDialog(etudiantAjoutPanel, "Choisir un groupe existant(ex : SI1A)");
+
+                if (testNumEtud()){
+                    controleurEtudiant.persisteEtudiant();
                 }
             }
         });
@@ -461,5 +462,26 @@ public class EtudiantVue extends JFrame  {
             groupeEtudDetailTextField.setText(etudiant.getGroupe());
             groupeEtudDetailTextField= new JTextField(controleurEtudiant.getGroupeEtudiantModel(),etudiant.getGroupe(),10);
         }
+    }
+
+    public Boolean testNumEtud(){
+        boolean test = true;
+        if (numetud.getText().charAt(0) != 'e'){
+            JOptionPane.showMessageDialog(etudiantAjoutPanel, "Le numero étudiant doit commencé par e (ex: e123)");
+            test = false;
+        }
+
+        if (!groupeListModele.contains(groupetud.getText())){
+            JOptionPane.showMessageDialog(etudiantAjoutPanel, "Choisir un groupe existant(ex : SI1A)");
+            test = false;
+        }
+
+        if (controleurEtudiant.numetudDansBase()){
+            JOptionPane.showMessageDialog(etudiantAjoutPanel, "Ce numero etudiant est deja pris");
+            test = false;
+        }
+
+        return test;
+
     }
 }

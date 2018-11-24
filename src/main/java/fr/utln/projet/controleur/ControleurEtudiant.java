@@ -105,7 +105,7 @@ public class ControleurEtudiant {
      * @author      CLAIN Cyril
      */
 
-    public Boolean ajouterEtudiant() {
+    public Boolean persisteEtudiant() {
         Boolean bool = false;
         try {
             bool =  modeleEtudiant.persisteEtudiant(
@@ -116,7 +116,7 @@ public class ControleurEtudiant {
                         groupeNouvelEtudiantModel.getText(0, groupeNouvelEtudiantModel.getLength())
 
             );
-            cancelEtudiant();
+            if (bool) cancelEtudiant();
         }
         catch (BadLocationException e){
             System.out.println("erreur dans controleur");
@@ -228,4 +228,12 @@ public class ControleurEtudiant {
     }
     public List<Etudiant> getListEtudiant() {return(modeleEtudiant.getEtudiant());}
 
+    public boolean numetudDansBase() {
+        try {
+            return(modeleEtudiant.numetudDansBase(numEtudiantModel.getText(0,nomEtudiantModel.getLength())));
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

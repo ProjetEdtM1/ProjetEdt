@@ -23,7 +23,6 @@ public class App
 //         AuthentificationVue authentificationVue = new AuthentificationVue();
 //        ModuleModele moduleModele = new ModuleModele();
         MenuProfRefVue a = new MenuProfRefVue("coucou");
-        SalleModele salleModele = new SalleModele();
-        SalleVue salleVue = new SalleVue(salleModele);
+
 
     }}

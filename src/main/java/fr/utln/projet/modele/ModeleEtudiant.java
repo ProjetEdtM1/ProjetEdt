@@ -3,6 +3,7 @@ package fr.utln.projet.modele;
 import fr.utln.projet.DAO.DAOEtudiant;
 import fr.utln.projet.utilisateur.Etudiant;
 
+import javax.swing.text.Document;
 import java.sql.SQLException;
 import java.util.*;
 
@@ -108,7 +109,7 @@ public class ModeleEtudiant extends Observable {
      *
      * @param etudiant
      *
-     *  @author      CLAIN Cyril
+     *  @author CLAIN Cyril
      */
     public void deleteEtudiant(Etudiant etudiant) throws SQLException {
         dao.deleteEtudiant(etudiant.getNumetud());
@@ -138,5 +139,25 @@ public class ModeleEtudiant extends Observable {
 
     }
 
+    /**
+     *
+     * methode de recherche du num étudiant dans la bd afin de ne pas ajouter un Etudiant avec la clef primaire d'un autre
+     *
+     * @param numetud
+     * @return
+     *
+     * @author CLAIN Cyril
+     */
+    public boolean numetudDansBase(String numetud) {
+        for(Etudiant e : etudiants){
+
+            if ((e.getNumetud().compareTo(numetud))==0) {
+                return false;
+
+            }
+        }
+        return true;
+
+    }
 
 }
