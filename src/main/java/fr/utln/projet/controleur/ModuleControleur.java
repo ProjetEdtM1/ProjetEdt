@@ -1,5 +1,6 @@
 package fr.utln.projet.controleur;
 
+import com.sun.deploy.panel.NumberDocument;
 import fr.utln.projet.modele.ModuleModele;
 import fr.utln.projet.module.Module;
 import fr.utln.projet.vue.ModuleVUE;
@@ -16,9 +17,9 @@ public class ModuleControleur{
     private ModuleModele moduleModele;
 
     private Document intituleNouveauModuleModele = new PlainDocument();
-    private Document nbHCmNouveauModuleModele = new PlainDocument();
-    private Document nbHTdNouveauModuleModele = new PlainDocument();
-    private Document nbHTpNouveauModuleModele = new PlainDocument();
+    private Document nbHCmNouveauModuleModele = new NumberDocument();
+    private Document nbHTdNouveauModuleModele = new NumberDocument();
+    private Document nbHTpNouveauModuleModele = new NumberDocument();
 
     private Document intituleModuleModele = new PlainDocument();
     private Document nbHCmModuleModele = new PlainDocument();
