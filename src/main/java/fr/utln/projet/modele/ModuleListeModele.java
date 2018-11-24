@@ -31,6 +31,8 @@ public class ModuleListeModele extends DefaultComboBoxModel<Module> implements O
 
     @Override
     public Module getElementAt(int index) {
-        return listeModule.get(index);
+        if (listeModule.size() > index)
+            return listeModule.get(index);
+        return null;
     }
 }
