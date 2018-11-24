@@ -26,7 +26,7 @@ import java.util.List;
 
 public class SalleControleur {
 
-    private SalleVue salleVue;
+    private final SalleVue salleVue;
     private SalleModele SalleModele;
 
     private Document numNouvelleSalle = new NumberDocument();

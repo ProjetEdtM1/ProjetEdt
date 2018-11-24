@@ -75,7 +75,7 @@ public class MaterielVue extends JFrame {
                 suppressionMaterielJButton.setEnabled(false);
             }
         });
-        numMateriel = new JTextField(materielControleur.getNumNouvelleMateriel(),"",10);
+        numMateriel = new JTextField(materielControleur.getNumNouvelleIdMateriel(),"",10);
 
         ajoutCancelMaterielJButton.setEnabled(false);
         ajoutCancelMaterielJButton.addActionListener(new ActionListener() {
@@ -157,7 +157,7 @@ public class MaterielVue extends JFrame {
     private void setSuppressionMaterielJButton(boolean b) {
         suppressionMaterielJButton.setEnabled(b);
     }
-    public void setCreationSalle(boolean b) {
+    public void setCreationMateriel(boolean b) {
         ajoutOkMaterielJButton.setEnabled(b);
         ajoutCancelMaterielJButton.setEnabled(b);
 
