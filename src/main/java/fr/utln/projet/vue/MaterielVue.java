@@ -157,7 +157,7 @@ public class MaterielVue extends JFrame {
     private void setSuppressionMaterielJButton(boolean b) {
         suppressionMaterielJButton.setEnabled(b);
     }
-    public void setCreationMateriel(boolean b) {
+    public void setCreationSalle(boolean b) {
         ajoutOkMaterielJButton.setEnabled(b);
         ajoutCancelMaterielJButton.setEnabled(b);
 
