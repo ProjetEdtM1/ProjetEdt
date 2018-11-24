@@ -22,13 +22,10 @@ public class ModuleModele extends Observable {
 
 
     public int convertionIntStr(String mot) {
-        try {
-            int res = Integer.parseInt(mot);
-            return res;
-        } catch (NumberFormatException e) {
-            System.out.println("Vous n'avez pas entré un nombre");
-        }
-        return -1;
+
+        int res = Integer.parseInt(mot);
+        return res;
+
     }
 
     public boolean convertion(String mot) {
@@ -46,10 +43,10 @@ public class ModuleModele extends Observable {
             if (convertion(nbHCm)) {
                 intNbHCm = convertionIntStr(nbHCm);
             }
-            if (convertion(nbHCm)) {
+            if (convertion(nbHTd)) {
                     intNbHTd = convertionIntStr(nbHTd);
                 }
-            if (convertion(nbHCm)) {
+            if (convertion(nbHTp)) {
                 intNbHTp = convertionIntStr(nbHTp);
                 }
 

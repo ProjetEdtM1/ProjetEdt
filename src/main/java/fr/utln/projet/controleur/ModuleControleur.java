@@ -22,9 +22,9 @@ public class ModuleControleur{
     private Document nbHTpNouveauModuleModele = new NumberDocument();
 
     private Document intituleModuleModele = new PlainDocument();
-    private Document nbHCmModuleModele = new PlainDocument();
-    private Document nbHTdModuleModele = new PlainDocument();
-    private Document nbHTpModuleModele = new PlainDocument();
+    private Document nbHCmModuleModele = new NumberDocument();
+    private Document nbHTdModuleModele = new NumberDocument();
+    private Document nbHTpModuleModele = new NumberDocument();
 
 
 
