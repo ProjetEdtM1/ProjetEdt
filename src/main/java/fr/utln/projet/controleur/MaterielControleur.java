@@ -31,8 +31,11 @@ public class MaterielControleur {
     private MaterielVue materielVue;
     private MaterielModele materielModele;
 
-    private Document numNouvelleIdMateriel = new NumberDocument();
+    private Document numNouveauMateriel = new NumberDocument();
     private Document nomNouveauMateriel = new PlainDocument();
+
+    private Document IdMateriel = new NumberDocument();
+    private Document nomMateriel = new PlainDocument();
 
 
     public MaterielControleur(final MaterielVue materielVue, MaterielModele materielModele) {
@@ -48,14 +51,16 @@ public class MaterielControleur {
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                if (numNouvelleIdMateriel.getLength() == 0)
+                if ((numNouveauMateriel.getLength() == 0) || (nomNouveauMateriel.getLength() == 0))
                     materielVue.setCreationMateriel(false);
                 else
                     materielVue.setCreationMateriel(true);
             }
         };
-        numNouvelleIdMateriel.addDocumentListener(ecouteurchangementtexMateriel);
+        numNouveauMateriel.addDocumentListener(ecouteurchangementtexMateriel);
         nomNouveauMateriel.addDocumentListener(ecouteurchangementtexMateriel);
+        nomMateriel.addDocumentListener(ecouteurchangementtexMateriel);
+        IdMateriel.addDocumentListener(ecouteurchangementtexMateriel);
 
     }
 
@@ -70,7 +75,7 @@ public class MaterielControleur {
         try {
 
             resultat = materielModele.persisteMateriel(
-                    numNouvelleIdMateriel.getText(0, numNouvelleIdMateriel.getLength()),
+                    numNouveauMateriel.getText(0, numNouveauMateriel.getLength()),
                     nomNouveauMateriel.getText(0,nomNouveauMateriel.getLength())
                     );
             cancelMateriel();
@@ -91,7 +96,8 @@ public class MaterielControleur {
     public void cancelMateriel() {
 
         try {
-            numNouvelleIdMateriel.remove(0, numNouvelleIdMateriel.getLength());
+            numNouveauMateriel.remove(0, numNouveauMateriel.getLength());
+            nomNouveauMateriel.remove(0,nomNouveauMateriel.getLength());
         } catch (BadLocationException e) {
             e.printStackTrace();
         }
@@ -104,12 +110,12 @@ public class MaterielControleur {
         }
     }
 
-    public Document getNumNouvelleIdMateriel() {
-        return numNouvelleIdMateriel;
+    public Document getNumNouveauMateriel() {
+        return numNouveauMateriel;
     }
 
-    public void setNumNouvelleIdMateriel(Document numNouvelleIdMateriel) {
-        this.numNouvelleIdMateriel = numNouvelleIdMateriel;
+    public void setNumNouveauMateriel(Document numNouveauMateriel) {
+        this.numNouveauMateriel = numNouveauMateriel;
     }
 
     public List<Materiel> getListMateriel() {
@@ -122,5 +128,21 @@ public class MaterielControleur {
 
     public void setNomNouveauMateriel(Document nomNouveauMateriel) {
         nomNouveauMateriel = nomNouveauMateriel;
+    }
+
+    public Document getIdMateriel() {
+        return IdMateriel;
+    }
+
+    public void setIdMateriel(Document idMateriel) {
+        IdMateriel = idMateriel;
+    }
+
+    public Document getNomMateriel() {
+        return nomMateriel;
+    }
+
+    public void setNomMateriel(Document nomMateriel) {
+        this.nomMateriel = nomMateriel;
     }
 }

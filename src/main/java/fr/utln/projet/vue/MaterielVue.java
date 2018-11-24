@@ -77,7 +77,7 @@ public class MaterielVue extends JFrame {
                 suppressionMaterielJButton.setEnabled(false);
             }
         });
-        numMateriel = new JTextField(materielControleur.getNumNouvelleIdMateriel(),"",10);
+        numMateriel = new JTextField(materielControleur.getNumNouveauMateriel(),"",10);
         nomMateriel = new JTextField(materielControleur.getNomNouveauMateriel(),"",10);
 
 

@@ -3,7 +3,6 @@ package fr.utln.projet.modele;
 
 import fr.utln.projet.DAO.DAOMateriel;
 import fr.utln.projet.utilisateur.Materiel;
-import fr.utln.projet.utilisateur.Salle;
 
 import java.sql.SQLException;
 import java.util.*;
@@ -69,11 +68,11 @@ public class MaterielModele  extends Observable  {
     public boolean persisteMateriel(String idMateriel, String nomMateriel) {
 
         boolean resultat = false;
-
         int intidMateriel = Integer.parseInt(idMateriel.trim());
 
         Materiel materiel = new Materiel();
         materiel.setIdMateriel(intidMateriel);
+        materiel.setNomMateriel(nomMateriel);
 
         if (!(materiels.contains(materiel))){
             try {

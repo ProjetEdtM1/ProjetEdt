@@ -41,12 +41,12 @@ public class DAOMateriel {
 
         Boolean addlist = false;
         String sql = "insert into MATERIEL "+"values (?,?)";
-
+        System.out.println("DAO : "+nomMateriel);
 
         try {
             PreparedStatement statementAjoutMAteriel = conn.getConn().prepareStatement(sql);
             statementAjoutMAteriel.setObject(1,idMateriel, Types.INTEGER);
-            statementAjoutMAteriel.setObject(2,nomMateriel, Types.VARCHAR);
+            statementAjoutMAteriel.setString(2,nomMateriel);
             int resultSet = statementAjoutMAteriel.executeUpdate();
             System.out.println(resultSet);
             statementAjoutMAteriel.close();
