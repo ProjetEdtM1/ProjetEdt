@@ -5,11 +5,14 @@ import fr.utln.projet.modele.MaterielListModel;
 import fr.utln.projet.modele.MaterielModele;
 import fr.utln.projet.utilisateur.Materiel;
 
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 /*
@@ -36,12 +39,14 @@ public class MaterielVue extends JFrame {
 
     private final JList<Materiel> materielJList;
 
-    private final JButton suppressionMaterielJButton = new JButton(" Supprimer");
-    private final JButton ajoutOkMaterielJButton = new JButton(" Ajouter");
-    private final JButton ajoutCancelMaterielJButton = new JButton("cancel");
+    private ResourceBundle rb = ResourceBundle.getBundle("textBouton");
+
+    private final JButton suppressionMaterielJButton; // = new JButton(" Supprimer");
+    private final JButton ajoutOkMaterielJButton;// = new JButton(" Ajouter");
+    private final JButton ajoutCancelMaterielJButton;// = new JButton("Annuler");
 
     private final JLabel numMateriellabel = new JLabel("Numero de materiel : ");
-    private final JLabel nomMateriellabel = new JLabel("Nom de materiel : ");
+    private final JLabel nomMateriellabel= new JLabel("Nom de materiel : ");
 
     private final JTextField numMateriel;
     private final JTextField nomMateriel;
@@ -69,6 +74,8 @@ public class MaterielVue extends JFrame {
                 setSuppressionMaterielJButton((materielJList.getSelectedValue() != null));
             }
         });
+
+        suppressionMaterielJButton = new JButton(rb.getString("Supprimer"));
         suppressionMaterielJButton.setEnabled(false);
         suppressionMaterielJButton.addActionListener(new ActionListener() {
             @Override
@@ -77,10 +84,11 @@ public class MaterielVue extends JFrame {
                 suppressionMaterielJButton.setEnabled(false);
             }
         });
+
         numMateriel = new JTextField(materielControleur.getNumNouveauMateriel(),"",10);
         nomMateriel = new JTextField(materielControleur.getNomNouveauMateriel(),"",10);
 
-
+        ajoutCancelMaterielJButton = new JButton(rb.getString("Annuler"));
         ajoutCancelMaterielJButton.setEnabled(false);
         ajoutCancelMaterielJButton.addActionListener(new ActionListener() {
             @Override
@@ -88,6 +96,8 @@ public class MaterielVue extends JFrame {
                 materielControleur.cancelMateriel();
             }
         });
+
+        ajoutOkMaterielJButton = new JButton(rb.getString("Ajouter"));
         ajoutOkMaterielJButton.setEnabled(false);
         ajoutOkMaterielJButton.addActionListener(new ActionListener() {
             @Override

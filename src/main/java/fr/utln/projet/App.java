@@ -6,9 +6,13 @@ import fr.utln.projet.modele.SalleModele;
 import fr.utln.projet.utilisateur.Materiel;
 import fr.utln.projet.vue.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.DateFormat;
+import java.util.*;
 
 /**
  * Hello world!
@@ -16,18 +20,20 @@ import java.util.List;
  */
 public class App
 {
-    public static void main( String[] args ) throws SQLException {
+    public static void main( String[] args ) throws SQLException, IOException {
 
         // ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
         //EtudiantVue etudiantVue = new EtudiantVue(modeleEtudiant);
         //ProfesseurModele professeurModele = new ProfesseurModele();
         //ProfesseurVue professeurVue = new ProfesseurVue(professeurModele);
 //         AuthentificationVue authentificationVue = new AuthentificationVue();
-//        ModuleModele moduleModele = new ModuleModele();
-        MenuProfRefVue a = new MenuProfRefVue("coucou");
+        //ModuleModele moduleModele = new ModuleModele();
+        //MenuProfRefVue a = new MenuProfRefVue("coucou");
         //SalleModele salleModele = new SalleModele();
         //SalleVue salleVue = new SalleVue(salleModele);
         MaterielModele materielModele = new MaterielModele();
         MaterielVue materielVue = new MaterielVue(materielModele);
-
-    }}
+        ResourceBundle rb = ResourceBundle.getBundle("textBouton");
+        System.out.println(rb.getString("Supprimer"));
+    }
+}
