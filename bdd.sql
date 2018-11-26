@@ -138,8 +138,8 @@ CREATE TABLE IF NOT EXISTS RESERVER (
   numeroSalle integer references SALLE(numeroSalle),
   idProfesseur integer references PROFESSEUR(idProfesseur),
   dateReservation date,
-  heureDebRes date,
-  heureFinRes date,
+  heureDebRes time,
+  heureFinRes time,
   PRIMARY KEY(numeroSalle, idProfesseur, dateReservation, heureDebRes)
 );
 
@@ -154,8 +154,8 @@ CREATE TABLE IF NOT EXISTS SUIVRE (
   idProfesseur integer references PROFESSEUR(idProfesseur),
   intituleModule varchar(11) references MODULE(intituleModule),
   dateCours date,
-  heureDebCours date,
-  heureFinCours date,
+  heureDebCours time,
+  heureFinCours time,
   numeroSalle integer,
   Primary KEY(intituleGroupe, idProfesseur, intituleModule, dateCours, heureDebCours)
 );

@@ -1,5 +1,6 @@
 package fr.utln.projet.vue;
 
+import fr.utln.projet.controleur.CoursControleur;
 import fr.utln.projet.controleur.EtudiantControleurAuth;
 import fr.utln.projet.controleur.ProfesseurControleurAuth;
 
@@ -54,7 +55,7 @@ public class AuthentificationVue extends JFrame implements Observer {
                     String mdp = new String(champsMdp.getPassword());
                     if(log.charAt(0) == 'e') {
                         if(etudiantControleur.connecterEtudiant(log, mdp)){
-                            JOptionPane.showMessageDialog(contentPane, "Bienvenu " + log);
+                            PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
                         }else
                             JOptionPane.showMessageDialog(contentPane, "Le login et le mot de passe ne correspondent pas","Erreur",JOptionPane.ERROR_MESSAGE);
                     }
