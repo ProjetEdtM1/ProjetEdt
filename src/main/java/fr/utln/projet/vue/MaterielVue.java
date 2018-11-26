@@ -5,11 +5,14 @@ import fr.utln.projet.modele.MaterielListModel;
 import fr.utln.projet.modele.MaterielModele;
 import fr.utln.projet.utilisateur.Materiel;
 
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 
 /*
@@ -34,33 +37,46 @@ public class MaterielVue extends JFrame {
     private final JPanel materielSuppressionPanel = new JPanel(new GridBagLayout());
     private final JPanel materielAjoutPanel = new JPanel(new GridBagLayout());
 
+    private final JList<String> langueJlist;
     private final JList<Materiel> materielJList;
 
-    private final JButton suppressionMaterielJButton = new JButton(" Supprimer");
-    private final JButton ajoutOkMaterielJButton = new JButton(" Ajouter");
-    private final JButton ajoutCancelMaterielJButton = new JButton("cancel");
+    private ResourceBundle rb = ResourceBundle.getBundle("textBouton");
+
+    private JButton suppressionMaterielJButton; // = new JButton(" Supprimer");
+    private final JButton ajoutOkMaterielJButton;// = new JButton(" Ajouter");
+    private final JButton ajoutCancelMaterielJButton;// = new JButton("Annuler");
 
     private final JLabel numMateriellabel = new JLabel("Numero de materiel : ");
-    private final JLabel nomMateriellabel = new JLabel("Nom de materiel : ");
+    private final JLabel nomMateriellabel= new JLabel("Nom de materiel : ");
 
     private final JTextField numMateriel;
     private final JTextField nomMateriel;
 
 
-    public MaterielVue(MaterielModele materielModele) {
+    public MaterielVue(final MaterielModele materielModele) {
 
         super("CRUD  materiel");
 
         Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int) dimension.getHeight();
-        int width = (int) dimension.getWidth();
+        final int height = (int) dimension.getHeight();
+        final int width = (int) dimension.getWidth();
         setSize(width / 2, height / 2);
 
         this.materielModele = materielModele;
         this.materielControleur = new MaterielControleur(this, materielModele);
         this.materielListModel = new MaterielListModel(materielControleur.getListMateriel());
 
+        String[] listlangue = {"Francais","Anglais"};
+
         materielModele.addObserver(materielListModel);
+
+        langueJlist = new JList<>(listlangue);
+        langueJlist.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                changeBundle(langueJlist.getSelectedValue());
+            }
+        });
 
         materielJList = new JList<>(materielListModel);
         materielJList.addListSelectionListener(new ListSelectionListener() {
@@ -69,6 +85,8 @@ public class MaterielVue extends JFrame {
                 setSuppressionMaterielJButton((materielJList.getSelectedValue() != null));
             }
         });
+
+        suppressionMaterielJButton = new JButton(rb.getString("Supprimer"));
         suppressionMaterielJButton.setEnabled(false);
         suppressionMaterielJButton.addActionListener(new ActionListener() {
             @Override
@@ -77,10 +95,11 @@ public class MaterielVue extends JFrame {
                 suppressionMaterielJButton.setEnabled(false);
             }
         });
+
         numMateriel = new JTextField(materielControleur.getNumNouveauMateriel(),"",10);
         nomMateriel = new JTextField(materielControleur.getNomNouveauMateriel(),"",10);
 
-
+        ajoutCancelMaterielJButton = new JButton(rb.getString("Annuler"));
         ajoutCancelMaterielJButton.setEnabled(false);
         ajoutCancelMaterielJButton.addActionListener(new ActionListener() {
             @Override
@@ -88,6 +107,8 @@ public class MaterielVue extends JFrame {
                 materielControleur.cancelMateriel();
             }
         });
+
+        ajoutOkMaterielJButton = new JButton(rb.getString("Ajouter"));
         ajoutOkMaterielJButton.setEnabled(false);
         ajoutOkMaterielJButton.addActionListener(new ActionListener() {
             @Override
@@ -157,23 +178,45 @@ public class MaterielVue extends JFrame {
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
-        c.gridy = 0;
+        c.gridy = 1;
         getContentPane().add(materielSuppressionPanel, c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 1;
-        c.gridy = 0;
+        c.gridy = 1;
         getContentPane().add(materielAjoutPanel, c);
+
+        c.gridx = 0;
+        c.gridy = 0;
+        getContentPane().add(langueJlist,c);
 
 
         setVisible(true);
     }
+
+    private void changeBundle(String selectedValue) {
+        if (selectedValue.compareTo("Anglais") == 0){
+            rb = ResourceBundle.getBundle("textBouton",Locale.ENGLISH);
+        }
+        else
+            rb = ResourceBundle.getBundle("textBouton");
+        suppressionMaterielJButton.setText((rb.getString("Supprimer")));
+        ajoutCancelMaterielJButton.setText((rb.getString("Annuler")));
+        ajoutOkMaterielJButton.setText((rb.getString("Ajouter")));
+
+    }
+
     private void setSuppressionMaterielJButton(boolean b) {
         suppressionMaterielJButton.setEnabled(b);
+
     }
     public void setCreationMateriel(boolean b) {
         ajoutOkMaterielJButton.setEnabled(b);
         ajoutCancelMaterielJButton.setEnabled(b);
 
     }
+    public MaterielVue getInstance(){
+        return this;
+    }
+
 }

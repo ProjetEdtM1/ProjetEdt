@@ -42,10 +42,10 @@ public class EtudiantVue extends JFrame  {
     private final JButton ajoutcancelEtudiantJButton = new JButton("cancel Etudiant");
 
     private final JLabel groupetudlabel = new JLabel(" Groupe :");;
-    private final JLabel numetudlabel = new JLabel("Num etud :");
+    private final JLabel numetudlabel = new JLabel("Numero :");
     private final JLabel nometudlabel = new JLabel("Nom :");
-    private final JLabel prenometudlabel = new JLabel(" Prénom :");
-    private final JLabel mdpEtudiantlabel = new JLabel("mdp");
+    private final JLabel prenometudlabel = new JLabel(" Prenom :");
+    private final JLabel mdpEtudiantlabel = new JLabel("mdp :");
 
     private final JTextField numetud;
     private final JTextField nometud;
