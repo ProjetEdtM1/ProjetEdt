@@ -200,12 +200,15 @@ public class MaterielVue extends JFrame {
         }
         else
             rb = ResourceBundle.getBundle("textBouton");
-
+        suppressionMaterielJButton.setText((rb.getString("Supprimer")));
+        ajoutCancelMaterielJButton.setText((rb.getString("Annuler")));
+        ajoutOkMaterielJButton.setText((rb.getString("Ajouter")));
 
     }
 
     private void setSuppressionMaterielJButton(boolean b) {
         suppressionMaterielJButton.setEnabled(b);
+
     }
     public void setCreationMateriel(boolean b) {
         ajoutOkMaterielJButton.setEnabled(b);

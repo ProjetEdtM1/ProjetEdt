@@ -6,6 +6,7 @@ import fr.utln.projet.modele.SalleModele;
 import fr.utln.projet.utilisateur.Materiel;
 import fr.utln.projet.vue.*;
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -33,7 +34,6 @@ public class App
         //SalleVue salleVue = new SalleVue(salleModele);
         MaterielModele materielModele = new MaterielModele();
         MaterielVue materielVue = new MaterielVue(materielModele);
-        ResourceBundle rb = ResourceBundle.getBundle("textBouton");
-        System.out.println(rb.getString("Supprimer"));
+
     }
 }
