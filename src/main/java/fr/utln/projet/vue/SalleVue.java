@@ -23,7 +23,7 @@ import java.awt.event.ActionListener;
  * Copyright     : CLAIN Cyril
  */
 
-public class SalleVue  extends JFrame {
+public class SalleVue  extends Fenetre {
 
     private final SalleModele salleModele;
     private final SalleControleur salleControleur;
@@ -46,12 +46,8 @@ public class SalleVue  extends JFrame {
 
     public SalleVue(SalleModele salleModele) {
 
-        super("CRUD  salle");
-
-        Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int) dimension.getHeight();
-        int width = (int) dimension.getWidth();
-        setSize(width / 2, height / 2);
+        super();
+        setTitle("CRUD  salle");
 
         this.salleModele = salleModele;
         this.salleControleur = new SalleControleur(this, salleModele);
@@ -93,8 +89,6 @@ public class SalleVue  extends JFrame {
             }
         });
 
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GridBagConstraints c = new GridBagConstraints();
 
@@ -149,7 +143,6 @@ public class SalleVue  extends JFrame {
         c.gridx = 1;
         c.gridy = 0;
         getContentPane().add(salleAjoutPanel, c);
-
 
         setVisible(true);
     }

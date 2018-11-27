@@ -7,7 +7,7 @@ import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class PlanningEtudiantVue extends JFrame {
+public class PlanningEtudiantVue extends Fenetre {
     private CoursControleur coursControleur;
     private String intituleGroupe;
 
@@ -15,14 +15,12 @@ public class PlanningEtudiantVue extends JFrame {
     private JTable tablePlanning;
 
     public PlanningEtudiantVue(String intituleGroupe){
-        super("Planning");
+        super();
+        setTitle("Planning");
         this.coursControleur = new CoursControleur(this);
         this.intituleGroupe = intituleGroupe;
 
 
-        setSize(600,300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setVisible(true);
         final Container contentPane = getContentPane();
         JPanel panelGeneral = new JPanel();
 

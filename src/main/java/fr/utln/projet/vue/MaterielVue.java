@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
  * Copyright     : CLAIN Cyril
  */
 
-public class MaterielVue extends JFrame {
+public class MaterielVue extends Fenetre {
 
     private final MaterielModele materielModele;
     private final MaterielControleur materielControleur;
@@ -40,7 +40,7 @@ public class MaterielVue extends JFrame {
     private final JPanel materielSuppressionPanel = new JPanel(new GridBagLayout());
     private final JPanel materielAjoutPanel = new JPanel(new GridBagLayout());
 
-    private final JList<String> langueJlist;
+    //private final JList<String> langueJlist;
     private final JList<Materiel> materielJList;
 
     private ResourceBundle rbBouton = ResourceBundle.getBundle("textBouton");
@@ -59,12 +59,8 @@ public class MaterielVue extends JFrame {
 
     public MaterielVue(final MaterielModele materielModele) {
 
-        super("CRUD  materiel");
-
-        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        final int height = (int) dimension.getHeight();
-        final int width = (int) dimension.getWidth();
-        setSize(width / 2, height / 2);
+        super();
+        setTitle("CRUD  materiel");
 
         this.materielModele = materielModele;
         this.materielControleur = new MaterielControleur(this, materielModele);
@@ -75,13 +71,13 @@ public class MaterielVue extends JFrame {
 
         materielModele.addObserver(materielListModel);
 
-        langueJlist = new JList<>(listlangue);
+      /*  langueJlist = new JList<>(listlangue);
         langueJlist.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 changeBundle(langueJlist.getSelectedValue());
             }
-        });
+        });*/
 
         materielJList = new JList<>(materielListModel);
         materielJList.addListSelectionListener(new ListSelectionListener() {
@@ -128,7 +124,6 @@ public class MaterielVue extends JFrame {
         nomMateriellabel = new JLabel(rbLabel.getString("Nom de materiel")+" :");
 
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GridBagConstraints c = new GridBagConstraints();
 
@@ -194,12 +189,11 @@ public class MaterielVue extends JFrame {
         c.gridy = 1;
         getContentPane().add(materielAjoutPanel, c);
 
-        c.gridx = 0;
+        /*c.gridx = 0;
         c.gridy = 0;
-        getContentPane().add(langueJlist,c);
+        getContentPane().add(langueJlist,c);*/
 
 
-        setVisible(true);
     }
 
     private void changeBundle(String selectedValue) {

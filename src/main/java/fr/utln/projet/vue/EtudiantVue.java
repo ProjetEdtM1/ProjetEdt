@@ -23,7 +23,7 @@ import java.awt.event.*;
  * Copyright     : CLAIN Cyril
  */
 
-public class EtudiantVue extends JFrame  {
+public class EtudiantVue extends Fenetre  {
 
     private final MenuProfRefVue menuProfRefVue;
     private final ModeleEtudiant modeleEtudiant;
@@ -74,12 +74,8 @@ public class EtudiantVue extends JFrame  {
 
     public EtudiantVue(ModeleEtudiant modeleEtudiant, final MenuProfRefVue menuProfRefVue) throws HeadlessException {
 
-        super("CRUD  etudiants");
-
-        Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int) dimension.getHeight();
-        int width = (int) dimension.getWidth();
-        setSize(3 * width / 4, 3 * height / 4);
+        super();
+        setTitle("CRUD  etudiants");
 
         this.modeleEtudiant = modeleEtudiant;
         this.controleurEtudiant = new ControleurEtudiant(this,modeleEtudiant);

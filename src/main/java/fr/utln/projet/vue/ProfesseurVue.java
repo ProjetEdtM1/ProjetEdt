@@ -24,7 +24,7 @@ import java.awt.event.*;
  * Copyright     : CLAIN Cyril
  */
 
-public class ProfesseurVue extends JFrame{
+public class ProfesseurVue extends Fenetre{
     private final ProfesseurModele professeurModele;
     private final ProfesseurControleur professeurControleur;
     private MenuProfRefVue menuProfRefVue;
@@ -69,7 +69,8 @@ public class ProfesseurVue extends JFrame{
 
     public ProfesseurVue(ProfesseurModele professeurModele,final MenuProfRefVue menuProfRefVue) {
 
-        super("CRUD  professeur");
+        super();
+        setTitle("CRUD  professeur");
 
         Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         int height = (int) dimension.getHeight();
