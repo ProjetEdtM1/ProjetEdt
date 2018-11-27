@@ -10,6 +10,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ResourceBundle;
 
 /*
  * Nom de classe : EtudiantVue
@@ -35,17 +36,21 @@ public class EtudiantVue extends Fenetre  {
     private final JPanel etudiantSuppressionPanel = new JPanel(new GridBagLayout());
     private final JPanel etudiantAjoutPanel = new JPanel(new GridBagLayout());
 
+    private ResourceBundle rbBouton = ResourceBundle.getBundle("textBouton");
+    private ResourceBundle rbLabel = ResourceBundle.getBundle("textLabel");
+
     private final JList<Etudiant> etudiantSuppressionJList;
-    private final JButton supprimerEtudiantJButton = new JButton("Supprimer Etudiant");
 
-    private final JButton ajoutOkEtudiantJButton = new JButton(" ok");
-    private final JButton ajoutcancelEtudiantJButton = new JButton("cancel Etudiant");
+    private final JButton supprimerEtudiantJButton = new JButton(rbBouton.getString("Supprimer Etudiant"));
 
-    private final JLabel groupetudlabel = new JLabel(" Groupe :");;
-    private final JLabel numetudlabel = new JLabel("Numero :");
-    private final JLabel nometudlabel = new JLabel("Nom :");
-    private final JLabel prenometudlabel = new JLabel(" Prenom :");
-    private final JLabel mdpEtudiantlabel = new JLabel("mdp :");
+    private final JButton ajoutOkEtudiantJButton = new JButton(rbBouton.getString("Ajouter"));
+    private final JButton ajoutcancelEtudiantJButton = new JButton(rbBouton.getString("Annuler"));
+
+    private final JLabel groupetudlabel = new JLabel(rbLabel.getString("Groupe")+" :");
+    private final JLabel numetudlabel = new JLabel(rbLabel.getString("Numero")+" :");
+    private final JLabel nometudlabel = new JLabel(rbLabel.getString("Nom")+" :");
+    private final JLabel prenometudlabel = new JLabel(rbLabel.getString("Prenom")+" :");
+    private final JLabel mdpEtudiantlabel = new JLabel(rbLabel.getString("mdp")+" :");
 
     private final JTextField numetud;
     private final JTextField nometud;
@@ -54,8 +59,8 @@ public class EtudiantVue extends Fenetre  {
     private final JTextField mdpEtudiant;
 
     private static JPanel etudiantDetailPanel = new JPanel(new GridBagLayout());
-    private final JButton modifierEtudiantJBouton = new JButton("valider");
-    private final JButton cancelModifierEtudiantJButton = new JButton("annuler ");
+    private final JButton modifierEtudiantJBouton = new JButton(rbBouton.getString("modifier"));
+    private final JButton cancelModifierEtudiantJButton = new JButton( rbBouton.getString("Annuler"));
 
     private final JComboBox<Etudiant> etudiantDetailJComboBox;
     private final JComboBox<String> groupeEtudiantJcomboBox;
@@ -65,10 +70,10 @@ public class EtudiantVue extends Fenetre  {
     private static JTextField prenomEtudDetailTextField;
     private static JTextField groupeEtudDetailTextField;
 
-    private final JLabel numEtudDetaillabel = new JLabel(" num etud :");;
-    private final JLabel nomEtudDetaillabel = new JLabel("Nom :");
-    private final JLabel prenomEtudDetaillabel = new JLabel("prenom :");
-    private final JLabel groupeEtudDetaillabel = new JLabel(" groupe :");
+    private final JLabel numEtudDetaillabel = new JLabel(rbLabel.getString("Numero")+" :");
+    private final JLabel nomEtudDetaillabel = new JLabel(rbLabel.getString("Nom")+" :");
+    private final JLabel prenomEtudDetaillabel = new JLabel(rbLabel.getString("Prenom")+" :");
+    private final JLabel groupeEtudDetaillabel = new JLabel(rbLabel.getString("Groupe")+" :");
 
 
 

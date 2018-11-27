@@ -24,7 +24,7 @@ public class App
         //EtudiantVue etudiantVue = new EtudiantVue(modeleEtudiant);
         //ProfesseurModele professeurModele = new ProfesseurModele();
         //ProfesseurVue professeurVue = new ProfesseurVue(professeurModele);
-         AuthentificationVue authentificationVue = new AuthentificationVue();
+        // AuthentificationVue authentificationVue = new AuthentificationVue();
 
         // ModuleModele moduleModele = new ModuleModele();
         MenuProfRefVue a = new MenuProfRefVue("coucou");
@@ -32,7 +32,7 @@ public class App
        // SalleVue salleVue = new SalleVue(salleModele);
         //MaterielModele materielModele = new MaterielModele();
         //MaterielVue materielVue = new MaterielVue(materielModele);
-        PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
+       // PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
 
 
     }
