@@ -22,9 +22,9 @@ import java.util.ResourceBundle;
  *
  * Description   : Partie visible de mon interface permet de voir les formulaire CRUD d'un materiel
  *
- * Version       : 1.0
+ * Version       : 1.1
  *
- * Date          : 24/11/2018
+ * Date          : 27/11/2018
  *
  * Copyright     : CLAIN Cyril
  */

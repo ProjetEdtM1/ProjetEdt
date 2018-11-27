@@ -16,8 +16,6 @@ public class Fenetre extends JFrame {
         setSize(3 * width / 4, 3 * height / 4);
         // this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
-
         this.setVisible(true);
     }
 }
