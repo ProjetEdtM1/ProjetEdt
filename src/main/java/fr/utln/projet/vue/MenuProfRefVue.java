@@ -1,5 +1,6 @@
 package fr.utln.projet.vue;
 
+import fr.utln.projet.modele.LangueListModele;
 import fr.utln.projet.modele.ModeleEtudiant;
 import fr.utln.projet.modele.ModuleModele;
 import fr.utln.projet.modele.ProfesseurModele;
@@ -10,8 +11,11 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
+import static fr.utln.projet.vue.MaterielVue.langueListModele;
 
 public class MenuProfRefVue extends JFrame {
 
@@ -23,6 +27,7 @@ public class MenuProfRefVue extends JFrame {
     private  JButton boutonGererEtudiants;// = new JButton("Gérer étudiants");
     private  JButton boutonGererProf;// = new JButton("Gérer professeurs");
 
+    public static LangueListModele langueListModele;
     private final JList<String> langueJlist;
 
     private final JPanel panelGeneral = new JPanel();
@@ -34,7 +39,7 @@ public class MenuProfRefVue extends JFrame {
 
     private String loginProfRef;
 
-    public MenuProfRefVue(String loginProfRef){
+    public MenuProfRefVue(String loginProfRef) {
         super("Menu");
         setSize(500,300);
 
@@ -45,7 +50,9 @@ public class MenuProfRefVue extends JFrame {
         boutonGererProf = new JButton(rbBouton.getString("Gerer professeurs"));
 
         String[] listlangue = {"Francais","Anglais"};
-        langueJlist = new JList<>(listlangue);
+
+        langueListModele = new LangueListModele(Arrays.asList(listlangue));
+        langueJlist = new JList<>(langueListModele);
         langueJlist.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -91,6 +98,7 @@ public class MenuProfRefVue extends JFrame {
 
     }
 
+
     public MenuProfRefVue getInstance(){
         return this;
     }
@@ -121,7 +129,6 @@ public class MenuProfRefVue extends JFrame {
 
 
     private void setTextBouton(ResourceBundle rbBouton) {
-        System.out.println(rbBouton.getLocale());
         boutonGererModules.setText(rbBouton.getString("Gerer modules"));
         boutonGererEtudiants.setText(rbBouton.getString("Gerer etudiants"));
         boutonGererProf.setText(rbBouton.getString("Gerer professeurs"));

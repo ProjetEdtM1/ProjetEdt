@@ -29,8 +29,8 @@ public class App
         MenuProfRefVue a = new MenuProfRefVue("coucou");
         //SalleModele salleModele = new SalleModele();
         //SalleVue salleVue = new SalleVue(salleModele);
-        //MaterielModele materielModele = new MaterielModele();
-        //MaterielVue materielVue = new MaterielVue(materielModele);
+        MaterielModele materielModele = new MaterielModele();
+        MaterielVue materielVue = new MaterielVue(materielModele);
 
 
     }

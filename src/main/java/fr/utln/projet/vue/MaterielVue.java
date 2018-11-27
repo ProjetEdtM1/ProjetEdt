@@ -1,6 +1,7 @@
 package fr.utln.projet.vue;
 
 import fr.utln.projet.controleur.MaterielControleur;
+import fr.utln.projet.modele.LangueListModele;
 import fr.utln.projet.modele.MaterielListModel;
 import fr.utln.projet.modele.MaterielModele;
 import fr.utln.projet.utilisateur.Materiel;
@@ -11,6 +12,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -33,6 +35,7 @@ public class MaterielVue extends JFrame {
     private final MaterielControleur materielControleur;
 
     private static MaterielListModel materielListModel;
+    public static LangueListModele langueListModele;
 
     private final JPanel materielSuppressionPanel = new JPanel(new GridBagLayout());
     private final JPanel materielAjoutPanel = new JPanel(new GridBagLayout());
@@ -68,6 +71,7 @@ public class MaterielVue extends JFrame {
         this.materielListModel = new MaterielListModel(materielControleur.getListMateriel());
 
         String[] listlangue = {"Francais","Anglais"};
+        langueListModele = new LangueListModele(Arrays.asList(listlangue));
 
         materielModele.addObserver(materielListModel);
 
