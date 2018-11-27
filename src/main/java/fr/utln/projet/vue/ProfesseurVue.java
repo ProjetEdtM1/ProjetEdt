@@ -72,10 +72,6 @@ public class ProfesseurVue extends Fenetre{
         super();
         setTitle("CRUD  professeur");
 
-        Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int) dimension.getHeight();
-        int width = (int) dimension.getWidth();
-        setSize(width / 2, height / 2);
         this.professeurModele = professeurModele;
         this.professeurControleur = new ProfesseurControleur(this, professeurModele);
         this.professeurListModele = new ProfesseurListModele(professeurControleur.getListProfesseur());

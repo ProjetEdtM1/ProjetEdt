@@ -27,10 +27,12 @@ public class MenuProfRefVue extends Fenetre {
     private  JButton boutonGererEtudiants;// = new JButton("Gérer étudiants");
     private  JButton boutonGererProf;// = new JButton("Gérer professeurs");
 
+    //private JButton boutonImage = new JButton(new ImageIcon("/home/cclain594/Bureau/copie_git_23_11/projetEdt/code.gif"));
+
     public static LangueListModele langueListModele;
     private final JList<String> langueJlist;
 
-    private final JPanel panelGeneral = new JPanel();
+    private final JPanel panelGeneral = new JPanel(new GridBagLayout());
     private final JPanel panelLangue = new JPanel();
 
     private final Container contentPane = getContentPane();
@@ -60,8 +62,13 @@ public class MenuProfRefVue extends Fenetre {
             }
         });
 
+        boutonImage.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-        panelGeneral.add(boutonGererModules);
+            }
+        });
+
         this.boutonGererModules.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -69,7 +76,7 @@ public class MenuProfRefVue extends Fenetre {
                 boutonGererModules.setEnabled(false);
             }
         });
-        panelGeneral.add(boutonGererEtudiants);
+
         this.boutonGererEtudiants.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -77,7 +84,7 @@ public class MenuProfRefVue extends Fenetre {
                 boutonGererEtudiants.setEnabled(false);
             }
         });
-        panelGeneral.add(boutonGererProf);
+
         this.boutonGererProf.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -90,6 +97,26 @@ public class MenuProfRefVue extends Fenetre {
 
         panelLangue.add(langueJlist);
         contentPane.add(panelLangue,BorderLayout.WEST);
+        GridBagConstraints c = new GridBagConstraints();
+
+        c.gridx = 0;
+        c.gridy = 0;
+        c.gridheight = 2;
+        c.gridwidth = 2;
+        panelGeneral.add(boutonGererModules,c);
+        c.gridx = 2;
+        panelGeneral.add(boutonGererEtudiants,c);
+        c.gridx = 4;
+        panelGeneral.add(boutonGererProf,c);
+
+        /*boutonImage.setPreferredSize(new Dimension(450,169));
+        c.gridx = 0;
+        c.gridy = 3;
+        c.gridheight = 0;
+        c.gridwidth = 6;
+        panelGeneral.add(boutonImage,c);*/
+
+
         contentPane.add(panelGeneral);// add(component) equals add(component,borderlayout.center)
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
