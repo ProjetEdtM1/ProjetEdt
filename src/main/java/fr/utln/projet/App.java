@@ -7,10 +7,7 @@ import fr.utln.projet.utilisateur.Materiel;
 import fr.utln.projet.vue.*;
 
 import javax.swing.*;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.*;
@@ -29,11 +26,12 @@ public class App
         //ProfesseurVue professeurVue = new ProfesseurVue(professeurModele);
 //         AuthentificationVue authentificationVue = new AuthentificationVue();
         //ModuleModele moduleModele = new ModuleModele();
-        //MenuProfRefVue a = new MenuProfRefVue("coucou");
+        MenuProfRefVue a = new MenuProfRefVue("coucou");
         //SalleModele salleModele = new SalleModele();
         //SalleVue salleVue = new SalleVue(salleModele);
         MaterielModele materielModele = new MaterielModele();
         MaterielVue materielVue = new MaterielVue(materielModele);
+
 
     }
 }

@@ -40,14 +40,15 @@ public class MaterielVue extends JFrame {
     private final JList<String> langueJlist;
     private final JList<Materiel> materielJList;
 
-    private ResourceBundle rb = ResourceBundle.getBundle("textBouton");
+    private ResourceBundle rbBouton = ResourceBundle.getBundle("textBouton");
+    private ResourceBundle rbLabel = ResourceBundle.getBundle("textLabel");
 
     private JButton suppressionMaterielJButton; // = new JButton(" Supprimer");
     private final JButton ajoutOkMaterielJButton;// = new JButton(" Ajouter");
     private final JButton ajoutCancelMaterielJButton;// = new JButton("Annuler");
 
-    private final JLabel numMateriellabel = new JLabel("Numero de materiel : ");
-    private final JLabel nomMateriellabel= new JLabel("Nom de materiel : ");
+    private final JLabel numMateriellabel;// = new JLabel("Numero de materiel : ");
+    private final JLabel nomMateriellabel;//= new JLabel("Nom de materiel : ");
 
     private final JTextField numMateriel;
     private final JTextField nomMateriel;
@@ -86,7 +87,7 @@ public class MaterielVue extends JFrame {
             }
         });
 
-        suppressionMaterielJButton = new JButton(rb.getString("Supprimer"));
+        suppressionMaterielJButton = new JButton(rbBouton.getString("Supprimer"));
         suppressionMaterielJButton.setEnabled(false);
         suppressionMaterielJButton.addActionListener(new ActionListener() {
             @Override
@@ -99,7 +100,7 @@ public class MaterielVue extends JFrame {
         numMateriel = new JTextField(materielControleur.getNumNouveauMateriel(),"",10);
         nomMateriel = new JTextField(materielControleur.getNomNouveauMateriel(),"",10);
 
-        ajoutCancelMaterielJButton = new JButton(rb.getString("Annuler"));
+        ajoutCancelMaterielJButton = new JButton(rbBouton.getString("Annuler"));
         ajoutCancelMaterielJButton.setEnabled(false);
         ajoutCancelMaterielJButton.addActionListener(new ActionListener() {
             @Override
@@ -108,7 +109,7 @@ public class MaterielVue extends JFrame {
             }
         });
 
-        ajoutOkMaterielJButton = new JButton(rb.getString("Ajouter"));
+        ajoutOkMaterielJButton = new JButton(rbBouton.getString("Ajouter"));
         ajoutOkMaterielJButton.setEnabled(false);
         ajoutOkMaterielJButton.addActionListener(new ActionListener() {
             @Override
@@ -118,6 +119,9 @@ public class MaterielVue extends JFrame {
 
             }
         });
+
+        numMateriellabel = new JLabel(rbLabel.getString("Numero de materiel")+" :");
+        nomMateriellabel = new JLabel(rbLabel.getString("Nom de materiel")+" :");
 
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -196,13 +200,22 @@ public class MaterielVue extends JFrame {
 
     private void changeBundle(String selectedValue) {
         if (selectedValue.compareTo("Anglais") == 0){
-            rb = ResourceBundle.getBundle("textBouton",Locale.ENGLISH);
+            rbBouton = ResourceBundle.getBundle("textBouton",Locale.ENGLISH);
+            rbLabel = ResourceBundle.getBundle("textLabel",Locale.ENGLISH);
+
         }
         else
-            rb = ResourceBundle.getBundle("textBouton");
-        suppressionMaterielJButton.setText((rb.getString("Supprimer")));
-        ajoutCancelMaterielJButton.setText((rb.getString("Annuler")));
-        ajoutOkMaterielJButton.setText((rb.getString("Ajouter")));
+        {rbBouton = ResourceBundle.getBundle("textBouton",Locale.FRANCE);
+            rbLabel = ResourceBundle.getBundle("textLabel",Locale.FRANCE);}
+        setTextBouton(rbBouton);
+        setTextLabel(rbLabel);
+
+    }
+
+    private void setTextLabel(ResourceBundle rbLabel) {
+        nomMateriellabel.setText(rbLabel.getString("Nom de materiel"));
+        numMateriellabel.setText(rbLabel.getString("Numero de materiel"));
+
 
     }
 
@@ -219,4 +232,9 @@ public class MaterielVue extends JFrame {
         return this;
     }
 
+    public void setTextBouton(ResourceBundle rb) {
+        suppressionMaterielJButton.setText((rb.getString("Supprimer")));
+        ajoutCancelMaterielJButton.setText((rb.getString("Annuler")));
+        ajoutOkMaterielJButton.setText((rb.getString("Ajouter")));
+    }
 }
