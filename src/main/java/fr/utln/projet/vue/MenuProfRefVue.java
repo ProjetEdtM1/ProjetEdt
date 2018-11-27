@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 
 import static fr.utln.projet.vue.MaterielVue.langueListModele;
 
-public class MenuProfRefVue extends JFrame {
+public class MenuProfRefVue extends Fenetre {
 
     // bundle pour l'internationalisation
     private ResourceBundle rbBouton = ResourceBundle.getBundle("textBouton");
@@ -40,8 +40,8 @@ public class MenuProfRefVue extends JFrame {
     private String loginProfRef;
 
     public MenuProfRefVue(String loginProfRef) {
-        super("Menu");
-        setSize(500,300);
+        super();
+        setTitle("Menu");
 
         this.loginProfRef = loginProfRef;
 

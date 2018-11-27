@@ -1,6 +1,7 @@
 package fr.utln.projet.vue;
 
 import fr.utln.projet.controleur.SalleControleur;
+import fr.utln.projet.modele.LangueListModele;
 import fr.utln.projet.modele.SalleListModele;
 import fr.utln.projet.modele.SalleModele;
 import fr.utln.projet.utilisateur.Salle;
@@ -11,6 +12,9 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.ResourceBundle;
 /*
  * Nom de classe : SalleVue
  *
@@ -23,7 +27,7 @@ import java.awt.event.ActionListener;
  * Copyright     : CLAIN Cyril
  */
 
-public class SalleVue  extends JFrame {
+public class SalleVue  extends Fenetre {
 
     private final SalleModele salleModele;
     private final SalleControleur salleControleur;
@@ -35,29 +39,47 @@ public class SalleVue  extends JFrame {
 
     private final JList<Salle> salleJList;
 
-    private final JButton suppressionSalleJButton = new JButton(" Supprimer");
-    private final JButton ajoutOkSalleJButton = new JButton(" Ajouter");
-    private final JButton ajoutCancelSalleJButton = new JButton("cancel");
+    private final JList<String> langueJlist;
+    private ResourceBundle rbBouton = ResourceBundle.getBundle("textBouton");
+    private ResourceBundle rbLabel = ResourceBundle.getBundle("textLabel");
+    public static LangueListModele langueListModele;
 
-    private final JLabel numSallelabel = new JLabel("Numero de salle : ");
+
+    private final JButton suppressionSalleJButton;// = new JButton("Supprimer");
+    private final JButton ajoutOkSalleJButton;// = new JButton("Ajouter");
+    private final JButton ajoutCancelSalleJButton;// = new JButton("Annuler");
+
+    private final JLabel numSallelabel;// = new JLabel("Numero de salle"+" : ");
 
     private final JTextField numSalle;
 
 
     public SalleVue(SalleModele salleModele) {
 
-        super("CRUD  salle");
-
-        Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        int height = (int) dimension.getHeight();
-        int width = (int) dimension.getWidth();
-        setSize(width / 2, height / 2);
+        super();
+        setTitle("CRUD  salle");
 
         this.salleModele = salleModele;
         this.salleControleur = new SalleControleur(this, salleModele);
         this.salleListModele = new SalleListModele(salleControleur.getListSalle());
 
         salleModele.addObserver(salleListModele);
+
+        String[] listlangue = {"Francais", "Anglais"};
+        langueListModele = new LangueListModele(Arrays.asList(listlangue));
+        langueJlist = new JList<>(listlangue);
+        langueJlist.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                changeBundle(langueJlist.getSelectedValue());
+            }
+        });
+
+        suppressionSalleJButton = new JButton(rbBouton.getString("Supprimer"));
+        ajoutOkSalleJButton = new JButton(rbBouton.getString("Ajouter"));
+        ajoutCancelSalleJButton = new JButton(rbBouton.getString("Annuler"));
+        numSallelabel = new JLabel(rbLabel.getString("Numero de salle"));
+
 
         salleJList = new JList<>(salleListModele);
         salleJList.addListSelectionListener(new ListSelectionListener() {
@@ -74,7 +96,7 @@ public class SalleVue  extends JFrame {
                 suppressionSalleJButton.setEnabled(false);
             }
         });
-        numSalle = new JTextField(salleControleur.getNumNouvelleSalle(),"",10);
+        numSalle = new JTextField(salleControleur.getNumNouvelleSalle(), "", 10);
 
         ajoutCancelSalleJButton.setEnabled(false);
         ajoutCancelSalleJButton.addActionListener(new ActionListener() {
@@ -87,14 +109,12 @@ public class SalleVue  extends JFrame {
         ajoutOkSalleJButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(!(salleControleur.persisteSalle()))
+                if (!(salleControleur.persisteSalle()))
                     JOptionPane.showMessageDialog(salleAjoutPanel, "Le numero de salle est deja pris ");
 
             }
         });
 
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GridBagConstraints c = new GridBagConstraints();
 
@@ -141,24 +161,54 @@ public class SalleVue  extends JFrame {
 
 
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
+        c.gridx = 1;
         c.gridy = 0;
         getContentPane().add(salleSuppressionPanel, c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 1;
+        c.gridx = 2;
         c.gridy = 0;
         getContentPane().add(salleAjoutPanel, c);
 
+        c.gridx = 0;
+        c.gridy = 1;
+        getContentPane().add(langueJlist,c);
 
         setVisible(true);
     }
+
     private void setSuppressionSalleJButton(boolean b) {
         suppressionSalleJButton.setEnabled(b);
     }
+
     public void setCreationSalle(boolean b) {
         ajoutOkSalleJButton.setEnabled(b);
         ajoutCancelSalleJButton.setEnabled(b);
+
+    }
+
+    private void changeBundle(String selectedValue) {
+        if (selectedValue.compareTo("Anglais") == 0) {
+            rbBouton = ResourceBundle.getBundle("textBouton", Locale.ENGLISH);
+            rbLabel = ResourceBundle.getBundle("textLabel", Locale.ENGLISH);
+
+        } else {
+            rbBouton = ResourceBundle.getBundle("textBouton", Locale.FRANCE);
+            rbLabel = ResourceBundle.getBundle("textLabel", Locale.FRANCE);
+        }
+        setTextBouton(rbBouton);
+        setTextLabel(rbLabel);
+
+    }
+
+    private void setTextLabel(ResourceBundle rbLabel) {
+        numSallelabel.setText(rbLabel.getString("Numero de salle"));
+    }
+
+    private void setTextBouton(ResourceBundle rbBouton) {
+        suppressionSalleJButton.setText(rbBouton.getString("Supprimer"));
+        ajoutOkSalleJButton.setText(rbBouton.getString("Ajouter"));
+        ajoutCancelSalleJButton.setText(rbBouton.getString("Annuler"));
 
     }
 }
