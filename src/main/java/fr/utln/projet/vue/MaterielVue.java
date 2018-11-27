@@ -40,9 +40,9 @@ public class MaterielVue extends Fenetre {
     private final JPanel materielSuppressionPanel = new JPanel(new GridBagLayout());
     private final JPanel materielAjoutPanel = new JPanel(new GridBagLayout());
 
-    //private final JList<String> langueJlist;
     private final JList<Materiel> materielJList;
 
+    private final JList<String> langueJlist;
     private ResourceBundle rbBouton = ResourceBundle.getBundle("textBouton");
     private ResourceBundle rbLabel = ResourceBundle.getBundle("textLabel");
 
@@ -70,14 +70,15 @@ public class MaterielVue extends Fenetre {
         langueListModele = new LangueListModele(Arrays.asList(listlangue));
 
         materielModele.addObserver(materielListModel);
+        materielModele.addObserver(langueListModele);
 
-      /*  langueJlist = new JList<>(listlangue);
+        langueJlist = new JList<>(listlangue);
         langueJlist.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 changeBundle(langueJlist.getSelectedValue());
             }
-        });*/
+        });
 
         materielJList = new JList<>(materielListModel);
         materielJList.addListSelectionListener(new ListSelectionListener() {
@@ -180,18 +181,18 @@ public class MaterielVue extends Fenetre {
 
 
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 1;
+        c.gridx = 1;
+        c.gridy = 0;
         getContentPane().add(materielSuppressionPanel, c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 1;
-        c.gridy = 1;
+        c.gridx = 2;
+        c.gridy = 0;
         getContentPane().add(materielAjoutPanel, c);
 
-        /*c.gridx = 0;
-        c.gridy = 0;
-        getContentPane().add(langueJlist,c);*/
+        c.gridx = 0;
+        c.gridy = 1;
+        getContentPane().add(langueJlist,c);
 
 
     }
