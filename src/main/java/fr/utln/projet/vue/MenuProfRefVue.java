@@ -5,26 +5,55 @@ import fr.utln.projet.modele.ModuleModele;
 import fr.utln.projet.modele.ProfesseurModele;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class MenuProfRefVue extends JFrame {
-    private  JButton boutonGererModules = new JButton("Gérer modules");
-    private  JButton boutonGererEtudiants = new JButton("Gérer étudiants");
-    private  JButton boutonGererProf = new JButton("Gérer professeurs");
+
+    // bundle pour l'internationalisation
+    private ResourceBundle rbBouton = ResourceBundle.getBundle("textBouton");
+
+    // Bouton
+    private  JButton boutonGererModules;// = new JButton("Gérer modules");
+    private  JButton boutonGererEtudiants;// = new JButton("Gérer étudiants");
+    private  JButton boutonGererProf;// = new JButton("Gérer professeurs");
+
+    private final JList<String> langueJlist;
+
+    private final JPanel panelGeneral = new JPanel();
+    private final JPanel panelLangue = new JPanel();
+
+    private final Container contentPane = getContentPane();
+
+
 
     private String loginProfRef;
 
     public MenuProfRefVue(String loginProfRef){
         super("Menu");
+        setSize(500,300);
+
         this.loginProfRef = loginProfRef;
 
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setSize(500,300);
-        final Container contentPane = getContentPane();
+        boutonGererModules = new JButton(rbBouton.getString("Gerer modules"));
+        boutonGererEtudiants = new JButton(rbBouton.getString("Gerer etudiants"));
+        boutonGererProf = new JButton(rbBouton.getString("Gerer professeurs"));
 
-        JPanel panelGeneral = new JPanel();
+        String[] listlangue = {"Francais","Anglais"};
+        langueJlist = new JList<>(listlangue);
+        langueJlist.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                changeBundle(langueJlist.getSelectedValue());
+            }
+        });
+
+
         panelGeneral.add(boutonGererModules);
         this.boutonGererModules.addActionListener(new ActionListener() {
             @Override
@@ -50,7 +79,13 @@ public class MenuProfRefVue extends JFrame {
             }
         });
 
-        contentPane.add(panelGeneral);
+        contentPane.setLayout(new BorderLayout());
+
+        panelLangue.add(langueJlist);
+        contentPane.add(panelLangue,BorderLayout.WEST);
+        contentPane.add(panelGeneral);// add(component) equals add(component,borderlayout.center)
+
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         setVisible(true);
 
@@ -70,5 +105,25 @@ public class MenuProfRefVue extends JFrame {
 
     public void setTrueBoutonProf(){
         this.boutonGererProf.setEnabled(true);
+    }
+
+    private void changeBundle(String selectedValue) {
+        System.out.println("je passe");
+        if (selectedValue.compareTo("Anglais") == 0){
+            rbBouton = ResourceBundle.getBundle("textBouton", Locale.ENGLISH);
+
+        }
+        else
+            rbBouton = ResourceBundle.getBundle("textBouton",Locale.FRANCE);
+        setTextBouton(rbBouton);
+
+    }
+
+
+    private void setTextBouton(ResourceBundle rbBouton) {
+        System.out.println(rbBouton.getLocale());
+        boutonGererModules.setText(rbBouton.getString("Gerer modules"));
+        boutonGererEtudiants.setText(rbBouton.getString("Gerer etudiants"));
+        boutonGererProf.setText(rbBouton.getString("Gerer professeurs"));
     }
 }
