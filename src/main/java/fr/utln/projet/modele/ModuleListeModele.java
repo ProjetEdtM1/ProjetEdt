@@ -7,31 +7,33 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ModuleListeModele extends DefaultComboBoxModel<Module> implements Observer {
-    public List<Module> listeModule;
+public class ModuleListeModele  extends DefaultComboBoxModel<Module> implements Observer{
+
+    private final List<Module> modules;
 
     public ModuleListeModele(List<Module> module) {
-        this.listeModule = module;
+        this.modules = module;
     }
-
 
     @Override
     public void update(Observable o, Object arg) {
-        if (!listeModule.contains(getSelectedItem()))
+
+        if (!modules.contains(getSelectedItem()))
             setSelectedItem(null);
-        else
-        fireContentsChanged(this, 0, listeModule.size() - 1);
+        else System.out.println(getSelectedItem()+" in "+ modules);
+        fireContentsChanged(this, 0, modules.size() - 1);
     }
 
     @Override
     public int getSize() {
-        return listeModule.size();
+        return modules.size();
     }
 
     @Override
     public Module getElementAt(int index) {
-        if (listeModule.size() > index)
-            return listeModule.get(index);
+        if (modules.size() > index)
+            return modules.get(index);
+
         return null;
     }
 }

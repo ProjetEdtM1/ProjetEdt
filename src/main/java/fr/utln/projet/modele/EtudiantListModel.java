@@ -39,4 +39,5 @@ public class EtudiantListModel extends DefaultComboBoxModel<Etudiant> implements
 
         return null;
     }
+
 }

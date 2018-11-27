@@ -78,10 +78,6 @@ public class ModuleVUE extends Fenetre {
 
         moduleModele.addObserver(moduleListeModele);
 
-//        for (Module m: moduleListeModele.listeModule) {
-//            moduleListeModele.addElement(m);
-//        }
-
         ajout.setEnabled(false);
         ajout.addActionListener(new ActionListener() {
             @Override
