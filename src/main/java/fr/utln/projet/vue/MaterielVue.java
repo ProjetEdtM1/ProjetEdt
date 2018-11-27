@@ -194,7 +194,7 @@ public class MaterielVue extends Fenetre {
         c.gridy = 1;
         getContentPane().add(langueJlist,c);
 
-
+        setVisible(true);
     }
 
     private void changeBundle(String selectedValue) {
