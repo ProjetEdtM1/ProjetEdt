@@ -27,7 +27,7 @@ public class MenuProfRefVue extends Fenetre {
     private  JButton boutonGererEtudiants;// = new JButton("Gérer étudiants");
     private  JButton boutonGererProf;// = new JButton("Gérer professeurs");
 
-    //private JButton boutonImage = new JButton(new ImageIcon("/home/cclain594/Bureau/copie_git_23_11/projetEdt/code.gif"));
+    private JButton boutonImage = new JButton(new ImageIcon("/home/cclain594/Bureau/copie_git_23_11/projetEdt/code.gif"));
 
     public static LangueListModele langueListModele;
     private final JList<String> langueJlist;

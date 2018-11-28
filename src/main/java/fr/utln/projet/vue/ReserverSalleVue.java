@@ -85,6 +85,10 @@ public class DemandeReservationSalleVue extends Fenetre{
         contrainte.gridy = 0;
         getContentPane().add(ajoutPanel, contrainte);
 
+//        ajoutPanel.setBorder(BorderFactory.createTitledBorder("Annuler sa demande de reservation"));
+
+
+
         setVisible(true);
     }
 }
