@@ -36,6 +36,14 @@ public class ModuleModele extends Observable {
     }
 
 
+    /**
+     *
+     * @param intitule
+     * @param nbHCm
+     * @param nbHTd
+     * @param nbHTp
+     */
+
     public void ajouterModule(String intitule, String nbHCm, String nbHTd, String nbHTp) {
         try {
             int intNbHCm = 0, intNbHTd = 0, intNbHTp = 0;

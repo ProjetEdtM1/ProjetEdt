@@ -1,6 +1,7 @@
 package fr.utln.projet;
 
 
+import fr.utln.projet.modele.ReserverSalleModele;
 import fr.utln.projet.vue.*;
 
 import java.io.*;
@@ -30,8 +31,8 @@ public class App
 //        ReserverSalleVue resa = new ReserverSalleVue();
 
 
-        PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
-        DemandeReservationSalleVue demandeReservationSalleVue = new DemandeReservationSalleVue();
+//        PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
+        ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele());
 
     }
 }

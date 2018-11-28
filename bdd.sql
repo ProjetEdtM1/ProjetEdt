@@ -140,6 +140,7 @@ CREATE TABLE IF NOT EXISTS RESERVER (
   dateReservation date,
   heureDebRes time,
   heureFinRes time,
+  etat Char(1),
   PRIMARY KEY(numeroSalle, idProfesseur, dateReservation, heureDebRes)
 );
 
