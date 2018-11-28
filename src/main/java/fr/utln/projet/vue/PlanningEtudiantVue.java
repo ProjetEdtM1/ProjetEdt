@@ -38,9 +38,10 @@ public class PlanningEtudiantVue extends Fenetre {
         labelTitre = new JLabel("Planning");
 
         String[] entetes = {"Heure","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi","Dimanche"};
-        Object[][] donnes={{"8h","","","","","","",""},{"9h","","","","","","",""},{"10h","","","","","","",""},{"11h","","","","","","",""},{"12h","","","","","","",""}
+        /**Object[][] donnes={{"8h","","","","","","",""},{"9h","","","","","","",""},{"10h","","","","","","",""},{"11h","","","","","","",""},{"12h","","","","","","",""}
                 ,{"13h","","","","","","",""},{"14h","","","","","","",""},{"15h","","","","","","",""},{"16h","","","","","","",""},{"17h","","","","","","",""},{"18h","","","","","","",""}};
-
+**/
+        Object[][] donnes = this.coursControleur.remplireTableCours(this.intituleGroupe);
         tablePlanning = new JTable(donnes,entetes);
 
        // panelGeneral.add(labelTitre,BorderLayout.NORTH);
@@ -68,4 +69,5 @@ public class PlanningEtudiantVue extends Fenetre {
 
 
     }
+
 }
