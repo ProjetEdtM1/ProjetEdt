@@ -21,7 +21,7 @@ public class App
         // AuthentificationVue authentificationVue = new AuthentificationVue();
 
         // ModuleModele moduleModele = new ModuleModele();
-        MenuProfRefVue a = new MenuProfRefVue("coucou");
+        //MenuProfRefVue a = new MenuProfRefVue("coucou");
         //SalleModele salleModele = new SalleModele();
        // SalleVue salleVue = new SalleVue(salleModele);
         //MaterielModele materielModele = new MaterielModele();
@@ -29,6 +29,9 @@ public class App
        // PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
 //        ReserverSalleVue resa = new ReserverSalleVue();
 
+
+        PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
+        DemandeReservationSalleVue demandeReservationSalleVue = new DemandeReservationSalleVue();
 
     }
 }

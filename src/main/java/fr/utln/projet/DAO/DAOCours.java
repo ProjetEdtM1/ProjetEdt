@@ -3,10 +3,7 @@ package fr.utln.projet.DAO;
 import fr.utln.projet.bdd.Connexion;
 import fr.utln.projet.utilisateur.Cours;
 
-import java.sql.Date;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -26,14 +23,16 @@ public class DAOCours {
      * @return liste de cours
      */
     public List<Cours> getCoursSemaineGroupe(String intituleGroupe){
-        this.conn.connect();
+        this.conn = new Connexion();
+        conn.connect();
 
         List<Cours> listeCours = new ArrayList<>();
 
-        String sql= "SELECT * FROM SUIVRE WHERE YEAR(dateCours) = YEAR(CURDATE()) AND WEEK(dateCours) = WEEK(CURDATE())";
+        String sql= "SELECT * FROM SUIVRE WHERE YEAR(dateCours) = YEAR(CURDATE()) AND WEEK(dateCours) = WEEK(CURDATE()) AND intituleGroupe = ? ";
         try{
-            Statement statementSelectall = conn.getConn().createStatement();
-            ResultSet resCoursSemaineGroupe = statementSelectall.executeQuery(sql);
+            PreparedStatement pstmt = conn.getConn().prepareStatement(sql);
+            pstmt.setString(1,intituleGroupe);
+            ResultSet resCoursSemaineGroupe = pstmt.executeQuery();
             while(resCoursSemaineGroupe.next()){
                 Cours cours = new Cours();
                 cours.setIntituleGroupe(resCoursSemaineGroupe.getString(1));
@@ -43,10 +42,44 @@ public class DAOCours {
                 cours.setHeureDebCours(resCoursSemaineGroupe.getTime(5));
                 cours.setHeureFinCours(resCoursSemaineGroupe.getTime(6));
                 cours.setNumeroSalle(resCoursSemaineGroupe.getInt(7));
-
                 listeCours.add(cours);
             }
         }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return listeCours;
+    }
+
+    public List<Cours> getCoursSemaineProf(String login){
+        this.conn = new Connexion();
+        conn.connect();
+
+        List<Cours> listeCours = new ArrayList<>();
+        int id;
+        String sql = "SELECT IDPROFESSEUR FROM PROFESSEUR WHERE LOGIN = ?";
+        try {
+            PreparedStatement pstmt = conn.getConn().prepareStatement(sql);
+            pstmt.setString(1,login);
+            ResultSet res = pstmt.executeQuery();
+            res.next();
+            id = res.getInt(1);
+
+            sql= "SELECT * FROM SUIVRE WHERE YEAR(dateCours) = YEAR(CURDATE()) AND WEEK(dateCours) = WEEK(CURDATE()) AND IDPROFESSEUR = ? ";
+            PreparedStatement pstmt2 = conn.getConn().prepareStatement(sql);
+            pstmt2.setInt(1,id);
+            ResultSet resCoursSemaineGroupe = pstmt2.executeQuery();
+            while(resCoursSemaineGroupe.next()){
+                Cours cours = new Cours();
+                cours.setIntituleGroupe(resCoursSemaineGroupe.getString(1));
+                cours.setIdProfesseur(resCoursSemaineGroupe.getInt(2));
+                cours.setIntituleModule(resCoursSemaineGroupe.getString(3));
+                cours.setDateCours(resCoursSemaineGroupe.getDate(4));
+                cours.setHeureDebCours(resCoursSemaineGroupe.getTime(5));
+                cours.setHeureFinCours(resCoursSemaineGroupe.getTime(6));
+                cours.setNumeroSalle(resCoursSemaineGroupe.getInt(7));
+                listeCours.add(cours);
+            }
+        } catch (SQLException e) {
             e.printStackTrace();
         }
         return listeCours;

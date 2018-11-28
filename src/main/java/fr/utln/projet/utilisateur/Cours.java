@@ -77,4 +77,17 @@ public class Cours {
     public void setNumeroSalle(int numeroSalle) {
         this.numeroSalle = numeroSalle;
     }
+
+    @Override
+    public String toString() {
+        return "Cours{" +
+                "IntituleGroupe='" + IntituleGroupe + '\'' +
+                ", idProfesseur=" + idProfesseur +
+                ", intituleModule='" + intituleModule + '\'' +
+                ", dateCours=" + dateCours +
+                ", heureDebCours=" + heureDebCours +
+                ", heureFinCours=" + heureFinCours +
+                ", numeroSalle=" + numeroSalle +
+                '}';
+    }
 }

@@ -62,12 +62,12 @@ public class MenuProfRefVue extends Fenetre {
             }
         });
 
-        boutonImage.addActionListener(new ActionListener() {
+        /*boutonImage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
             }
-        });
+        });*/
 
         this.boutonGererModules.addActionListener(new ActionListener() {
             @Override
