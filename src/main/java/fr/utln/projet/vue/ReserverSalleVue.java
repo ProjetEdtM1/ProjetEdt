@@ -5,6 +5,8 @@ import fr.utln.projet.modele.ReserverSalleModele;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
@@ -27,9 +29,9 @@ public class ReserverSalleVue extends Fenetre{
     private JLabel labelHeureFinResa = new JLabel("Heure Fin ");
 
     private JTextField textNumSalle = new JTextField();
-    private JTextField textDateReservation = new JTextField();
-    private JTextField textHeureDebutReservation = new JTextField();
-    private JTextField textHeureFinReservation = new JTextField();
+//    private JTextField textDateReservation = new JTextField();
+//    private JTextField textHeureDebutReservation = new JTextField();
+//    private JTextField textHeureFinReservation = new JTextField();
 
     private JComboBox jboxHeureDebRes = new JComboBox();
     private JComboBox jboxMinuteDebRes = new JComboBox();
@@ -61,12 +63,15 @@ public class ReserverSalleVue extends Fenetre{
 
         boutonAjout.setEnabled(false);
 
-//        boutonAjout.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                reserverSalleControleur.ajouterReservationSalle();
-//            }
-//        });
+        boutonAjout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                reserverSalleControleur.ajouterReservationSalle();
+            }
+        });
+
+        textNumSalle = new JTextField(reserverSalleControleur.getNumeroSalle(),"",10);
+
 
 
 //      Remplis un tableau d'heures possibles a selectionner dans la jcombobox
@@ -103,7 +108,7 @@ public class ReserverSalleVue extends Fenetre{
 
 //      remplis un tableau avec les jours possibles
         ArrayList<Integer> jours = new ArrayList<>();
-        for (int i = 0; i < 32; i++) {
+        for (int i = 1; i < 32; i++) {
             jours.add(i);
         }
 
@@ -162,9 +167,9 @@ public class ReserverSalleVue extends Fenetre{
 //      Placement des champs de saisie de texte de demande d'ajout
 
         textNumSalle = new JTextField("", 10);
-        textDateReservation = new JTextField("", 10);
-        textHeureDebutReservation = new JTextField("", 10);
-        textHeureFinReservation = new JTextField("", 10);
+//        textDateReservation = new JTextField("", 10);
+//        textHeureDebutReservation = new JTextField("", 10);
+//        textHeureFinReservation = new JTextField("", 10);
 
         contrainte.gridx = 1;
         contrainte.gridy = 0;

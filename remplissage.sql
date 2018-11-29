@@ -1,5 +1,9 @@
 insert into PROFESSEUR (nomProfesseur, prenomProfesseur, login, motDePasse)
-   values ('Jean', 'TOTO', 'jtoto', 'unmdp');
+   values ('Jean', 'TOTO', 'ptoto', 'unmdp');
+
+insert into PROFESSEUR (nomProfesseur, prenomProfesseur, login, motDePasse)
+   values ('Jean', 'TATA', 'ptata', 'unmdp');
+
 
 insert into PROMOTION (intitulePromo, idProfesseur) values ('SI', 1);
 

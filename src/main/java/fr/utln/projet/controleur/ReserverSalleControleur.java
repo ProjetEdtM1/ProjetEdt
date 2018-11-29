@@ -47,8 +47,7 @@ public class ReserverSalleControleur {
             @Override
             public void changedUpdate(DocumentEvent e) {
 
-                boolean conditionAjout = ((numeroSalle.getLength() == 0) || (idProfesseur.getLength() == 0) || (dateReservation.getLength() == 0)
-                || (heureDebRes.getLength()) == 0);
+                boolean conditionAjout = (nouveauNumeroSalle.getLength() == 0);
 
                 if(conditionAjout) {
                     ReserverSalleVue.setBoutonAjouter(false);
@@ -113,5 +112,53 @@ public class ReserverSalleControleur {
 //        } catch (BadLocationException e) {
 //            e.printStackTrace();
 //        }
+    }
+
+    public Document getNumeroSalle() {
+        return numeroSalle;
+    }
+
+    public Document getIdProfesseur() {
+        return idProfesseur;
+    }
+
+    public Document getDateReservation() {
+        return dateReservation;
+    }
+
+    public Document getHeureDebRes() {
+        return heureDebRes;
+    }
+
+    public Document getHeureFinRes() {
+        return heureFinRes;
+    }
+
+    public Document getEtat() {
+        return etat;
+    }
+
+    public Document getNouveauNumeroSalle() {
+        return nouveauNumeroSalle;
+    }
+
+    public Document getNouveauIdProfesseur() {
+        return nouveauIdProfesseur;
+    }
+
+    public Document getNouveauDateReservation() {
+        return nouveauDateReservation;
+    }
+
+    public Document getNouveauHeureDebRes() {
+        return nouveauHeureDebRes;
+    }
+
+    public Document getNouveauHeureFinRes() {
+        return nouveauHeureFinRes;
+    }
+
+    public Document getNouveauEtat() {
+        return nouveauEtat;
     }
 }
