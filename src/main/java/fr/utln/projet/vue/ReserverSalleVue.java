@@ -152,6 +152,7 @@ public class ReserverSalleVue extends Fenetre{
         contrainte.gridy = 3;
         ajoutPanel.add(labelHeureFinResa, contrainte);
 
+        // attention ajouter gridwith pour les jbox
 
 //      Placement des champs de saisie de texte de demande d'ajout
 
