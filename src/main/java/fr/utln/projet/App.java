@@ -32,7 +32,9 @@ public class App
 
 
 //        PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
-        ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele());
+      //  ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele());
+
+        AuthentificationVue auth = new AuthentificationVue();
 
     }
 }

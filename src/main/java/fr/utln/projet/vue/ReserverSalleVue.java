@@ -5,6 +5,8 @@ import fr.utln.projet.modele.ReserverSalleModele;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 public class ReserverSalleVue extends Fenetre{
@@ -40,10 +42,13 @@ public class ReserverSalleVue extends Fenetre{
     private static JButton boutonAjout = new JButton("Valider ");
     private static JButton boutonAnnuler = new JButton("Annuler ");
 
+    private MenuProfVue menuProfVue;
 
-    public ReserverSalleVue(ReserverSalleModele reserverSalleModele) {
+
+    public ReserverSalleVue(ReserverSalleModele reserverSalleModele, final MenuProfVue menuProfVue) {
         super();
         this.setTitle("Gestion de reservation de salle");
+        this.menuProfVue = menuProfVue;
 
         this.reserverSalleModele = reserverSalleModele;
         this.reserverSalleControleur = new ReserverSalleControleur(this, reserverSalleModele);
@@ -229,6 +234,43 @@ public class ReserverSalleVue extends Fenetre{
 
 
         setVisible(true);
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                menuProfVue.setTrueBoutonGererReservationSalle();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                menuProfVue.setTrueBoutonGererReservationSalle();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
     }
 
     public static void setBoutonAjouter(boolean gris) {

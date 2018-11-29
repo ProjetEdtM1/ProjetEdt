@@ -64,7 +64,8 @@ public class AuthentificationVue extends JFrame implements Observer {
                             MenuProfRefVue menu = new MenuProfRefVue(log);
                             setVisible(false);
                         }else if(professeurControleur.connecterProfesseur(log,mdp)){
-                            JOptionPane.showMessageDialog(contentPane, "Bienvenu " + log);
+                            MenuProfVue menu = new MenuProfVue(log);
+                            setVisible(false);
                         }else
                             JOptionPane.showMessageDialog(contentPane, "Le login et le mot de passe ne correspondent pas","Erreur",JOptionPane.ERROR_MESSAGE);
 
