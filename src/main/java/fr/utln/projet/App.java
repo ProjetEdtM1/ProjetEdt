@@ -1,6 +1,9 @@
 package fr.utln.projet;
 
 
+import fr.utln.projet.controleur.ControleurEtudiant;
+import fr.utln.projet.controleur.CoursControleur;
+import fr.utln.projet.modele.ModeleEtudiant;
 import fr.utln.projet.modele.ReserverSalleModele;
 import fr.utln.projet.vue.*;
 
@@ -15,8 +18,7 @@ public class App
 {
     public static void main( String[] args ) throws SQLException, IOException {
 
-        // ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
-        //EtudiantVue etudiantVue = new EtudiantVue(modeleEtudiant);
+
         //ProfesseurModele professeurModele = new ProfesseurModele();
         //ProfesseurVue professeurVue = new ProfesseurVue(professeurModele);
         // AuthentificationVue authentificationVue = new AuthentificationVue();
@@ -31,10 +33,12 @@ public class App
 //        ReserverSalleVue resa = new ReserverSalleVue();
 
 
-//        PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
+        PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
       //  ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele());
 
-        AuthentificationVue auth = new AuthentificationVue();
+        //AuthentificationVue auth = new AuthentificationVue();
 
+        ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
+        CoursVue coursVue = new CoursVue(new CoursControleur(planningEtudiantVue),new ControleurEtudiant(new EtudiantVue(modeleEtudiant,new MenuProfRefVue("cc")),modeleEtudiant));
     }
 }
