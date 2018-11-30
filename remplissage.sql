@@ -14,8 +14,8 @@ insert into SALLE(NUMEROSALLE) values(2);
 insert into SALLE(NUMEROSALLE) values(3);
 
 insert into ETUDIANT (numEtudiant, nomEtudiant, prenomEtudiant, motDePasse, intituleGroupe)
-  values ('210323', 'DUPONT', 'RENE', 'confiture', 'SI1A');
-
+  values ('e210323', 'DUPONT', 'RENE', 'confiture', 'SI1A');
+  values ('e2', 'CLAIN', 'Cyril', 'confiture', 'SI1A');
 
 
 insert into RESERVER (numerosalle, idprofesseur, datereservation, heuredebres, etat)
