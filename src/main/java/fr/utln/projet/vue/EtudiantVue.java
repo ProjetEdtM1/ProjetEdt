@@ -251,7 +251,7 @@ public class EtudiantVue extends Fenetre  {
 
         //Le détail d'un Etudiant
 
-        etudiantDetailPanel.setBorder(BorderFactory.createTitledBorder("Détails etudiant"));
+        etudiantDetailPanel.setBorder(BorderFactory.createTitledBorder("Modifier etudiant"));
 
         c.fill = GridBagConstraints.BOTH;
         c.gridx = 0;
