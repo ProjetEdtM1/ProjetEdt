@@ -9,6 +9,11 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
+import java.sql.Date;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +22,15 @@ public class CoursControleur {
     private CoursModele coursModele;
 
     private String nouveauGroupeCours = new String();
+    private String nouveauIdProfesseurCours = new String();
     private Document nouveauIntituleModule = new PlainDocument();
-    private Document nouveauDateCours = new PlainDocument();
-    private Document nouveauHDebutCours = new PlainDocument();
-    private Document nouveauHFinCours = new PlainDocument();
+    private int nouveauJourCours;
+    private int nouveauMoisCours;
+    private int nouveauAnneeCours;
+    private int nouveauHeureDebCours;
+    private int nouveauMinuteDebCours;
+    private int nouveauHeureFinCours;
+    private int nouveauMinuteFinCours;
     private Document nouveauNumSalleCours = new PlainDocument();
 
     public CoursControleur(PlanningEtudiantVue planningEtudiantVue){
@@ -45,23 +55,67 @@ public class CoursControleur {
         };
 
         nouveauIntituleModule.addDocumentListener(ecouterChangementTexte);
-        nouveauDateCours.addDocumentListener(ecouterChangementTexte);
-        nouveauHDebutCours.addDocumentListener(ecouterChangementTexte);
-        nouveauHFinCours.addDocumentListener(ecouterChangementTexte);
         nouveauNumSalleCours.addDocumentListener(ecouterChangementTexte);
     }
 
 
+    // format de la date: annee-mois-jours
+    //yyyy-m[m]-j[j]
+    private Date convertionDate(int annee, int mois, int jour) {
+        String tmpAnnee = new String();
+        String tmpMois = new String();
+        String tmpJour = new String();
+        String tmpDate = new String();
+        Date date;
+
+        // converti les int en String
+        tmpAnnee = String.format("%s%s", tmpAnnee, annee);
+        tmpMois = String.format("%s%s", tmpMois, mois);
+        tmpJour = String.format("%s%s", tmpJour, jour);
+        tmpDate = tmpAnnee + "-" + tmpMois + "-" + tmpJour;
+
+        // Converti la String tmpDate en Date
+        date = Date.valueOf(tmpDate);
+        return date;
+    }
+
+    // format de l'heure: heure:minute:secondes
+    // h[h]:m[m]:s[s]
+    private Time convertionHeure(int heure, int minute) {
+        String tmpHeure = new String();
+        String tmpMinute = new String();
+        String tmpHeuretot = new String();
+        Time time;
+
+        tmpHeure = String.format("%s%s", tmpHeure, heure);
+        tmpMinute = String.format("%s%s", tmpMinute, minute);
+        tmpHeuretot = tmpHeure + ":" + tmpMinute + ":" + "00";
+
+        time = Time.valueOf(tmpHeuretot);
+        return time;
+
+    }
 
     public void ajoutCours() {
+        Date date;
+        Time hDebut;
+        Time hFin;
         try {
 
+            // mettre un try / catch
+            // ATTENTION il faut que la JCombobox soit instanciee sinon c'est 0 et ca plante
+            date = convertionDate(nouveauAnneeCours, nouveauMoisCours, nouveauJourCours);
+            hDebut = convertionHeure(nouveauHeureDebCours, nouveauMinuteDebCours);
+            hFin = convertionHeure(nouveauHeureFinCours, nouveauMinuteFinCours);
+
             System.out.println(nouveauGroupeCours);
+            System.out.println(nouveauIdProfesseurCours);
             System.out.println(nouveauIntituleModule.getText(0, nouveauIntituleModule.getLength()));
-            System.out.println(nouveauDateCours.getText(0, nouveauDateCours.getLength()));
-            System.out.println(nouveauHDebutCours.getText(0, nouveauHDebutCours.getLength()));
-            System.out.println(nouveauHFinCours.getText(0, nouveauHFinCours.getLength()));
             System.out.println(nouveauNumSalleCours.getText(0, nouveauNumSalleCours.getLength()));
+
+            System.out.println(date);
+            System.out.println(hDebut);
+            System.out.println(hFin);
 
 
         } catch (BadLocationException e) {
@@ -70,24 +124,8 @@ public class CoursControleur {
     }
 
 
-    public String getNouveauGroupeCours() {
-        return nouveauGroupeCours;
-    }
-
     public Document getNouveauIntituleModule() {
         return nouveauIntituleModule;
-    }
-
-    public Document getNouveauDateCours() {
-        return nouveauDateCours;
-    }
-
-    public Document getNouveauHDebutCours() {
-        return nouveauHDebutCours;
-    }
-
-    public Document getNouveauHFinCours() {
-        return nouveauHFinCours;
     }
 
     public Document getNouveauNumSalleCours() {
@@ -95,8 +133,40 @@ public class CoursControleur {
     }
 
 
-    public void setTest(String nouveauGroupeCours) {
+    public void setnouveauGroupeCours(String nouveauGroupeCours) {
         this.nouveauGroupeCours = nouveauGroupeCours;
+    }
+
+    public void setNouveauIdProfesseurCours(String nouveauIdProfesseurCours) {
+        this.nouveauIdProfesseurCours = nouveauIdProfesseurCours;
+    }
+
+    public void setNouveauJourCours(int nouveauJourCours) {
+        this.nouveauJourCours = nouveauJourCours;
+    }
+
+    public void setNouveauMoisCours(int nouveauMoisCours) {
+        this.nouveauMoisCours = nouveauMoisCours;
+    }
+
+    public void setNouveauAnneeCours(int nouveauAnneeCours) {
+        this.nouveauAnneeCours = nouveauAnneeCours;
+    }
+
+    public void setNouveauHeureDebCours(int nouveauHeureDebCours) {
+        this.nouveauHeureDebCours = nouveauHeureDebCours;
+    }
+
+    public void setNouveauMinuteDebCours(int nouveauMinuteDebCours) {
+        this.nouveauMinuteDebCours = nouveauMinuteDebCours;
+    }
+
+    public void setNouveauHeureFinCours(int nouveauHeureFinCours) {
+        this.nouveauHeureFinCours = nouveauHeureFinCours;
+    }
+
+    public void setNouveauMinuteFinCours(int nouveauMinuteFinCours) {
+        this.nouveauMinuteFinCours = nouveauMinuteFinCours;
     }
 
     // Pas toucher a ca !!
