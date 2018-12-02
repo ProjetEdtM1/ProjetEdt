@@ -28,6 +28,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CoursVue extends Fenetre {
@@ -67,7 +68,18 @@ public class CoursVue extends Fenetre {
     private JTextField h_finJTextField = new JTextField();
     private JTextField numSalleJTextField = new JTextField();
 
+    private JComboBox jboxHeureDebCours = new JComboBox();
+    private JComboBox jboxMinuteDebCours = new JComboBox();
+    private JComboBox jboxHeureFinCours = new JComboBox();
+    private JComboBox jboxMinuteFinCours = new JComboBox();
+    private JComboBox jboxAnneeCours = new JComboBox();
+    private JComboBox jboxMoisCours = new JComboBox();
+    private JComboBox jboxJourCours = new JComboBox();
+
     private static JPanel ajoutcoursPanel = new JPanel(new GridBagLayout());
+    private static JPanel dateCoursPanel = new JPanel(new GridBagLayout());
+    private static JPanel heureDebCoursPanel = new JPanel(new GridBagLayout());
+    private static JPanel heureFinCoursPanel = new JPanel(new GridBagLayout());
 
     private final JButton ajouterCoursJBouton = new JButton(rbBouton.getString("Ajouter"));
     private final JButton cancelAjouterCoursJButton = new JButton( rbBouton.getString("Annuler"));
@@ -100,7 +112,6 @@ public class CoursVue extends Fenetre {
             }
         });
 
-//        System.out.println("aaaaa " + professeurListModele.getElementAt(1).getClass());
         idProfesseurJcomboBox = new JComboBox<Professeur>(professeurListModele);
         idProfesseurJcomboBox.addItemListener(new ItemListener() {
             @Override
@@ -109,7 +120,11 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.DESELECTED:
                         break;
                     case ItemEvent.SELECTED:
+                        Professeur tmp;
+                        tmp = (Professeur) idProfesseurJcomboBox.getSelectedItem();
+                        coursControleur.setNouveauIdProfesseurCours(tmp.getIdprofesseur());
 
+//                        coursControleur.setNouveauProfesseurCours(String.valueOf(idProfesseurJcomboBox.getSelectedItem()));
                         break;
                 }
 
@@ -124,14 +139,128 @@ public class CoursVue extends Fenetre {
         });
 
         nomModuleJTextField = new JTextField(coursControleur.getNouveauIntituleModule(),"",10);
-        dateCoursJTextField = new JTextField(coursControleur.getNouveauDateCours(),"",10);
+//        dateCoursJTextField = new JTextField(coursControleur.getNouveauDateCours(),"",10);
         h_debutJTextField = new JTextField(coursControleur.getNouveauHDebutCours(),"",10);
         h_finJTextField = new JTextField(coursControleur.getNouveauHFinCours(),"",10);
         numSalleJTextField = new JTextField(coursControleur.getNouveauNumSalleCours(),"",10);
 
-//        groupeEtudiantJcomboBox.getSelectedItem().toString();
+
+//        remplissage des JBox pour les cours
+
+        //      Remplis un tableau d'heures possibles a selectionner dans la jcombobox
+        ArrayList<Integer> heures = new ArrayList<>();
+        for(int i = 8; i < 19; i++) {
+            heures.add(i);
+        }
+
+//      Remplis la jcombobox de selection des heures de debut possible
+        for (int s : heures) {
+            jboxHeureDebCours.addItem(s);
+        }
+
+//      Remplis la jcombobox de selection des heures de fin possible
+        for (int s : heures) {
+            jboxHeureFinCours.addItem(s);
+        }
+
+
+//      Remplis un tableau des minutes possibles a selectionner dans la jcombobox
+        ArrayList<Integer> minutes = new ArrayList<>();
+        minutes.add(00);
+        minutes.add(30);
+
+//      remplissage de la jcombobox des minutes de debut de reservation
+        for (int s: minutes) {
+            jboxMinuteDebCours.addItem(s);
+        }
+
+//      remplissage de la jcombobox des minutes de fin de reservation
+        for (int s: minutes) {
+            jboxMinuteFinCours.addItem(s);
+        }
+
+//      remplis un tableau avec les jours possibles
+        ArrayList<Integer> jours = new ArrayList<>();
+        for (int i = 1; i < 32; i++) {
+            jours.add(i);
+        }
+
+//      remplis la jcombobbox des jours de reservations avec les jours possibles
+        for (int j: jours) {
+            jboxJourCours.addItem(j);
+        }
+
+//      remplis un tableau avec les mois possibles
+        ArrayList<String> mois = new ArrayList<>();
+        mois.add("Janvier");
+        mois.add("Fevrier");
+        mois.add("Mars");
+        mois.add("Avril");
+        mois.add("Mai");
+        mois.add("Juin");
+        mois.add("Juillet");
+        mois.add("Aout");
+        mois.add("Septembre");
+        mois.add("Octobre");
+        mois.add("Novembre");
+        mois.add("Decembre");
+
+        for (String m: mois) {
+            jboxMoisCours.addItem(m);
+        }
+
+
+        ArrayList<Integer> annee = new ArrayList<>();
+        for (int i = 2018; i < 2040; i++) {
+            annee.add(i);
+        }
+
+        for (int a: annee) {
+            jboxAnneeCours.addItem(a);
+        }
+
+
 
         GridBagConstraints c = new GridBagConstraints();
+
+//      placement des JCombobox de la date, de l'heures de debut et de fin du cours
+
+        c.gridx = 0;
+        c.gridy = 0;
+        dateCoursPanel.add(jboxJourCours, c);
+
+        c.gridx = 1;
+        dateCoursPanel.add(jboxMoisCours, c);
+
+        c.gridx = 2;
+        dateCoursPanel.add(jboxAnneeCours, c);
+
+        c.gridx = 1;
+        c.gridy = 3;
+        ajoutcoursPanel.add(dateCoursPanel, c);
+
+        c.gridx = 0;
+        c.gridy = 0;
+        heureDebCoursPanel.add(jboxHeureDebCours, c);
+
+        c.gridx = 1;
+        heureDebCoursPanel.add(jboxMinuteDebCours, c);
+
+        c.gridx = 1;
+        c.gridy = 4;
+        ajoutcoursPanel.add(heureDebCoursPanel, c);
+
+        c.gridx = 0;
+        c.gridy = 0;
+        heureFinCoursPanel.add(jboxHeureFinCours, c);
+
+        c.gridx = 1;
+        heureFinCoursPanel.add(jboxMinuteFinCours, c);
+
+        c.gridx = 1;
+        c.gridy = 5;
+        ajoutcoursPanel.add(heureFinCoursPanel, c);
+
 
         // placement label
         c.gridx = 0;
@@ -162,15 +291,15 @@ public class CoursVue extends Fenetre {
         c.gridx = 1;
         c.gridy = 2;
         ajoutcoursPanel.add(nomModuleJTextField, c);
-        c.gridx = 1;
-        c.gridy = 3;
-        ajoutcoursPanel.add(dateCoursJTextField, c);
-        c.gridx = 1;
-        c.gridy = 4;
-        ajoutcoursPanel.add(h_debutJTextField, c);
-        c.gridx = 1;
-        c.gridy = 5;
-        ajoutcoursPanel.add(h_finJTextField, c);
+//        c.gridx = 1;
+//        c.gridy = 3;
+//        ajoutcoursPanel.add(dateCoursJTextField, c);
+//        c.gridx = 1;
+//        c.gridy = 4;
+//        ajoutcoursPanel.add(h_debutJTextField, c);
+//        c.gridx = 1;
+//        c.gridy = 5;
+//        ajoutcoursPanel.add(h_finJTextField, c);
         c.gridx = 1;
         c.gridy = 6;
         ajoutcoursPanel.add(numSalleJTextField,c);
