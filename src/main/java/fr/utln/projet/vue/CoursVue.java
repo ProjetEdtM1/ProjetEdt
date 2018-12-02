@@ -21,6 +21,7 @@ import fr.utln.projet.modele.CoursModele;
 import fr.utln.projet.modele.GroupeListModele;
 import fr.utln.projet.modele.ProfesseurListModele;
 import fr.utln.projet.utilisateur.Professeur;
+import org.omg.CORBA.INTERNAL;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,9 +64,9 @@ public class CoursVue extends Fenetre {
 
     private String groupeCours = new String();
     private JTextField nomModuleJTextField = new JTextField();
-    private JTextField dateCoursJTextField = new JTextField();
-    private JTextField h_debutJTextField = new JTextField();
-    private JTextField h_finJTextField = new JTextField();
+//    private JTextField dateCoursJTextField = new JTextField();
+//    private JTextField h_debutJTextField = new JTextField();
+//    private JTextField h_finJTextField = new JTextField();
     private JTextField numSalleJTextField = new JTextField();
 
     private JComboBox jboxHeureDebCours = new JComboBox();
@@ -105,7 +106,7 @@ public class CoursVue extends Fenetre {
                         break;
                     case ItemEvent.SELECTED:
                         groupeCours = String.valueOf(groupeEtudiantJcomboBox.getSelectedItem());
-                        coursControleur.setTest(groupeCours);
+                        coursControleur.setnouveauGroupeCours(groupeCours);
                         break;
                 }
 
@@ -123,8 +124,6 @@ public class CoursVue extends Fenetre {
                         Professeur tmp;
                         tmp = (Professeur) idProfesseurJcomboBox.getSelectedItem();
                         coursControleur.setNouveauIdProfesseurCours(tmp.getIdprofesseur());
-
-//                        coursControleur.setNouveauProfesseurCours(String.valueOf(idProfesseurJcomboBox.getSelectedItem()));
                         break;
                 }
 
@@ -140,8 +139,8 @@ public class CoursVue extends Fenetre {
 
         nomModuleJTextField = new JTextField(coursControleur.getNouveauIntituleModule(),"",10);
 //        dateCoursJTextField = new JTextField(coursControleur.getNouveauDateCours(),"",10);
-        h_debutJTextField = new JTextField(coursControleur.getNouveauHDebutCours(),"",10);
-        h_finJTextField = new JTextField(coursControleur.getNouveauHFinCours(),"",10);
+//        h_debutJTextField = new JTextField(coursControleur.getNouveauHDebutCours(),"",10);
+//        h_finJTextField = new JTextField(coursControleur.getNouveauHFinCours(),"",10);
         numSalleJTextField = new JTextField(coursControleur.getNouveauNumSalleCours(),"",10);
 
 
@@ -191,21 +190,13 @@ public class CoursVue extends Fenetre {
         }
 
 //      remplis un tableau avec les mois possibles
-        ArrayList<String> mois = new ArrayList<>();
-        mois.add("Janvier");
-        mois.add("Fevrier");
-        mois.add("Mars");
-        mois.add("Avril");
-        mois.add("Mai");
-        mois.add("Juin");
-        mois.add("Juillet");
-        mois.add("Aout");
-        mois.add("Septembre");
-        mois.add("Octobre");
-        mois.add("Novembre");
-        mois.add("Decembre");
+        ArrayList<Integer> mois = new ArrayList<>();
+        for (int i = 01; i < 13; i++) {
+            mois.add(i);
+        }
 
-        for (String m: mois) {
+
+        for (int m: mois) {
             jboxMoisCours.addItem(m);
         }
 
@@ -218,6 +209,92 @@ public class CoursVue extends Fenetre {
         for (int a: annee) {
             jboxAnneeCours.addItem(a);
         }
+
+
+        jboxJourCours.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                switch (e.getStateChange()){
+                    case ItemEvent.DESELECTED:
+                        break;
+                    case ItemEvent.SELECTED:
+                        int jourCours = Integer.valueOf((Integer) jboxJourCours.getSelectedItem());
+                        coursControleur.setNouveauJourCours(jourCours);
+                }
+            }
+        });
+
+        jboxMoisCours.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                switch (e.getStateChange()) {
+                    case ItemEvent.DESELECTED:
+                        break;
+                    case ItemEvent.SELECTED:
+                        coursControleur.setNouveauMoisCours(Integer.valueOf((Integer) jboxMoisCours.getSelectedItem()));
+                }
+            }
+        });
+
+        jboxAnneeCours.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                switch (e.getStateChange()){
+                    case ItemEvent.DESELECTED:
+                        break;
+                    case ItemEvent.SELECTED:
+                        coursControleur.setNouveauAnneeCours(Integer.valueOf((Integer) jboxAnneeCours.getSelectedItem()));
+                }
+            }
+        });
+
+        jboxHeureDebCours.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                switch (e.getStateChange()) {
+                    case ItemEvent.DESELECTED:
+                        break;
+                    case ItemEvent.SELECTED:
+                        coursControleur.setNouveauHeureDebCours(Integer.valueOf((Integer) jboxHeureDebCours.getSelectedItem()));
+                }
+            }
+        });
+
+        jboxMinuteDebCours.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                switch (e.getStateChange()) {
+                    case ItemEvent.DESELECTED:
+                        break;
+                    case ItemEvent.SELECTED:
+                        coursControleur.setNouveauMinuteDebCours(Integer.valueOf((Integer) jboxMinuteDebCours.getSelectedItem()));
+                }
+            }
+        });
+
+        jboxHeureFinCours.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                switch (e.getStateChange()) {
+                    case ItemEvent.DESELECTED:
+                        break;
+                    case ItemEvent.SELECTED:
+                        coursControleur.setNouveauHeureFinCours(Integer.valueOf((Integer) jboxHeureFinCours.getSelectedItem()));
+                }
+            }
+        });
+
+        jboxMinuteFinCours.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                switch (e.getStateChange()) {
+                    case ItemEvent.DESELECTED:
+                        break;
+                    case ItemEvent.SELECTED:
+                        coursControleur.setNouveauMinuteFinCours(Integer.valueOf((Integer) jboxMinuteFinCours.getSelectedItem()));
+                }
+            }
+        });
 
 
 
