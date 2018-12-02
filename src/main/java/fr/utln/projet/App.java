@@ -3,7 +3,9 @@ package fr.utln.projet;
 
 import fr.utln.projet.controleur.ControleurEtudiant;
 import fr.utln.projet.controleur.CoursControleur;
+import fr.utln.projet.controleur.ProfesseurControleur;
 import fr.utln.projet.modele.ModeleEtudiant;
+import fr.utln.projet.modele.ProfesseurModele;
 import fr.utln.projet.modele.ReserverSalleModele;
 import fr.utln.projet.vue.*;
 
@@ -42,6 +44,7 @@ public class App
         //AuthentificationVue auth = new AuthentificationVue();
 
         ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
-        CoursVue coursVue = new CoursVue(new CoursControleur(planningEtudiantVue),new ControleurEtudiant(new EtudiantVue(modeleEtudiant,new MenuProfRefVue("cc")),modeleEtudiant));
+        ProfesseurModele professeurModele = new ProfesseurModele();
+        CoursVue coursVue = new CoursVue(new CoursControleur(planningEtudiantVue),new ControleurEtudiant(new EtudiantVue(modeleEtudiant,new MenuProfRefVue("cc")),modeleEtudiant), new ProfesseurControleur(new ProfesseurVue(professeurModele, new MenuProfRefVue("ccc")), professeurModele));
     }
 }

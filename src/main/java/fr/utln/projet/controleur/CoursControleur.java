@@ -4,6 +4,11 @@ import fr.utln.projet.modele.CoursModele;
 import fr.utln.projet.utilisateur.Cours;
 import fr.utln.projet.vue.PlanningEtudiantVue;
 
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+import javax.swing.text.PlainDocument;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +16,90 @@ public class CoursControleur {
     private PlanningEtudiantVue planningEtudiantVue;
     private CoursModele coursModele;
 
+    private String nouveauGroupeCours = new String();
+    private Document nouveauIntituleModule = new PlainDocument();
+    private Document nouveauDateCours = new PlainDocument();
+    private Document nouveauHDebutCours = new PlainDocument();
+    private Document nouveauHFinCours = new PlainDocument();
+    private Document nouveauNumSalleCours = new PlainDocument();
+
     public CoursControleur(PlanningEtudiantVue planningEtudiantVue){
         this.planningEtudiantVue = planningEtudiantVue;
         this.coursModele = new CoursModele(this);
+
+        DocumentListener ecouterChangementTexte = new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+        };
+
+        nouveauIntituleModule.addDocumentListener(ecouterChangementTexte);
+        nouveauDateCours.addDocumentListener(ecouterChangementTexte);
+        nouveauHDebutCours.addDocumentListener(ecouterChangementTexte);
+        nouveauHFinCours.addDocumentListener(ecouterChangementTexte);
+        nouveauNumSalleCours.addDocumentListener(ecouterChangementTexte);
     }
 
+
+
+    public void ajoutCours() {
+        try {
+
+            System.out.println(nouveauGroupeCours);
+            System.out.println(nouveauIntituleModule.getText(0, nouveauIntituleModule.getLength()));
+            System.out.println(nouveauDateCours.getText(0, nouveauDateCours.getLength()));
+            System.out.println(nouveauHDebutCours.getText(0, nouveauHDebutCours.getLength()));
+            System.out.println(nouveauHFinCours.getText(0, nouveauHFinCours.getLength()));
+            System.out.println(nouveauNumSalleCours.getText(0, nouveauNumSalleCours.getLength()));
+
+
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public String getNouveauGroupeCours() {
+        return nouveauGroupeCours;
+    }
+
+    public Document getNouveauIntituleModule() {
+        return nouveauIntituleModule;
+    }
+
+    public Document getNouveauDateCours() {
+        return nouveauDateCours;
+    }
+
+    public Document getNouveauHDebutCours() {
+        return nouveauHDebutCours;
+    }
+
+    public Document getNouveauHFinCours() {
+        return nouveauHFinCours;
+    }
+
+    public Document getNouveauNumSalleCours() {
+        return nouveauNumSalleCours;
+    }
+
+
+    public void setTest(String nouveauGroupeCours) {
+        this.nouveauGroupeCours = nouveauGroupeCours;
+    }
+
+    // Pas toucher a ca !!
     public List<Cours> getCoursSemaineGroupe(String intituleGroupe){
         return this.coursModele.getCoursSemaineGroupe(intituleGroupe);
     }
@@ -110,4 +194,6 @@ public class CoursControleur {
         }
         return donnes;
     }
+
+
 }

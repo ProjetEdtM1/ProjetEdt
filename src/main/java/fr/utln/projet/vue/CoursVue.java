@@ -16,12 +16,16 @@ package fr.utln.projet.vue;
 
 import fr.utln.projet.controleur.ControleurEtudiant;
 import fr.utln.projet.controleur.CoursControleur;
+import fr.utln.projet.controleur.ProfesseurControleur;
 import fr.utln.projet.modele.CoursModele;
 import fr.utln.projet.modele.GroupeListModele;
 import fr.utln.projet.modele.ProfesseurListModele;
+import fr.utln.projet.utilisateur.Professeur;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ResourceBundle;
@@ -31,6 +35,7 @@ public class CoursVue extends Fenetre {
     private final CoursModele coursModele;
     private final CoursControleur coursControleur;
     private final ControleurEtudiant controleurEtudiant;
+    private final ProfesseurControleur professeurControleur;
 
 
     //bundle utilisé pour acceder aux .properties
@@ -41,7 +46,7 @@ public class CoursVue extends Fenetre {
     private static GroupeListModele groupeListModele;
     private static ProfesseurListModele professeurListModele;
 
-    private final JComboBox<String> idProfesseurJcomboBox;
+    private final JComboBox<Professeur> idProfesseurJcomboBox;
     private final JComboBox<String> groupeEtudiantJcomboBox;
 
 
@@ -55,24 +60,27 @@ public class CoursVue extends Fenetre {
     private final JLabel numSallelabel = new JLabel(rbLabel.getString("Numero de salle")+" :");
 
 
-    private final JTextField nomModuleJTextField= new JTextField();
-    private final JTextField dateCoursJTextField= new JTextField();
-    private final JTextField h_debutJTextField= new JTextField();
-    private final JTextField h_finJTextField= new JTextField();
-    private final JTextField numSalleJTextField= new JTextField();
+    private String groupeCours = new String();
+    private JTextField nomModuleJTextField = new JTextField();
+    private JTextField dateCoursJTextField = new JTextField();
+    private JTextField h_debutJTextField = new JTextField();
+    private JTextField h_finJTextField = new JTextField();
+    private JTextField numSalleJTextField = new JTextField();
 
     private static JPanel ajoutcoursPanel = new JPanel(new GridBagLayout());
 
-    private final JButton ajouterEtudiantJBouton = new JButton(rbBouton.getString("Ajouter"));
-    private final JButton cancelAjouterEtudiantJButton = new JButton( rbBouton.getString("Annuler"));
+    private final JButton ajouterCoursJBouton = new JButton(rbBouton.getString("Ajouter"));
+    private final JButton cancelAjouterCoursJButton = new JButton( rbBouton.getString("Annuler"));
 
 
-    public CoursVue(CoursControleur coursControleur, ControleurEtudiant controleurEtudiant) {
+    public CoursVue(final CoursControleur coursControleur, ControleurEtudiant controleurEtudiant, ProfesseurControleur professeurControleur) {
 
         this.coursControleur = coursControleur;
         this.coursModele = new CoursModele(coursControleur);
         this.controleurEtudiant = controleurEtudiant;
+        this.professeurControleur = professeurControleur;
         this.groupeListModele = new GroupeListModele(this.controleurEtudiant.getListGroupe());
+        this.professeurListModele = new ProfesseurListModele(this.professeurControleur.getListProfesseur());
 
 
         groupeEtudiantJcomboBox = new JComboBox<String>(groupeListModele);
@@ -84,14 +92,16 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.DESELECTED:
                         break;
                     case ItemEvent.SELECTED:
-
+                        groupeCours = String.valueOf(groupeEtudiantJcomboBox.getSelectedItem());
+                        coursControleur.setTest(groupeCours);
                         break;
                 }
 
             }
         });
 
-        idProfesseurJcomboBox = new JComboBox<String>();
+//        System.out.println("aaaaa " + professeurListModele.getElementAt(1).getClass());
+        idProfesseurJcomboBox = new JComboBox<Professeur>(professeurListModele);
         idProfesseurJcomboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -105,6 +115,21 @@ public class CoursVue extends Fenetre {
 
             }
         });
+
+        ajouterCoursJBouton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                coursControleur.ajoutCours();
+            }
+        });
+
+        nomModuleJTextField = new JTextField(coursControleur.getNouveauIntituleModule(),"",10);
+        dateCoursJTextField = new JTextField(coursControleur.getNouveauDateCours(),"",10);
+        h_debutJTextField = new JTextField(coursControleur.getNouveauHDebutCours(),"",10);
+        h_finJTextField = new JTextField(coursControleur.getNouveauHFinCours(),"",10);
+        numSalleJTextField = new JTextField(coursControleur.getNouveauNumSalleCours(),"",10);
+
+//        groupeEtudiantJcomboBox.getSelectedItem().toString();
 
         GridBagConstraints c = new GridBagConstraints();
 
@@ -153,10 +178,10 @@ public class CoursVue extends Fenetre {
         // placement bouton
         c.gridx = 0;
         c.gridy = 7;
-        ajoutcoursPanel.add(ajouterEtudiantJBouton,c);
+        ajoutcoursPanel.add(ajouterCoursJBouton,c);
         c.gridx = 1;
         c.gridy = 7;
-        ajoutcoursPanel.add(cancelAjouterEtudiantJButton,c);
+        ajoutcoursPanel.add(cancelAjouterCoursJButton,c);
 
         getContentPane().setLayout(new GridBagLayout());
 
