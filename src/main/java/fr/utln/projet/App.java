@@ -1,6 +1,11 @@
 package fr.utln.projet;
 
 
+import fr.utln.projet.controleur.ControleurEtudiant;
+import fr.utln.projet.controleur.CoursControleur;
+import fr.utln.projet.controleur.ProfesseurControleur;
+import fr.utln.projet.modele.ModeleEtudiant;
+import fr.utln.projet.modele.ProfesseurModele;
 import fr.utln.projet.modele.ReserverSalleModele;
 import fr.utln.projet.vue.*;
 
@@ -15,14 +20,13 @@ public class App
 {
     public static void main( String[] args ) throws SQLException, IOException {
 
-        // ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
-        //EtudiantVue etudiantVue = new EtudiantVue(modeleEtudiant);
+
         //ProfesseurModele professeurModele = new ProfesseurModele();
         //ProfesseurVue professeurVue = new ProfesseurVue(professeurModele);
         // AuthentificationVue authentificationVue = new AuthentificationVue();
 
         // ModuleModele moduleModele = new ModuleModele();
-        //MenuProfRefVue a = new MenuProfRefVue("coucou");
+//        MenuProfRefVue a = new MenuProfRefVue("coucou");
         //SalleModele salleModele = new SalleModele();
        // SalleVue salleVue = new SalleVue(salleModele);
         //MaterielModele materielModele = new MaterielModele();
@@ -32,9 +36,15 @@ public class App
 
 
 //        PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
-      //  ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele());
+//        MenuProfVue menuProfVue = new MenuProfVue("coucou");
+//        ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele(), menuProfVue);
+        PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
+//        ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele());
+//
+        //AuthentificationVue auth = new AuthentificationVue();
 
-        AuthentificationVue auth = new AuthentificationVue();
-
+        ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
+        ProfesseurModele professeurModele = new ProfesseurModele();
+        CoursVue coursVue = new CoursVue(new CoursControleur(planningEtudiantVue),new ControleurEtudiant(new EtudiantVue(modeleEtudiant,new MenuProfRefVue("cc")),modeleEtudiant), new ProfesseurControleur(new ProfesseurVue(professeurModele, new MenuProfRefVue("ccc")), professeurModele));
     }
 }

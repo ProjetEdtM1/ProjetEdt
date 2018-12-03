@@ -8,6 +8,8 @@ insert into PROFESSEUR (nomProfesseur, prenomProfesseur, login, motDePasse)
 insert into PROMOTION (intitulePromo, idProfesseur) values ('SI', 1);
 
 insert into GROUPE (intituleGroupe, intitulePromo) values ('SI1A', 'SI');
+insert into GROUPE (intituleGroupe, intitulePromo) values ('SI1', 'SI');
+insert into GROUPE (intituleGroupe, intitulePromo) values ('SI2', 'SI');
 
 insert into SALLE(NUMEROSALLE) values(1);
 insert into SALLE(NUMEROSALLE) values(2);
@@ -15,7 +17,7 @@ insert into SALLE(NUMEROSALLE) values(3);
 
 insert into ETUDIANT (numEtudiant, nomEtudiant, prenomEtudiant, motDePasse, intituleGroupe)
   values ('e210323', 'DUPONT', 'RENE', 'confiture', 'SI1A');
-
+  values ('e2', 'CLAIN', 'Cyril', 'confiture', 'SI1A');
 
 
 insert into RESERVER (numerosalle, idprofesseur, datereservation, heuredebres, etat)
