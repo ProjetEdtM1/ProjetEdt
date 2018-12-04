@@ -16,6 +16,23 @@ public class DAOCours {
         this.conn = new Connexion();
     }
 
+    /**
+     *
+     * @param groupe
+     * @param idProf
+     * @param intituleModule
+     * @param dateCours
+     * @param hDebutCours
+     * @param hFinCours
+     * @param numSalleCours
+     * ajoute un cours dans la BD
+     */
+
+    public void ajouterCours(String groupe, String idProf, String intituleModule, Date dateCours, Time hDebutCours, Time hFinCours, int numSalleCours) {
+
+    }
+
+
 
     /**
      * Récupère tous les cours d'un groupe pour la semaine courante
