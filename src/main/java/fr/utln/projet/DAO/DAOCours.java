@@ -50,6 +50,11 @@ public class DAOCours {
         return listeCours;
     }
 
+    /**
+     * Récupère tous les cours d'un prof pour la semaine courante
+     * @param login
+     * @return liste de cours
+     */
     public List<Cours> getCoursSemaineProf(String login){
         this.conn = new Connexion();
         conn.connect();

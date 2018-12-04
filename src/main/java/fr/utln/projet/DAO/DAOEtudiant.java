@@ -303,4 +303,29 @@ public class DAOEtudiant {
         }
         return groupeList;
     }
+
+    /**
+     * Permet de récupérer le groupe d'un étudiant grâce à son numéro étudiant
+     * @param numEtudiant
+     * @return l'intitulé du groupe de l'étudiant
+     */
+    public String getGroup(String numEtudiant){
+        this.conn = new Connexion();
+        conn.connect();
+        String group = "";
+
+        String sql = "SELECT INTITULEGROUPE FROM ETUDIANT "+"where NUMETUDIANT = ?";
+
+        try {
+            PreparedStatement stmt = conn.getConn().prepareStatement(sql);
+            stmt.setString(1,numEtudiant);
+            ResultSet rs = stmt.executeQuery();
+            rs.next();
+            group = rs.getString(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return group;
+    }
 }

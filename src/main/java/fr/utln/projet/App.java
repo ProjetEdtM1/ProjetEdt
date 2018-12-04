@@ -33,12 +33,12 @@ public class App
 //        ReserverSalleVue resa = new ReserverSalleVue();
 
 
-        PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
+    //    PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
       //  ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele());
 
-        //AuthentificationVue auth = new AuthentificationVue();
+        AuthentificationVue auth = new AuthentificationVue();
 
-        ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
-        CoursVue coursVue = new CoursVue(new CoursControleur(planningEtudiantVue),new ControleurEtudiant(new EtudiantVue(modeleEtudiant,new MenuProfRefVue("cc")),modeleEtudiant));
+     //   ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
+     //   CoursVue coursVue = new CoursVue(new CoursControleur(planningEtudiantVue),new ControleurEtudiant(new EtudiantVue(modeleEtudiant,new MenuProfRefVue("cc")),modeleEtudiant));
     }
 }

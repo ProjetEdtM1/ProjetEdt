@@ -1,5 +1,7 @@
 package fr.utln.projet.vue;
 
+import fr.utln.projet.controleur.CoursControleur;
+import fr.utln.projet.modele.CoursModele;
 import fr.utln.projet.modele.ReserverSalleModele;
 
 import javax.swing.*;
@@ -8,18 +10,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MenuProfVue extends JFrame {
-    String loginProf;
+    private String loginProf;
 
     private  JButton boutonGererReservationSalle;
+    private JButton boutonAffichagePlanning;
 
     private final Container contentPane = getContentPane();
     private JPanel panelGeneral = new JPanel();
 
-    public MenuProfVue(String loginProf){
+    public MenuProfVue(final String loginProf){
         super("Menu professeur");
         this.loginProf = loginProf;
         setSize(300,400);
         boutonGererReservationSalle = new JButton("Réserver une salle");
+        boutonAffichagePlanning = new JButton("Planning");
 
 
         boutonGererReservationSalle.addActionListener(new ActionListener() {
@@ -30,7 +34,16 @@ public class MenuProfVue extends JFrame {
             }
         });
 
+        boutonAffichagePlanning.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PlanningProfesseurVue(getInstance().loginProf,getInstance());
+                boutonAffichagePlanning.setEnabled(false);
+            }
+        });
+
         panelGeneral.add(boutonGererReservationSalle);
+        panelGeneral.add(boutonAffichagePlanning);
         contentPane.add(panelGeneral);
 
         setVisible(true);
@@ -42,6 +55,8 @@ public class MenuProfVue extends JFrame {
     public void setTrueBoutonGererReservationSalle(){
         boutonGererReservationSalle.setEnabled(true);
     }
+
+    public void setTrueBoutonAffichagePlanning(){boutonAffichagePlanning.setEnabled(false);}
 
     public MenuProfVue getInstance(){return this;}
 }

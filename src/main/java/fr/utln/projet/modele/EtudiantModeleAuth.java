@@ -25,6 +25,10 @@ public class EtudiantModeleAuth extends Observable {
         return bool;
     }
 
+    public String getGroup(String numEtudiant){
+        return etudiantDAO.getGroup(numEtudiant);
+    }
+
 
 
     @Override

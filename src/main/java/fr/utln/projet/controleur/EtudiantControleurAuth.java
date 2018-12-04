@@ -25,6 +25,10 @@ public class EtudiantControleurAuth {
 
     }
 
+    public String getGroup(String numEtudiant){
+        return etudiantModeleAuth.getGroup(numEtudiant);
+    }
+
     public AuthentificationVue getAuthentificationVue() {
         return authentificationVue;
     }
