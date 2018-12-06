@@ -41,10 +41,10 @@ public class App
         PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
 //        ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele());
 //
-        //AuthentificationVue auth = new AuthentificationVue();
+        AuthentificationVue auth = new AuthentificationVue();
 
         ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
         ProfesseurModele professeurModele = new ProfesseurModele();
-        CoursVue coursVue = new CoursVue(new CoursControleur(planningEtudiantVue),new ControleurEtudiant(new EtudiantVue(modeleEtudiant,new MenuProfRefVue("cc")),modeleEtudiant), new ProfesseurControleur(new ProfesseurVue(professeurModele, new MenuProfRefVue("ccc")), professeurModele));
+        CoursVue coursVue = new CoursVue(new CoursControleur(planningEtudiantVue), new ProfesseurControleur(new ProfesseurVue(professeurModele, new MenuProfRefVue("ccc")), professeurModele));
     }
 }
