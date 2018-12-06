@@ -26,7 +26,7 @@ public class App
         // AuthentificationVue authentificationVue = new AuthentificationVue();
 
         // ModuleModele moduleModele = new ModuleModele();
-//        MenuProfRefVue a = new MenuProfRefVue("coucou");
+        MenuProfRefVue a = new MenuProfRefVue("coucou");
         //SalleModele salleModele = new SalleModele();
        // SalleVue salleVue = new SalleVue(salleModele);
         //MaterielModele materielModele = new MaterielModele();
@@ -34,12 +34,12 @@ public class App
        // PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
 //        ReserverSalleVue resa = new ReserverSalleVue();
 
-    //    PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
+        PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
       //  ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele());
 
-        AuthentificationVue auth = new AuthentificationVue();
-     //   ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
-     //   CoursVue coursVue = new CoursVue(new CoursControleur(planningEtudiantVue),new ControleurEtudiant(new EtudiantVue(modeleEtudiant,new MenuProfRefVue("cc")),modeleEtudiant));
+//        AuthentificationVue auth = new AuthentificationVue();
+        ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
+        CoursVue coursVue = new CoursVue(new CoursControleur(planningEtudiantVue),new ControleurEtudiant(new EtudiantVue(modeleEtudiant,new MenuProfRefVue("cc")),new ProfesseurControleur(new ProfesseurVue((new ProfesseurModele(), a)))));
 
     }
 }
