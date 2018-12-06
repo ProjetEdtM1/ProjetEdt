@@ -157,7 +157,7 @@ CREATE TABLE IF NOT EXISTS SUIVRE (
   dateCours date,
   heureDebCours time,
   heureFinCours time,
-  numeroSalle integer,
+  numeroSalle Varchar(10),
   Primary KEY(intituleGroupe, idProfesseur, intituleModule, dateCours, heureDebCours)
 );
 

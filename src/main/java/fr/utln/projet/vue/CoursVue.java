@@ -166,7 +166,7 @@ public class CoursVue extends Fenetre {
 //      Remplis un tableau des minutes possibles a selectionner dans la jcombobox
         ArrayList<Integer> minutes = new ArrayList<>();
         minutes.add(00);
-        minutes.add(30);
+//        minutes.add(30);
 
 //      remplissage de la jcombobox des minutes de debut de reservation
         for (int s: minutes) {

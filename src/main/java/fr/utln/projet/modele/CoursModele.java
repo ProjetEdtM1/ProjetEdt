@@ -1,11 +1,11 @@
 package fr.utln.projet.modele;
 
 import fr.utln.projet.DAO.DAOCours;
-import fr.utln.projet.DAO.DAOProfesseur;
 import fr.utln.projet.controleur.CoursControleur;
-import fr.utln.projet.controleur.ProfesseurControleurAuth;
 import fr.utln.projet.utilisateur.Cours;
 
+import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 
 public class CoursModele {
@@ -15,6 +15,10 @@ public class CoursModele {
     public CoursModele(CoursControleur coursControleur){
         this.coursControleur = coursControleur;
         this.daoCours = new DAOCours();
+    }
+
+    public void ajouterCours(String groupe, String idProf, String module, Date date, Time hDebCours, Time hFinCours, String numeroSalle) {
+        daoCours.ajouterCours(groupe, idProf, module, date, hDebCours, hFinCours, numeroSalle);
     }
 
     public List<Cours> getCoursSemaineGroupe(String intituleGroupe){

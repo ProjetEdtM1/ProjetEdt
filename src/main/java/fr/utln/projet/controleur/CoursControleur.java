@@ -1,5 +1,7 @@
 package fr.utln.projet.controleur;
 
+import com.sun.deploy.panel.NumberDocument;
+import fr.utln.projet.DAO.DAOCours;
 import fr.utln.projet.modele.CoursModele;
 import fr.utln.projet.utilisateur.Cours;
 import fr.utln.projet.vue.PlanningEtudiantVue;
@@ -25,6 +27,7 @@ public class CoursControleur {
     private String nouveauGroupeCours = new String();
     private String nouveauIdProfesseurCours = new String();
     private Document nouveauIntituleModule = new PlainDocument();
+//    private Document nouveauJourCours = new NumberDocument();
     private int nouveauJourCours;
     private int nouveauMoisCours;
     private int nouveauAnneeCours;
@@ -57,6 +60,7 @@ public class CoursControleur {
 
         nouveauIntituleModule.addDocumentListener(ecouterChangementTexte);
         nouveauNumSalleCours.addDocumentListener(ecouterChangementTexte);
+//        nouveauJourCours.addDocumentListener(ecouterChangementTexte);
     }
 
 
@@ -83,6 +87,7 @@ public class CoursControleur {
     // format de l'heure: heure:minute:secondes
     // h[h]:m[m]:s[s]
     private Time convertionHeure(int heure, int minute) {
+        System.out.println("bbb");
         String tmpHeure = new String();
         String tmpMinute = new String();
         String tmpHeuretot = new String();
@@ -97,6 +102,32 @@ public class CoursControleur {
 
     }
 
+    private int convertionDocumentInt(Document document) {
+        try {
+            String aux = document.getText(0, document.getLength());
+            return Integer.parseInt(aux);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    private void initialisationAnnee() {
+        nouveauAnneeCours = 2018;
+    }
+
+    private void initialisationMinuteDebut() {
+        nouveauMinuteDebCours = 0;
+    }
+
+    private void initialisationheureDebut() {
+        nouveauHeureDebCours = 8;
+    }
+
+    private void initialisationMinuteFin() {
+        nouveauMinuteFinCours = 0;
+    }
+
     public void ajoutCours() {
         Date date;
         Time hDebut;
@@ -105,7 +136,26 @@ public class CoursControleur {
 
             // mettre un try / catch
             // ATTENTION il faut que la JCombobox soit instanciee sinon c'est 0 et ca plante
+//            date = convertionDate(nouveauAnneeCours, nouveauMoisCours, convertionDocumentInt(nouveauJourCours));
+            if (nouveauAnneeCours == 0) {
+                initialisationAnnee();
+            }
+
+            if (nouveauMinuteDebCours == 0) {
+                initialisationMinuteDebut();
+            }
+
+            if (nouveauHeureDebCours == 0) {
+                initialisationheureDebut();
+            }
+
+            if (nouveauMinuteFinCours == 0) {
+                initialisationMinuteFin();
+            }
+
+            System.out.println(nouveauAnneeCours);
             date = convertionDate(nouveauAnneeCours, nouveauMoisCours, nouveauJourCours);
+
             hDebut = convertionHeure(nouveauHeureDebCours, nouveauMinuteDebCours);
             hFin = convertionHeure(nouveauHeureFinCours, nouveauMinuteFinCours);
 
@@ -118,6 +168,13 @@ public class CoursControleur {
             System.out.println(hDebut);
             System.out.println(hFin);
 
+
+
+            coursModele.ajouterCours(
+                    nouveauGroupeCours, nouveauIdProfesseurCours,
+                    nouveauIntituleModule.getText(0, nouveauIntituleModule.getLength()),
+                    date, hDebut, hFin, nouveauNumSalleCours.getText(0, nouveauNumSalleCours.getLength())
+            );
 
         } catch (BadLocationException e) {
             e.printStackTrace();

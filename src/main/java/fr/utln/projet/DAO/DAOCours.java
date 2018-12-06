@@ -1,7 +1,9 @@
 package fr.utln.projet.DAO;
 
+import com.sun.deploy.security.ValidationState;
 import fr.utln.projet.bdd.Connexion;
 import fr.utln.projet.utilisateur.Cours;
+import org.h2.jdbc.JdbcPreparedStatement;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -28,8 +30,31 @@ public class DAOCours {
      * ajoute un cours dans la BD
      */
 
-    public void ajouterCours(String groupe, String idProf, String intituleModule, Date dateCours, Time hDebutCours, Time hFinCours, int numSalleCours) {
+    public void ajouterCours(String groupe, String idProf, String intituleModule, Date dateCours, Time hDebutCours, Time hFinCours, String numSalleCours) {
+        this.conn = new Connexion();
+        conn.connect();
 
+        String req = "INSERT INTO SUIVRE (Intitulegroupe, idprofesseur, intitulemodule, datecours, heuredebcours, heurefincours, numerosalle)" +
+                "values(?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement psmt = conn.getConn().prepareStatement(req);
+
+            psmt.setObject(1, groupe, Types.VARCHAR);
+            psmt.setObject(2, idProf, Types.VARCHAR);
+            psmt.setObject(3, intituleModule, Types.VARCHAR);
+            psmt.setObject(4, dateCours, Types.DATE);
+            psmt.setObject(5, hDebutCours, Types.TIME);
+            psmt.setObject(6, hFinCours, Types.TIME);
+            psmt.setObject(7, numSalleCours, Types.VARCHAR);
+
+            psmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+        conn.close();
     }
 
 
