@@ -20,4 +20,8 @@ public class CoursModele {
     public List<Cours> getCoursSemaineGroupe(String intituleGroupe){
         return this.daoCours.getCoursSemaineGroupe(intituleGroupe);
     }
+
+    public List<Cours> getCoursSemaineProf(String login){
+        return this.daoCours.getCoursSemaineProf(login);
+    }
 }

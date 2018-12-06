@@ -55,7 +55,7 @@ public class AuthentificationVue extends JFrame implements Observer {
                     String mdp = new String(champsMdp.getPassword());
                     if(log.charAt(0) == 'e') {
                         if(etudiantControleur.connecterEtudiant(log, mdp)){
-                            PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
+                            PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue(etudiantControleur.getGroup(log));
                         }else
                             JOptionPane.showMessageDialog(contentPane, "Le login et le mot de passe ne correspondent pas","Erreur",JOptionPane.ERROR_MESSAGE);
                     }
