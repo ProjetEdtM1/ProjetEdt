@@ -131,4 +131,42 @@ public class DAOCours {
         }
         return listeCours;
     }
+
+    /**
+     * Methode de creation d'une liste de groupe  ( présent en BD)
+     *
+     * @return liste degroupe
+     *
+     * @author CLAIN Cyril
+     */
+    public List<String> creationListGroupe(){
+
+        // debut de connection
+        this.conn = new Connexion();
+        conn.connect();
+
+        List<String> groupeList = new ArrayList<String>();
+
+        //requette de selection des Etudiant
+        String sql = "SELECT INTITULEGROUPE FROM Groupe";
+        try {
+            Statement statementSelectIntitulegroupe = conn.getConn().createStatement();
+            ResultSet resListeDesEtudiant = statementSelectIntitulegroupe.executeQuery(sql);
+
+            while(resListeDesEtudiant.next()){
+
+                groupeList.add(resListeDesEtudiant.getString(1));
+            }
+
+            statementSelectIntitulegroupe.close();
+            conn.close();
+
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return groupeList;
+    }
+
 }

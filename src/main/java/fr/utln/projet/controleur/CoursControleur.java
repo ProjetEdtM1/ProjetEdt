@@ -419,4 +419,7 @@ public class CoursControleur {
     }
 
 
+    public List<String> getListGroupe() {
+        return(coursModele.getListGroupe());
+    }
 }
