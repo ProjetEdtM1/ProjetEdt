@@ -4,12 +4,9 @@ import fr.utln.projet.DAO.DAOCours;
 import fr.utln.projet.controleur.CoursControleur;
 import fr.utln.projet.utilisateur.Cours;
 
-<<<<<<< HEAD
 import java.sql.Date;
 import java.sql.Time;
-=======
 import java.util.ArrayList;
->>>>>>> d6656760750ddd0efa5050279842f0d9854db5ce
 import java.util.List;
 
 public class CoursModele {
