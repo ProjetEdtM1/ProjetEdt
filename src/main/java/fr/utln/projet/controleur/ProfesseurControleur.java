@@ -126,12 +126,22 @@ public class ProfesseurControleur {
         }
 
     }
-
-    public void deleteProfesseur(Professeur professeur) {
+    /**
+     *
+     *  Methode de supression  des professeur
+     *
+     * @param professeur
+     *
+     * @return boolean
+     *
+     *  @author      CLAIN Cyril
+     */
+    public boolean deleteProfesseur(Professeur professeur) {
         try {
-            professeurModele.deleteProfesseur(professeur);
+            return (professeurModele.deleteProfesseur(professeur));
         } catch (SQLException e) {
-            e.printStackTrace();
+            return(false);
+            //e.printStackTrace();
         }
     }
 

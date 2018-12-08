@@ -94,19 +94,26 @@ public class ProfesseurModele extends Observable {
 
     /**
      *
-     *  Methode de supression  des étudiants
+     *  Methode de supression  des professeur
      *
      * @param professeur
      *
+     * @return boolean
+     *
      *  @author      CLAIN Cyril
      */
-    public void deleteProfesseur(Professeur professeur) throws SQLException {
-        dao.deleteProfesseur(professeur.getIdprofesseur());
-        professeurs.remove(professeur);
+    public boolean deleteProfesseur(Professeur professeur) throws SQLException {
+        if (dao.deleteProfesseur(professeur.getIdprofesseur())) {
+            professeurs.remove(professeur);
 
-        //On previent les observateurs du changement
-        setChanged();
-        notifyObservers(ModeleProfesseurEvent.PROFESSEUR);
+            //On previent les observateurs du changement
+            setChanged();
+            notifyObservers(ModeleProfesseurEvent.PROFESSEUR);
+
+            // je ne retourne pas dao.deleteProfesseur(professeur.getIdprofesseur() afin de ne pas faire 2 acces en bd
+            return true;
+        }
+        return false;
     }
 
     public void modifierProfesseur(String id, String nom, String prenom){

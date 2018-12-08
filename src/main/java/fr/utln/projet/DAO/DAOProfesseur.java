@@ -128,9 +128,11 @@ public class DAOProfesseur {
      *
      * @param idprofesseur
      *
+     * @return Boolean
+     *
      * @author CLAIN Cyril
      */
-    public void deleteProfesseur(String idprofesseur) {
+    public Boolean deleteProfesseur(String idprofesseur) {
 
             // debut de connection
             this.conn = new Connexion();
@@ -146,10 +148,12 @@ public class DAOProfesseur {
                 System.out.println(resultSet);
                 statementSupresisonProfesseur.close();
                 conn.close();
+                return true;
 
             }
             catch (SQLException e) {
-                e.printStackTrace();
+                return(false);
+                //e.printStackTrace();
             }
 
 
