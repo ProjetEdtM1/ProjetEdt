@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CoursModele {
-    private DAOCours daoCours;
-    private AjoutCoursControleur ajoutCoursControleur;
+    // private AjoutCoursControleur ajoutCoursControleur;
 
 
     List<String> groupes = new ArrayList();
@@ -21,21 +20,20 @@ public class CoursModele {
 
     private DAOCours dao = new DAOCours();
 
-    public CoursModele(AjoutCoursControleur ajoutCoursControleur){
+    /*public CoursModele(AjoutCoursControleur ajoutCoursControleur){
         this.ajoutCoursControleur = ajoutCoursControleur;
-        this.daoCours = new DAOCours();
-    }
+    }*/
 
     public void ajouterCours(String groupe, String idProf, String module, Date date, Time hDebCours, Time hFinCours, String numeroSalle) {
-        daoCours.ajouterCours(groupe, idProf, module, date, hDebCours, hFinCours, numeroSalle);
+        dao.ajouterCours(groupe, idProf, module, date, hDebCours, hFinCours, numeroSalle);
     }
 
     public List<Cours> getCoursSemaineGroupe(String intituleGroupe){
-        return this.daoCours.getCoursSemaineGroupe(intituleGroupe);
+        return this.dao.getCoursSemaineGroupe(intituleGroupe);
     }
 
     public List<Cours> getCoursSemaineProf(String login){
-        return this.daoCours.getCoursSemaineProf(login);
+        return this.dao.getCoursSemaineProf(login);
     }
 
     /**

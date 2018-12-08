@@ -80,10 +80,10 @@ public class CoursVue extends Fenetre {
     private final JButton cancelAjouterCoursJButton = new JButton( rbBouton.getString("Annuler"));
 
 
-    public CoursVue(final AjoutCoursControleur ajoutCoursControleur, ProfesseurControleur professeurControleur) {
+    public CoursVue(final CoursModele coursModele) {
 
-        this.ajoutCoursControleur = ajoutCoursControleur;
-        this.coursModele = new CoursModele(ajoutCoursControleur);
+        this.coursModele = new CoursModele();
+        this.ajoutCoursControleur = new AjoutCoursControleur(coursModele);
        // this.controleurEtudiant = controleurEtudiant;
        // this.professeurControleur = professeurControleur;
         this.groupeListModele = new GroupeListModele(this.ajoutCoursControleur.getListGroupe());
