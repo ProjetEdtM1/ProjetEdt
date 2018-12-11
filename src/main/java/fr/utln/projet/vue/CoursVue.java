@@ -23,15 +23,13 @@ import fr.utln.projet.utilisateur.Professeur;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CoursVue extends Fenetre {
 
+    private final MenuProfRefVue menuProfRefVue;
     private final CoursModele coursModele;
     private final AjoutCoursControleur ajoutCoursControleur;
     //private final ProfesseurControleur professeurControleur;
@@ -80,10 +78,11 @@ public class CoursVue extends Fenetre {
     private final JButton cancelAjouterCoursJButton = new JButton( rbBouton.getString("Annuler"));
 
 
-    public CoursVue(final CoursModele coursModele) {
+    public CoursVue(final CoursModele coursModele,final MenuProfRefVue menuProfRefVue) {
 
         this.coursModele = new CoursModele();
         this.ajoutCoursControleur = new AjoutCoursControleur(coursModele);
+        this.menuProfRefVue = menuProfRefVue;
        // this.controleurEtudiant = controleurEtudiant;
        // this.professeurControleur = professeurControleur;
         this.groupeListModele = new GroupeListModele(this.ajoutCoursControleur.getListGroupe());
@@ -390,6 +389,43 @@ public class CoursVue extends Fenetre {
         c.gridx = 0;
         c.gridy = 0;
         getContentPane().add(ajoutcoursPanel, c);
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonCours();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonCours();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
         setVisible(true);
 

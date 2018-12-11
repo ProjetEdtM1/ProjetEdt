@@ -42,8 +42,6 @@ public class App
 //        ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele());
 //
         AuthentificationVue auth = new AuthentificationVue();
-
-
-        CoursVue coursVue = new CoursVue(new CoursModele());
+        
     }
 }

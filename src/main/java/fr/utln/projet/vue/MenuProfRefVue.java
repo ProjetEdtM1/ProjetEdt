@@ -1,9 +1,6 @@
 package fr.utln.projet.vue;
 
-import fr.utln.projet.modele.LangueListModele;
-import fr.utln.projet.modele.ModeleEtudiant;
-import fr.utln.projet.modele.ModuleModele;
-import fr.utln.projet.modele.ProfesseurModele;
+import fr.utln.projet.modele.*;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -26,6 +23,7 @@ public class MenuProfRefVue extends Fenetre {
     private  JButton boutonGererModules;// = new JButton("Gérer modules");
     private  JButton boutonGererEtudiants;// = new JButton("Gérer étudiants");
     private  JButton boutonGererProf;// = new JButton("Gérer professeurs");
+    private JButton boutonGererCours;
 
     private JButton boutonImage = new JButton(new ImageIcon("/home/cclain594/Bureau/copie_git_23_11/projetEdt/code.gif"));
 
@@ -50,6 +48,7 @@ public class MenuProfRefVue extends Fenetre {
         boutonGererModules = new JButton(rbBouton.getString("Gerer modules"));
         boutonGererEtudiants = new JButton(rbBouton.getString("Gerer etudiants"));
         boutonGererProf = new JButton(rbBouton.getString("Gerer professeurs"));
+        boutonGererCours = new JButton(rbBouton.getString("Gerer cours"));
 
         String[] listlangue = {"Francais","Anglais"};
 
@@ -90,6 +89,14 @@ public class MenuProfRefVue extends Fenetre {
             public void actionPerformed(ActionEvent e) {
                 new ProfesseurVue(new ProfesseurModele(),getInstance());
                 boutonGererProf.setEnabled(false);
+            }
+        });
+
+        this.boutonGererCours.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new CoursVue(new CoursModele(),getInstance());
+                boutonGererCours.setEnabled(false);
             }
         });
 
@@ -141,6 +148,8 @@ public class MenuProfRefVue extends Fenetre {
     public void setTrueBoutonProf(){
         this.boutonGererProf.setEnabled(true);
     }
+
+    public void setTrueBoutonCours(){this.boutonGererCours.setEnabled(true);}
 
     private void changeBundle(String selectedValue) {
         System.out.println("je passe");
