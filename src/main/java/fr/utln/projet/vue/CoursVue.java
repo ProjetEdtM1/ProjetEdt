@@ -27,6 +27,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Vector;
 
 public class CoursVue extends Fenetre {
 
@@ -43,7 +44,7 @@ public class CoursVue extends Fenetre {
     //utilisation de liste groupe et etudiante en jcombobox
     private static GroupeListModele groupeListModele;
     private static ProfesseurListModele professeurListModele;
-    private static java.util.List<Salle> salleListModele = new ArrayList<>();
+    private static SalleListModele salleListModele;
 
 
     private JLabel groupetudlabel = new JLabel(rbLabel.getString("Intitule groupe")+" :");
@@ -89,10 +90,11 @@ public class CoursVue extends Fenetre {
        // this.professeurControleur = professeurControleur;
         this.groupeListModele = new GroupeListModele(this.gererCoursControleur.getListGroupe());
         this.professeurListModele = new ProfesseurListModele(this.gererCoursControleur.getListProfesseur());
-      //  this.salleListModele = new CoursModele(this.gererCoursControleur.getListSalle());
-        this.salleListModele = gererCoursControleur.getListSalle();
+//        this.salleListModele = gererCoursControleur.getListSalle();
 
+        this.salleListModele = new SalleListModele(this.gererCoursControleur.getListSalle());
 
+        System.out.println("aaaa " + groupeListModele.getClass());
         groupeEtudiantJcomboBox = new JComboBox<String>(groupeListModele);
         // groupeEtudiantJcomboBox.setEnabled(false);
         groupeEtudiantJcomboBox.addItemListener(new ItemListener() {
@@ -107,6 +109,25 @@ public class CoursVue extends Fenetre {
                         break;
                 }
 
+            }
+        });
+
+
+        saleJcombobox = new JComboBox<>(salleListModele);
+        saleJcombobox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                switch (e.getStateChange()) {
+                    case ItemEvent.DESELECTED:
+                        break;
+                    case ItemEvent.SELECTED:
+                        Salle tmp;
+                        tmp = (Salle) saleJcombobox.getSelectedItem();
+                        System.out.println("hello " + tmp.getNumerosalle());
+                        gererCoursControleur.setNouvauSalleCours(tmp.getNumerosalle());
+                        break;
+
+                }
             }
         });
 
@@ -135,7 +156,6 @@ public class CoursVue extends Fenetre {
         });
 
         nomModuleJTextField = new JTextField(gererCoursControleur.getNouveauIntituleModule(),"",10);
-        numSalleJTextField = new JTextField(gererCoursControleur.getNouveauNumSalleCours(),"",10);
 
 
 //        remplissage des JBox pour les cours
@@ -364,7 +384,7 @@ public class CoursVue extends Fenetre {
         ajoutcoursPanel.add(nomModuleJTextField, c);
         c.gridx = 1;
         c.gridy = 6;
-        ajoutcoursPanel.add(numSalleJTextField,c);
+        ajoutcoursPanel.add(saleJcombobox,c);
 
         // placement bouton
         c.gridx = 0;

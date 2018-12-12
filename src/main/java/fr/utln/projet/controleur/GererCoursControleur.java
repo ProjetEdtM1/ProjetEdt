@@ -33,7 +33,7 @@ public class GererCoursControleur {
     private int nouveauMinuteDebCours;
     private int nouveauHeureFinCours;
     private int nouveauMinuteFinCours;
-    private Document nouveauNumSalleCours = new PlainDocument();
+    private int nouveauNumSalleCours;
 
     public GererCoursControleur(CoursModele coursModele){
         this.coursModele = coursModele;
@@ -56,7 +56,6 @@ public class GererCoursControleur {
         };
 
         nouveauIntituleModule.addDocumentListener(ecouterChangementTexte);
-        nouveauNumSalleCours.addDocumentListener(ecouterChangementTexte);
 //        nouveauJourCours.addDocumentListener(ecouterChangementTexte);
     }
 
@@ -157,9 +156,10 @@ public class GererCoursControleur {
             hFin = convertionHeure(nouveauHeureFinCours, nouveauMinuteFinCours);
 
             System.out.println(nouveauGroupeCours);
+            System.out.println("aaaaaaaaa" + nouveauNumSalleCours);
+            String nouveauSalleCours = String.valueOf(nouveauNumSalleCours);
             System.out.println(nouveauIdProfesseurCours);
             System.out.println(nouveauIntituleModule.getText(0, nouveauIntituleModule.getLength()));
-            System.out.println(nouveauNumSalleCours.getText(0, nouveauNumSalleCours.getLength()));
 
             System.out.println(date);
             System.out.println(hDebut);
@@ -170,7 +170,7 @@ public class GererCoursControleur {
             coursModele.ajouterCours(
                     nouveauGroupeCours, nouveauIdProfesseurCours,
                     nouveauIntituleModule.getText(0, nouveauIntituleModule.getLength()),
-                    date, hDebut, hFin, nouveauNumSalleCours.getText(0, nouveauNumSalleCours.getLength())
+                    date, hDebut, hFin, nouveauSalleCours
             );
 
         } catch (BadLocationException e) {
@@ -181,10 +181,6 @@ public class GererCoursControleur {
 
     public Document getNouveauIntituleModule() {
         return nouveauIntituleModule;
-    }
-
-    public Document getNouveauNumSalleCours() {
-        return nouveauNumSalleCours;
     }
 
 
@@ -222,6 +218,10 @@ public class GererCoursControleur {
 
     public void setNouveauMinuteFinCours(int nouveauMinuteFinCours) {
         this.nouveauMinuteFinCours = nouveauMinuteFinCours;
+    }
+
+    public void setNouvauSalleCours(int nouveauNumSalleCours) {
+        this.nouveauNumSalleCours = nouveauNumSalleCours;
     }
 
     // Pas toucher a ca !!
