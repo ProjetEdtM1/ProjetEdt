@@ -136,7 +136,7 @@ public class DAOCours {
     /**
      * Methode de creation d'une liste de groupe  ( présent en BD)
      *
-     * @return liste degroupe
+     * @return liste de groupe
      *
      * @author CLAIN Cyril
      */

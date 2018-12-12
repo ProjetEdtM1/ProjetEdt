@@ -14,12 +14,13 @@ package fr.utln.projet.vue;
  */
 
 
-import fr.utln.projet.controleur.AjoutCoursControleur;
-import fr.utln.projet.controleur.ProfesseurControleur;
+import fr.utln.projet.controleur.GererCoursControleur;
 import fr.utln.projet.modele.CoursModele;
 import fr.utln.projet.modele.GroupeListModele;
 import fr.utln.projet.modele.ProfesseurListModele;
+import fr.utln.projet.modele.SalleListModele;
 import fr.utln.projet.utilisateur.Professeur;
+import fr.utln.projet.utilisateur.Salle;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +32,7 @@ public class CoursVue extends Fenetre {
 
     private final MenuProfRefVue menuProfRefVue;
     private final CoursModele coursModele;
-    private final AjoutCoursControleur ajoutCoursControleur;
+    private final GererCoursControleur gererCoursControleur;
     //private final ProfesseurControleur professeurControleur;
 
 
@@ -42,25 +43,26 @@ public class CoursVue extends Fenetre {
     //utilisation de liste groupe et etudiante en jcombobox
     private static GroupeListModele groupeListModele;
     private static ProfesseurListModele professeurListModele;
-
-    private final JComboBox<Professeur> idProfesseurJcomboBox;
-    private final JComboBox<String> groupeEtudiantJcomboBox;
+    private static java.util.List<Salle> salleListModele = new ArrayList<>();
 
 
-
-    private final JLabel groupetudlabel = new JLabel(rbLabel.getString("Intitule groupe")+" :");
-    private final JLabel numProflabel = new JLabel(rbLabel.getString("Id professeur")+" :");
-    private final JLabel nomModulelabel = new JLabel(rbLabel.getString("Intitule module")+" :");
-    private final JLabel dateCourslabel = new JLabel(rbLabel.getString("Date cours")+" :");
-    private final JLabel h_debutlabel = new JLabel(rbLabel.getString("Heure de debut")+" :");
-    private final JLabel h_finlabel = new JLabel(rbLabel.getString("Heure de fin")+" :");
-    private final JLabel numSallelabel = new JLabel(rbLabel.getString("Numero de salle")+" :");
+    private JLabel groupetudlabel = new JLabel(rbLabel.getString("Intitule groupe")+" :");
+    private JLabel numProflabel = new JLabel(rbLabel.getString("Id professeur")+" :");
+    private JLabel nomModulelabel = new JLabel(rbLabel.getString("Intitule module")+" :");
+    private JLabel dateCourslabel = new JLabel(rbLabel.getString("Date cours")+" :");
+    private JLabel h_debutlabel = new JLabel(rbLabel.getString("Heure de debut")+" :");
+    private JLabel h_finlabel = new JLabel(rbLabel.getString("Heure de fin")+" :");
+    private JLabel numSallelabel = new JLabel(rbLabel.getString("Numero de salle")+" :");
 
 
     private String groupeCours = new String();
     private JTextField nomModuleJTextField = new JTextField();
     private JTextField numSalleJTextField = new JTextField();
 
+
+    private JComboBox<Professeur> idProfesseurJcomboBox;
+    private JComboBox<String> groupeEtudiantJcomboBox;
+    private JComboBox<Salle> saleJcombobox;
     private JComboBox jboxHeureDebCours = new JComboBox();
     private JComboBox jboxMinuteDebCours = new JComboBox();
     private JComboBox jboxHeureFinCours = new JComboBox();
@@ -78,15 +80,17 @@ public class CoursVue extends Fenetre {
     private final JButton cancelAjouterCoursJButton = new JButton( rbBouton.getString("Annuler"));
 
 
-    public CoursVue(final CoursModele coursModele,final MenuProfRefVue menuProfRefVue) {
+    public CoursVue(CoursModele coursModele, final MenuProfRefVue menuProfRefVue) {
 
         this.coursModele = new CoursModele();
-        this.ajoutCoursControleur = new AjoutCoursControleur(coursModele);
+        this.gererCoursControleur = new GererCoursControleur(coursModele);
         this.menuProfRefVue = menuProfRefVue;
        // this.controleurEtudiant = controleurEtudiant;
        // this.professeurControleur = professeurControleur;
-        this.groupeListModele = new GroupeListModele(this.ajoutCoursControleur.getListGroupe());
-        this.professeurListModele = new ProfesseurListModele(this.ajoutCoursControleur.getListProfesseur());
+        this.groupeListModele = new GroupeListModele(this.gererCoursControleur.getListGroupe());
+        this.professeurListModele = new ProfesseurListModele(this.gererCoursControleur.getListProfesseur());
+      //  this.salleListModele = new CoursModele(this.gererCoursControleur.getListSalle());
+        this.salleListModele = gererCoursControleur.getListSalle();
 
 
         groupeEtudiantJcomboBox = new JComboBox<String>(groupeListModele);
@@ -99,7 +103,7 @@ public class CoursVue extends Fenetre {
                         break;
                     case ItemEvent.SELECTED:
                         groupeCours = String.valueOf(groupeEtudiantJcomboBox.getSelectedItem());
-                        ajoutCoursControleur.setnouveauGroupeCours(groupeCours);
+                        gererCoursControleur.setnouveauGroupeCours(groupeCours);
                         break;
                 }
 
@@ -116,7 +120,7 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.SELECTED:
                         Professeur tmp;
                         tmp = (Professeur) idProfesseurJcomboBox.getSelectedItem();
-                        ajoutCoursControleur.setNouveauIdProfesseurCours(tmp.getIdprofesseur());
+                        gererCoursControleur.setNouveauIdProfesseurCours(tmp.getIdprofesseur());
                         break;
                 }
 
@@ -126,15 +130,12 @@ public class CoursVue extends Fenetre {
         ajouterCoursJBouton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ajoutCoursControleur.ajoutCours();
+                gererCoursControleur.ajoutCours();
             }
         });
 
-        nomModuleJTextField = new JTextField(ajoutCoursControleur.getNouveauIntituleModule(),"",10);
-//        dateCoursJTextField = new JTextField(coursControleur.getNouveauDateCours(),"",10);
-//        h_debutJTextField = new JTextField(coursControleur.getNouveauHDebutCours(),"",10);
-//        h_finJTextField = new JTextField(coursControleur.getNouveauHFinCours(),"",10);
-        numSalleJTextField = new JTextField(ajoutCoursControleur.getNouveauNumSalleCours(),"",10);
+        nomModuleJTextField = new JTextField(gererCoursControleur.getNouveauIntituleModule(),"",10);
+        numSalleJTextField = new JTextField(gererCoursControleur.getNouveauNumSalleCours(),"",10);
 
 
 //        remplissage des JBox pour les cours
@@ -212,7 +213,7 @@ public class CoursVue extends Fenetre {
                         break;
                     case ItemEvent.SELECTED:
                         int jourCours = Integer.valueOf((Integer) jboxJourCours.getSelectedItem());
-                        ajoutCoursControleur.setNouveauJourCours(jourCours);
+                        gererCoursControleur.setNouveauJourCours(jourCours);
                 }
             }
         });
@@ -224,7 +225,7 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.DESELECTED:
                         break;
                     case ItemEvent.SELECTED:
-                        ajoutCoursControleur.setNouveauMoisCours(Integer.valueOf((Integer) jboxMoisCours.getSelectedItem()));
+                        gererCoursControleur.setNouveauMoisCours(Integer.valueOf((Integer) jboxMoisCours.getSelectedItem()));
                 }
             }
         });
@@ -236,7 +237,7 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.DESELECTED:
                         break;
                     case ItemEvent.SELECTED:
-                        ajoutCoursControleur.setNouveauAnneeCours(Integer.valueOf((Integer) jboxAnneeCours.getSelectedItem()));
+                        gererCoursControleur.setNouveauAnneeCours(Integer.valueOf((Integer) jboxAnneeCours.getSelectedItem()));
                 }
             }
         });
@@ -248,7 +249,7 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.DESELECTED:
                         break;
                     case ItemEvent.SELECTED:
-                        ajoutCoursControleur.setNouveauHeureDebCours(Integer.valueOf((Integer) jboxHeureDebCours.getSelectedItem()));
+                        gererCoursControleur.setNouveauHeureDebCours(Integer.valueOf((Integer) jboxHeureDebCours.getSelectedItem()));
                 }
             }
         });
@@ -260,7 +261,7 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.DESELECTED:
                         break;
                     case ItemEvent.SELECTED:
-                        ajoutCoursControleur.setNouveauMinuteDebCours(Integer.valueOf((Integer) jboxMinuteDebCours.getSelectedItem()));
+                        gererCoursControleur.setNouveauMinuteDebCours(Integer.valueOf((Integer) jboxMinuteDebCours.getSelectedItem()));
                 }
             }
         });
@@ -272,7 +273,7 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.DESELECTED:
                         break;
                     case ItemEvent.SELECTED:
-                        ajoutCoursControleur.setNouveauHeureFinCours(Integer.valueOf((Integer) jboxHeureFinCours.getSelectedItem()));
+                        gererCoursControleur.setNouveauHeureFinCours(Integer.valueOf((Integer) jboxHeureFinCours.getSelectedItem()));
                 }
             }
         });
@@ -284,7 +285,7 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.DESELECTED:
                         break;
                     case ItemEvent.SELECTED:
-                        ajoutCoursControleur.setNouveauMinuteFinCours(Integer.valueOf((Integer) jboxMinuteFinCours.getSelectedItem()));
+                        gererCoursControleur.setNouveauMinuteFinCours(Integer.valueOf((Integer) jboxMinuteFinCours.getSelectedItem()));
                 }
             }
         });
@@ -361,15 +362,6 @@ public class CoursVue extends Fenetre {
         c.gridx = 1;
         c.gridy = 2;
         ajoutcoursPanel.add(nomModuleJTextField, c);
-//        c.gridx = 1;
-//        c.gridy = 3;
-//        ajoutcoursPanel.add(dateCoursJTextField, c);
-//        c.gridx = 1;
-//        c.gridy = 4;
-//        ajoutcoursPanel.add(h_debutJTextField, c);
-//        c.gridx = 1;
-//        c.gridy = 5;
-//        ajoutcoursPanel.add(h_finJTextField, c);
         c.gridx = 1;
         c.gridy = 6;
         ajoutcoursPanel.add(numSalleJTextField,c);

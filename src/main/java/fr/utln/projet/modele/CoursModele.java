@@ -1,9 +1,10 @@
 package fr.utln.projet.modele;
 
 import fr.utln.projet.DAO.DAOCours;
-import fr.utln.projet.controleur.AjoutCoursControleur;
+import fr.utln.projet.DAO.DAOSalle;
 import fr.utln.projet.utilisateur.Cours;
 import fr.utln.projet.utilisateur.Professeur;
+import fr.utln.projet.utilisateur.Salle;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -11,16 +12,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CoursModele {
-    // private AjoutCoursControleur ajoutCoursControleur;
-
-
     List<String> groupes = new ArrayList();
+    List<Salle> salles = new ArrayList();
     List<Professeur> professeurs = new ArrayList();
 
 
     private DAOCours dao = new DAOCours();
+    private DAOSalle daoSalle = new DAOSalle();
 
-    /*public CoursModele(AjoutCoursControleur ajoutCoursControleur){
+    /*public CoursModele(GererCoursControleur ajoutCoursControleur){
         this.ajoutCoursControleur = ajoutCoursControleur;
     }*/
 
@@ -46,6 +46,12 @@ public class CoursModele {
     public List<String> getListGroupe() {
         groupes = dao.creationListGroupe();
         return groupes;
+    }
+
+    public List<Salle> getListSalle() {
+        salles = daoSalle.creationlistsalle();
+        System.out.println(salles.getClass());
+        return salles;
     }
 
     /**

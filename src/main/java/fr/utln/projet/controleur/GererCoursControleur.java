@@ -4,6 +4,7 @@ package fr.utln.projet.controleur;
 import fr.utln.projet.modele.CoursModele;
 import fr.utln.projet.utilisateur.Cours;
 import fr.utln.projet.utilisateur.Professeur;
+import fr.utln.projet.utilisateur.Salle;
 import fr.utln.projet.vue.CoursVue;
 import fr.utln.projet.vue.PlanningSuperVue;
 
@@ -18,7 +19,7 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AjoutCoursControleur {
+public class GererCoursControleur {
     private CoursModele coursModele;
 
     private String nouveauGroupeCours = new String();
@@ -34,7 +35,7 @@ public class AjoutCoursControleur {
     private int nouveauMinuteFinCours;
     private Document nouveauNumSalleCours = new PlainDocument();
 
-    public AjoutCoursControleur(CoursModele coursModele){
+    public GererCoursControleur(CoursModele coursModele){
         this.coursModele = coursModele;
 
         DocumentListener ecouterChangementTexte = new DocumentListener() {
@@ -421,6 +422,10 @@ public class AjoutCoursControleur {
 
     public List<Professeur> getListProfesseur() {
         return(coursModele.getProfesseurs());
+    }
+
+    public List<Salle> getListSalle() {
+        return coursModele.getListSalle();
     }
 
 }

@@ -1,14 +1,9 @@
 package fr.utln.projet;
 
 
-import fr.utln.projet.controleur.AjoutCoursControleur;
-import fr.utln.projet.controleur.ControleurEtudiant;
-import fr.utln.projet.controleur.CoursControleur;
-import fr.utln.projet.controleur.ProfesseurControleur;
 import fr.utln.projet.modele.CoursModele;
-import fr.utln.projet.modele.ModeleEtudiant;
-import fr.utln.projet.modele.ProfesseurModele;
 import fr.utln.projet.modele.ReserverSalleModele;
+import fr.utln.projet.modele.SalleModele;
 import fr.utln.projet.vue.*;
 
 import java.io.*;
@@ -28,8 +23,8 @@ public class App
         // AuthentificationVue authentificationVue = new AuthentificationVue();
 
         // ModuleModele moduleModele = new ModuleModele();
-        //SalleModele salleModele = new SalleModele();
-        // SalleVue salleVue = new SalleVue(salleModele);
+//        SalleModele salleModele = new SalleModele();
+//         SalleVue salleVue = new SalleVue(salleModele);
         //MaterielModele materielModele = new MaterielModele();
         //MaterielVue materielVue = new MaterielVue(materielModele);
         // PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
@@ -40,8 +35,10 @@ public class App
 //        MenuProfVue menuProfVue = new MenuProfVue("coucou");
 //        ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele(), menuProfVue);
 //        ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele());
-//
-        AuthentificationVue auth = new AuthentificationVue();
+
+        CoursVue coursVue = new CoursVue(new CoursModele(), new MenuProfRefVue("yo"));
+
+//        AuthentificationVue auth = new AuthentificationVue();
         
     }
 }
