@@ -14,30 +14,25 @@ package fr.utln.projet.vue;
  */
 
 
-import fr.utln.projet.controleur.ControleurEtudiant;
-import fr.utln.projet.controleur.CoursControleur;
+import fr.utln.projet.controleur.AjoutCoursControleur;
 import fr.utln.projet.controleur.ProfesseurControleur;
 import fr.utln.projet.modele.CoursModele;
 import fr.utln.projet.modele.GroupeListModele;
 import fr.utln.projet.modele.ProfesseurListModele;
 import fr.utln.projet.utilisateur.Professeur;
-import org.omg.CORBA.INTERNAL;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class CoursVue extends Fenetre {
 
+    private final MenuProfRefVue menuProfRefVue;
     private final CoursModele coursModele;
-    private final CoursControleur coursControleur;
-    //private final ControleurEtudiant controleurEtudiant;
-    private final ProfesseurControleur professeurControleur;
+    private final AjoutCoursControleur ajoutCoursControleur;
+    //private final ProfesseurControleur professeurControleur;
 
 
     //bundle utilisé pour acceder aux .properties
@@ -64,9 +59,6 @@ public class CoursVue extends Fenetre {
 
     private String groupeCours = new String();
     private JTextField nomModuleJTextField = new JTextField();
-//    private JTextField dateCoursJTextField = new JTextField();
-//    private JTextField h_debutJTextField = new JTextField();
-//    private JTextField h_finJTextField = new JTextField();
     private JTextField numSalleJTextField = new JTextField();
 
     private JComboBox jboxHeureDebCours = new JComboBox();
@@ -86,14 +78,15 @@ public class CoursVue extends Fenetre {
     private final JButton cancelAjouterCoursJButton = new JButton( rbBouton.getString("Annuler"));
 
 
-    public CoursVue(final CoursControleur coursControleur, ProfesseurControleur professeurControleur) {
+    public CoursVue(final CoursModele coursModele,final MenuProfRefVue menuProfRefVue) {
 
-        this.coursControleur = coursControleur;
-        this.coursModele = new CoursModele(coursControleur);
+        this.coursModele = new CoursModele();
+        this.ajoutCoursControleur = new AjoutCoursControleur(coursModele);
+        this.menuProfRefVue = menuProfRefVue;
        // this.controleurEtudiant = controleurEtudiant;
-        this.professeurControleur = professeurControleur;
-        this.groupeListModele = new GroupeListModele(this.coursControleur.getListGroupe());
-        this.professeurListModele = new ProfesseurListModele(this.professeurControleur.getListProfesseur());
+       // this.professeurControleur = professeurControleur;
+        this.groupeListModele = new GroupeListModele(this.ajoutCoursControleur.getListGroupe());
+        this.professeurListModele = new ProfesseurListModele(this.ajoutCoursControleur.getListProfesseur());
 
 
         groupeEtudiantJcomboBox = new JComboBox<String>(groupeListModele);
@@ -106,7 +99,7 @@ public class CoursVue extends Fenetre {
                         break;
                     case ItemEvent.SELECTED:
                         groupeCours = String.valueOf(groupeEtudiantJcomboBox.getSelectedItem());
-                        coursControleur.setnouveauGroupeCours(groupeCours);
+                        ajoutCoursControleur.setnouveauGroupeCours(groupeCours);
                         break;
                 }
 
@@ -123,7 +116,7 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.SELECTED:
                         Professeur tmp;
                         tmp = (Professeur) idProfesseurJcomboBox.getSelectedItem();
-                        coursControleur.setNouveauIdProfesseurCours(tmp.getIdprofesseur());
+                        ajoutCoursControleur.setNouveauIdProfesseurCours(tmp.getIdprofesseur());
                         break;
                 }
 
@@ -133,15 +126,15 @@ public class CoursVue extends Fenetre {
         ajouterCoursJBouton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                coursControleur.ajoutCours();
+                ajoutCoursControleur.ajoutCours();
             }
         });
 
-        nomModuleJTextField = new JTextField(coursControleur.getNouveauIntituleModule(),"",10);
+        nomModuleJTextField = new JTextField(ajoutCoursControleur.getNouveauIntituleModule(),"",10);
 //        dateCoursJTextField = new JTextField(coursControleur.getNouveauDateCours(),"",10);
 //        h_debutJTextField = new JTextField(coursControleur.getNouveauHDebutCours(),"",10);
 //        h_finJTextField = new JTextField(coursControleur.getNouveauHFinCours(),"",10);
-        numSalleJTextField = new JTextField(coursControleur.getNouveauNumSalleCours(),"",10);
+        numSalleJTextField = new JTextField(ajoutCoursControleur.getNouveauNumSalleCours(),"",10);
 
 
 //        remplissage des JBox pour les cours
@@ -219,7 +212,7 @@ public class CoursVue extends Fenetre {
                         break;
                     case ItemEvent.SELECTED:
                         int jourCours = Integer.valueOf((Integer) jboxJourCours.getSelectedItem());
-                        coursControleur.setNouveauJourCours(jourCours);
+                        ajoutCoursControleur.setNouveauJourCours(jourCours);
                 }
             }
         });
@@ -231,7 +224,7 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.DESELECTED:
                         break;
                     case ItemEvent.SELECTED:
-                        coursControleur.setNouveauMoisCours(Integer.valueOf((Integer) jboxMoisCours.getSelectedItem()));
+                        ajoutCoursControleur.setNouveauMoisCours(Integer.valueOf((Integer) jboxMoisCours.getSelectedItem()));
                 }
             }
         });
@@ -243,7 +236,7 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.DESELECTED:
                         break;
                     case ItemEvent.SELECTED:
-                        coursControleur.setNouveauAnneeCours(Integer.valueOf((Integer) jboxAnneeCours.getSelectedItem()));
+                        ajoutCoursControleur.setNouveauAnneeCours(Integer.valueOf((Integer) jboxAnneeCours.getSelectedItem()));
                 }
             }
         });
@@ -255,7 +248,7 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.DESELECTED:
                         break;
                     case ItemEvent.SELECTED:
-                        coursControleur.setNouveauHeureDebCours(Integer.valueOf((Integer) jboxHeureDebCours.getSelectedItem()));
+                        ajoutCoursControleur.setNouveauHeureDebCours(Integer.valueOf((Integer) jboxHeureDebCours.getSelectedItem()));
                 }
             }
         });
@@ -267,7 +260,7 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.DESELECTED:
                         break;
                     case ItemEvent.SELECTED:
-                        coursControleur.setNouveauMinuteDebCours(Integer.valueOf((Integer) jboxMinuteDebCours.getSelectedItem()));
+                        ajoutCoursControleur.setNouveauMinuteDebCours(Integer.valueOf((Integer) jboxMinuteDebCours.getSelectedItem()));
                 }
             }
         });
@@ -279,7 +272,7 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.DESELECTED:
                         break;
                     case ItemEvent.SELECTED:
-                        coursControleur.setNouveauHeureFinCours(Integer.valueOf((Integer) jboxHeureFinCours.getSelectedItem()));
+                        ajoutCoursControleur.setNouveauHeureFinCours(Integer.valueOf((Integer) jboxHeureFinCours.getSelectedItem()));
                 }
             }
         });
@@ -291,7 +284,7 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.DESELECTED:
                         break;
                     case ItemEvent.SELECTED:
-                        coursControleur.setNouveauMinuteFinCours(Integer.valueOf((Integer) jboxMinuteFinCours.getSelectedItem()));
+                        ajoutCoursControleur.setNouveauMinuteFinCours(Integer.valueOf((Integer) jboxMinuteFinCours.getSelectedItem()));
                 }
             }
         });
@@ -396,6 +389,43 @@ public class CoursVue extends Fenetre {
         c.gridx = 0;
         c.gridy = 0;
         getContentPane().add(ajoutcoursPanel, c);
+
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonCours();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonCours();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
         setVisible(true);
 

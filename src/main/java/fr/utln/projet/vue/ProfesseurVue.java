@@ -91,10 +91,10 @@ public class ProfesseurVue extends Fenetre{
         suppressionProfesseurJButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                professeurControleur.deleteProfesseur(professeurtSuppressionJList.getSelectedValue());
-                //setSuppressionProfesseurJButton((professeurtSuppressionJList.getSelectedValue() == null));
+                if (!(professeurControleur.deleteProfesseur(professeurtSuppressionJList.getSelectedValue()))){
+                    JOptionPane.showMessageDialog(professeurAjoutPanel, "Le professeur donne un cours, remplacé le avant de le suprimer  ");
+                }
                 suppressionProfesseurJButton.setEnabled(false);
-
             }
         });
 

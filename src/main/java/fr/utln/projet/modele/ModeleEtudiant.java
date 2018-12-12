@@ -129,6 +129,7 @@ public class ModeleEtudiant extends Observable {
 
                 e.setPrenom(prenom);
                 e.setNom(nom);
+                e.setGroupe(groupe);
 
             }}
 

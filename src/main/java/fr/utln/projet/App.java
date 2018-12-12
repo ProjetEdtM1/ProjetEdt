@@ -1,9 +1,11 @@
 package fr.utln.projet;
 
 
+import fr.utln.projet.controleur.AjoutCoursControleur;
 import fr.utln.projet.controleur.ControleurEtudiant;
 import fr.utln.projet.controleur.CoursControleur;
 import fr.utln.projet.controleur.ProfesseurControleur;
+import fr.utln.projet.modele.CoursModele;
 import fr.utln.projet.modele.ModeleEtudiant;
 import fr.utln.projet.modele.ProfesseurModele;
 import fr.utln.projet.modele.ReserverSalleModele;
@@ -26,7 +28,6 @@ public class App
         // AuthentificationVue authentificationVue = new AuthentificationVue();
 
         // ModuleModele moduleModele = new ModuleModele();
-        MenuProfRefVue a = new MenuProfRefVue("coucou");
         //SalleModele salleModele = new SalleModele();
         // SalleVue salleVue = new SalleVue(salleModele);
         //MaterielModele materielModele = new MaterielModele();
@@ -38,13 +39,9 @@ public class App
 //        PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
 //        MenuProfVue menuProfVue = new MenuProfVue("coucou");
 //        ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele(), menuProfVue);
-        PlanningEtudiantVue planningEtudiantVue = new PlanningEtudiantVue("SI1A");
 //        ReserverSalleVue reservationSalleVue = new ReserverSalleVue(new ReserverSalleModele());
 //
         AuthentificationVue auth = new AuthentificationVue();
-
-        ModeleEtudiant modeleEtudiant = new ModeleEtudiant();
-        ProfesseurModele professeurModele = new ProfesseurModele();
-        CoursVue coursVue = new CoursVue(new CoursControleur(planningEtudiantVue), new ProfesseurControleur(new ProfesseurVue(professeurModele, new MenuProfRefVue("ccc")), professeurModele));
+        
     }
 }

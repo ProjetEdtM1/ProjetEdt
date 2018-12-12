@@ -3,6 +3,7 @@ package fr.utln.projet.DAO;
 import com.sun.deploy.security.ValidationState;
 import fr.utln.projet.bdd.Connexion;
 import fr.utln.projet.utilisateur.Cours;
+import fr.utln.projet.utilisateur.Professeur;
 import org.h2.jdbc.JdbcPreparedStatement;
 
 import java.sql.*;
@@ -169,4 +170,41 @@ public class DAOCours {
         return groupeList;
     }
 
+    /**
+     * Methode de creation d'une liste de professeur ( présent en BD)
+     *
+     * @return liste d'professeur
+     * @author CLAIN Cyril
+     */
+
+    public List<Professeur> creationListProfesseur() {
+
+        // debut de connection
+        this.conn = new Connexion();
+        conn.connect();
+        List<Professeur> professeurList = new ArrayList<Professeur>();
+        //requette de selection des Professeur
+        String sql = "SELECT * FROM PROFESSEUR";
+        try {
+            Statement statementSelectall = conn.getConn().createStatement();
+            ResultSet resListeDesProfesseur = statementSelectall.executeQuery(sql);
+            while (resListeDesProfesseur.next()) {
+                Professeur professeur = new Professeur();
+                professeur.setIdprofesseur(resListeDesProfesseur.getString(1));
+                professeur.setNom(resListeDesProfesseur.getString(2));
+                professeur.setPrenom(resListeDesProfesseur.getString(3));
+                professeur.setLogin(resListeDesProfesseur.getString(4));
+                professeur.setMdp(resListeDesProfesseur.getString(5));
+                professeurList.add(professeur);
+            }
+
+            statementSelectall.close();
+            conn.close();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return professeurList;
+    }
 }

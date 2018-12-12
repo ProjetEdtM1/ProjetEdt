@@ -35,7 +35,7 @@ public class CoursControleur {
 
     public CoursControleur(PlanningSuperVue planningVue){
         this.planningVue = planningVue;
-        this.coursModele = new CoursModele(this);
+        this.coursModele = new CoursModele();
 
         DocumentListener ecouterChangementTexte = new DocumentListener() {
             @Override
