@@ -4,7 +4,6 @@ import com.sun.deploy.panel.NumberDocument;
 import fr.utln.projet.DAO.DAOCours;
 import fr.utln.projet.modele.CoursModele;
 import fr.utln.projet.utilisateur.Cours;
-import fr.utln.projet.vue.PlanningEtudiantVue;
 import fr.utln.projet.vue.PlanningSuperVue;
 
 import javax.swing.event.DocumentEvent;
@@ -14,9 +13,6 @@ import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 import java.sql.Date;
 import java.sql.Time;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
