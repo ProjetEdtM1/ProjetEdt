@@ -12,6 +12,8 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -54,7 +56,7 @@ public class SalleVue  extends Fenetre {
     private final JTextField numSalle;
 
 
-    public SalleVue(SalleModele salleModele) {
+    public SalleVue(SalleModele salleModele, final MenuProfRefVue menuProfRefVue) {
 
         super();
         setTitle("CRUD  salle");
@@ -115,6 +117,42 @@ public class SalleVue  extends Fenetre {
             }
         });
 
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonSalle();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonSalle();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
         GridBagConstraints c = new GridBagConstraints();
 
