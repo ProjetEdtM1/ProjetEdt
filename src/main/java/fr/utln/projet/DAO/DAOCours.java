@@ -50,6 +50,7 @@ public class DAOCours {
 
             psmt.executeUpdate();
 
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -58,6 +59,14 @@ public class DAOCours {
         conn.close();
     }
 
+
+    public void testAjoutCours(String groupe, String idProf, String intituleModule, Date dateCours, Time hDebutCours, Time hFinCours, String numSalleCours) {
+        System.out.println(chevauchementcoursetudiant(groupe, dateCours, hDebutCours, hFinCours));
+        if (!chevauchementcoursetudiant(groupe, dateCours, hDebutCours, hFinCours)) {
+            System.out.println("Le cours peut etre ajoute ");
+            ajouterCours(groupe, idProf, intituleModule, dateCours, hDebutCours, hFinCours, numSalleCours);
+        }
+    }
 
 
     /**
@@ -207,4 +216,68 @@ public class DAOCours {
         }
         return professeurList;
     }
+
+
+    public boolean chevauchementcoursetudiant(String grp, Date date, Time hdc, Time hfc) {
+        this.conn = new Connexion();
+        conn.connect();
+        boolean retour = false;
+
+        String req = "select heuredebcours, heurefincours from suivre where intitulegroupe = ? and datecours = ?";
+        try {
+
+            PreparedStatement stmt = conn.getConn().prepareStatement(req);
+            stmt.setString(1,grp);
+            stmt.setDate(2,date);
+//            stmt.executeUpdate();
+            System.out.println("AAALO");
+            ResultSet res = stmt.executeQuery();
+
+            while(res.next() && !retour) {
+                Time hDebCours = res.getTime("heuredebcours");
+                Time hFinCours = res.getTime("heurefincours");
+
+                System.out.println(hDebCours + " " + hFinCours + " " + hdc + " " + hfc);
+                System.out.println(hdc.compareTo(hDebCours));
+                System.out.println(hFinCours.compareTo(hfc));
+
+//                chevauchement sur l'heure de debut (commence avant le debut, mais fini apres le debut
+                if ( (hdc.compareTo(hDebCours) <= 0) && (hfc.compareTo(hDebCours) > 0) ) {
+                    System.out.println("chevauchement inferieur ");
+                    retour = true;
+                }
+
+//                chevauchelent interne (commence apres le debut, mais avant la fin, et fini avant la fin)
+                if ((hdc.compareTo(hDebCours) >= 0) && (hdc.compareTo(hFinCours) <= 0) && (hfc.compareTo(hDebCours) > 0)
+                    && (hfc.compareTo(hFinCours) <= 0) && (!retour)) {
+                    System.out.println("chevauchement interieur ");
+                    retour = true;
+                }
+
+                System.out.println("retour= " + retour);
+
+//                chevauchement sur l'heure de fin (commence apres le debut, mais avant la fin, et fini plus tard)
+                if ((hdc.compareTo(hDebCours) > 0) && (hdc.compareTo(hFinCours) < 0) && (hfc.compareTo(hFinCours) >= 0) && (!retour)) {
+                    System.out.println("chevauchement superieur ");
+                    retour = true;
+                }
+
+//                chevauchement total (commence avant le debut et fini apres la fin)
+//                securite, mais deja pris en compte par le chevauchement inferieur (le 1)
+                if ((hdc.compareTo(hDebCours) <= 0) && (hfc.compareTo(hFinCours) >= 0) && (!retour)) {
+                    System.out.println("chevauchement total ");
+                    retour = true;
+                }
+            }
+
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return retour;
+    }
+
+
 }

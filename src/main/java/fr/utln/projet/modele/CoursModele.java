@@ -29,7 +29,7 @@ public class CoursModele {
     }*/
 
     public void ajouterCours(String groupe, String idProf, String module, Date date, Time hDebCours, Time hFinCours, String numeroSalle) {
-        dao.ajouterCours(groupe, idProf, module, date, hDebCours, hFinCours, numeroSalle);
+        dao.testAjoutCours(groupe, idProf, module, date, hDebCours, hFinCours, numeroSalle);
     }
 
     public List<Cours> getCoursSemaineGroupe(String intituleGroupe){

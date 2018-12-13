@@ -38,7 +38,7 @@ public class App
 
         CoursVue coursVue = new CoursVue(new CoursModele(), new MenuProfRefVue("yo"));
 
-        AuthentificationVue auth = new AuthentificationVue();
+//        AuthentificationVue auth = new AuthentificationVue();
         
     }
 }
