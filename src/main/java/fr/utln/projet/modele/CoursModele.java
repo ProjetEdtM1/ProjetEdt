@@ -2,6 +2,8 @@ package fr.utln.projet.modele;
 
 import fr.utln.projet.DAO.DAOCours;
 import fr.utln.projet.DAO.DAOSalle;
+import fr.utln.projet.DAO.ModuleDAO;
+import fr.utln.projet.module.Module;
 import fr.utln.projet.utilisateur.Cours;
 import fr.utln.projet.utilisateur.Professeur;
 import fr.utln.projet.utilisateur.Salle;
@@ -14,11 +16,13 @@ import java.util.List;
 public class CoursModele {
     List<String> groupes = new ArrayList();
     List<Salle> salles = new ArrayList();
+    List<Module> modules= new ArrayList();
     List<Professeur> professeurs = new ArrayList();
 
 
     private DAOCours dao = new DAOCours();
     private DAOSalle daoSalle = new DAOSalle();
+    private ModuleDAO daoModule = new ModuleDAO();
 
     /*public CoursModele(GererCoursControleur ajoutCoursControleur){
         this.ajoutCoursControleur = ajoutCoursControleur;
@@ -52,6 +56,11 @@ public class CoursModele {
         salles = daoSalle.creationlistsalle();
         System.out.println(salles.getClass());
         return salles;
+    }
+
+    public List<Module> getListeModule() {
+        modules = daoModule.creationListModule();
+        return modules;
     }
 
     /**

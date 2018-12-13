@@ -15,10 +15,8 @@ package fr.utln.projet.vue;
 
 
 import fr.utln.projet.controleur.GererCoursControleur;
-import fr.utln.projet.modele.CoursModele;
-import fr.utln.projet.modele.GroupeListModele;
-import fr.utln.projet.modele.ProfesseurListModele;
-import fr.utln.projet.modele.SalleListModele;
+import fr.utln.projet.modele.*;
+import fr.utln.projet.module.Module;
 import fr.utln.projet.utilisateur.Professeur;
 import fr.utln.projet.utilisateur.Salle;
 
@@ -45,6 +43,7 @@ public class CoursVue extends Fenetre {
     private static GroupeListModele groupeListModele;
     private static ProfesseurListModele professeurListModele;
     private static SalleListModele salleListModele;
+    private static ModuleListeModele moduleListeModele;
 
 
     private JLabel groupetudlabel = new JLabel(rbLabel.getString("Intitule groupe")+" :");
@@ -58,12 +57,11 @@ public class CoursVue extends Fenetre {
 
     private String groupeCours = new String();
     private JTextField nomModuleJTextField = new JTextField();
-    private JTextField numSalleJTextField = new JTextField();
 
 
     private JComboBox<Professeur> idProfesseurJcomboBox;
     private JComboBox<String> groupeEtudiantJcomboBox;
-    private JComboBox<Salle> saleJcombobox;
+    private JComboBox<Module> moduleJcomboBox;
     private JComboBox jboxHeureDebCours = new JComboBox();
     private JComboBox jboxMinuteDebCours = new JComboBox();
     private JComboBox jboxHeureFinCours = new JComboBox();
@@ -71,6 +69,7 @@ public class CoursVue extends Fenetre {
     private JComboBox jboxAnneeCours = new JComboBox();
     private JComboBox jboxMoisCours = new JComboBox();
     private JComboBox jboxJourCours = new JComboBox();
+    private JComboBox<Salle> salleJcombobox;
 
     private static JPanel ajoutcoursPanel = new JPanel(new GridBagLayout());
     private static JPanel dateCoursPanel = new JPanel(new GridBagLayout());
@@ -93,6 +92,7 @@ public class CoursVue extends Fenetre {
 //        this.salleListModele = gererCoursControleur.getListSalle();
 
         this.salleListModele = new SalleListModele(this.gererCoursControleur.getListSalle());
+        this.moduleListeModele = new ModuleListeModele(this.gererCoursControleur.getListeModule());
 
         System.out.println("aaaa " + groupeListModele.getClass());
         groupeEtudiantJcomboBox = new JComboBox<String>(groupeListModele);
@@ -113,8 +113,8 @@ public class CoursVue extends Fenetre {
         });
 
 
-        saleJcombobox = new JComboBox<>(salleListModele);
-        saleJcombobox.addItemListener(new ItemListener() {
+        salleJcombobox = new JComboBox<>(salleListModele);
+        salleJcombobox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
                 switch (e.getStateChange()) {
@@ -122,7 +122,7 @@ public class CoursVue extends Fenetre {
                         break;
                     case ItemEvent.SELECTED:
                         Salle tmp;
-                        tmp = (Salle) saleJcombobox.getSelectedItem();
+                        tmp = (Salle) salleJcombobox.getSelectedItem();
                         System.out.println("hello " + tmp.getNumerosalle());
                         gererCoursControleur.setNouvauSalleCours(tmp.getNumerosalle());
                         break;
@@ -148,6 +148,23 @@ public class CoursVue extends Fenetre {
             }
         });
 
+        moduleJcomboBox = new JComboBox<Module>(moduleListeModele);
+        moduleJcomboBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                switch(e.getStateChange()) {
+                    case ItemEvent.DESELECTED:
+                        break;
+                    case ItemEvent.SELECTED:
+                        Module tmp;
+                        tmp = (Module) moduleJcomboBox.getSelectedItem();
+                        gererCoursControleur.setNouveaModuleCours(tmp.getIntitule());
+                        break;
+                }
+
+            }
+        });
+
         ajouterCoursJBouton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -155,7 +172,7 @@ public class CoursVue extends Fenetre {
             }
         });
 
-        nomModuleJTextField = new JTextField(gererCoursControleur.getNouveauIntituleModule(),"",10);
+//        nomModuleJTextField = new JTextField(gererCoursControleur.getNouveauIntituleModule(),"",10);
 
 
 //        remplissage des JBox pour les cours
@@ -381,10 +398,10 @@ public class CoursVue extends Fenetre {
         ajoutcoursPanel.add(idProfesseurJcomboBox, c);
         c.gridx = 1;
         c.gridy = 2;
-        ajoutcoursPanel.add(nomModuleJTextField, c);
+        ajoutcoursPanel.add(moduleJcomboBox, c);
         c.gridx = 1;
         c.gridy = 6;
-        ajoutcoursPanel.add(saleJcombobox,c);
+        ajoutcoursPanel.add(salleJcombobox,c);
 
         // placement bouton
         c.gridx = 0;

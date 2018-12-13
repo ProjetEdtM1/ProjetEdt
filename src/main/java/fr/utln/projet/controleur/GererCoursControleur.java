@@ -2,6 +2,7 @@ package fr.utln.projet.controleur;
 
 
 import fr.utln.projet.modele.CoursModele;
+import fr.utln.projet.module.Module;
 import fr.utln.projet.utilisateur.Cours;
 import fr.utln.projet.utilisateur.Professeur;
 import fr.utln.projet.utilisateur.Salle;
@@ -24,7 +25,8 @@ public class GererCoursControleur {
 
     private String nouveauGroupeCours = new String();
     private String nouveauIdProfesseurCours = new String();
-    private Document nouveauIntituleModule = new PlainDocument();
+    private String nouveaModuleCours = new String();
+//    private Document nouveauIntituleModule = new PlainDocument();
     //    private Document nouveauJourCours = new NumberDocument();
     private int nouveauJourCours;
     private int nouveauMoisCours;
@@ -55,7 +57,7 @@ public class GererCoursControleur {
             }
         };
 
-        nouveauIntituleModule.addDocumentListener(ecouterChangementTexte);
+//        nouveauIntituleModule.addDocumentListener(ecouterChangementTexte);
 //        nouveauJourCours.addDocumentListener(ecouterChangementTexte);
     }
 
@@ -128,59 +130,50 @@ public class GererCoursControleur {
         Date date;
         Time hDebut;
         Time hFin;
-        try {
 
-            // mettre un try / catch
-            // ATTENTION il faut que la JCombobox soit instanciee sinon c'est 0 et ca plante
+        // mettre un try / catch
+        // ATTENTION il faut que la JCombobox soit instanciee sinon c'est 0 et ca plante
 //            date = convertionDate(nouveauAnneeCours, nouveauMoisCours, convertionDocumentInt(nouveauJourCours));
-            if (nouveauAnneeCours == 0) {
-                initialisationAnnee();
-            }
-
-            if (nouveauMinuteDebCours == 0) {
-                initialisationMinuteDebut();
-            }
-
-            if (nouveauHeureDebCours == 0) {
-                initialisationheureDebut();
-            }
-
-            if (nouveauMinuteFinCours == 0) {
-                initialisationMinuteFin();
-            }
-
-            System.out.println(nouveauAnneeCours);
-            date = convertionDate(nouveauAnneeCours, nouveauMoisCours, nouveauJourCours);
-
-            hDebut = convertionHeure(nouveauHeureDebCours, nouveauMinuteDebCours);
-            hFin = convertionHeure(nouveauHeureFinCours, nouveauMinuteFinCours);
-
-            System.out.println(nouveauGroupeCours);
-            System.out.println("aaaaaaaaa" + nouveauNumSalleCours);
-            String nouveauSalleCours = String.valueOf(nouveauNumSalleCours);
-            System.out.println(nouveauIdProfesseurCours);
-            System.out.println(nouveauIntituleModule.getText(0, nouveauIntituleModule.getLength()));
-
-            System.out.println(date);
-            System.out.println(hDebut);
-            System.out.println(hFin);
-
-
-
-            coursModele.ajouterCours(
-                    nouveauGroupeCours, nouveauIdProfesseurCours,
-                    nouveauIntituleModule.getText(0, nouveauIntituleModule.getLength()),
-                    date, hDebut, hFin, nouveauSalleCours
-            );
-
-        } catch (BadLocationException e) {
-            e.printStackTrace();
+        if (nouveauAnneeCours == 0) {
+            initialisationAnnee();
         }
-    }
+
+        if (nouveauMinuteDebCours == 0) {
+            initialisationMinuteDebut();
+        }
+
+        if (nouveauHeureDebCours == 0) {
+            initialisationheureDebut();
+        }
+
+        if (nouveauMinuteFinCours == 0) {
+            initialisationMinuteFin();
+        }
+
+        System.out.println(nouveauAnneeCours);
+        date = convertionDate(nouveauAnneeCours, nouveauMoisCours, nouveauJourCours);
+
+        hDebut = convertionHeure(nouveauHeureDebCours, nouveauMinuteDebCours);
+        hFin = convertionHeure(nouveauHeureFinCours, nouveauMinuteFinCours);
+
+        System.out.println(nouveauGroupeCours);
+        System.out.println(nouveauNumSalleCours);
+        System.out.println("aaaaaaaaa" + nouveaModuleCours);
+        String nouveauSalleCours = String.valueOf(nouveauNumSalleCours);
+        System.out.println(nouveauIdProfesseurCours);
+//            System.out.println(nouveauIntituleModule.getText(0, nouveauIntituleModule.getLength()));
+
+        System.out.println(date);
+        System.out.println(hDebut);
+        System.out.println(hFin);
 
 
-    public Document getNouveauIntituleModule() {
-        return nouveauIntituleModule;
+        coursModele.ajouterCours(
+                nouveauGroupeCours, nouveauIdProfesseurCours,
+                nouveaModuleCours,
+                date, hDebut, hFin, nouveauSalleCours
+        );
+
     }
 
 
@@ -190,6 +183,10 @@ public class GererCoursControleur {
 
     public void setNouveauIdProfesseurCours(String nouveauIdProfesseurCours) {
         this.nouveauIdProfesseurCours = nouveauIdProfesseurCours;
+    }
+
+    public void setNouveaModuleCours(String nouveaModuleCours) {
+        this.nouveaModuleCours = nouveaModuleCours;
     }
 
     public void setNouveauJourCours(int nouveauJourCours) {
@@ -223,6 +220,11 @@ public class GererCoursControleur {
     public void setNouvauSalleCours(int nouveauNumSalleCours) {
         this.nouveauNumSalleCours = nouveauNumSalleCours;
     }
+
+
+
+
+
 
     // Pas toucher a ca !!
     public List<Cours> getCoursSemaineGroupe(String intituleGroupe){
@@ -426,6 +428,10 @@ public class GererCoursControleur {
 
     public List<Salle> getListSalle() {
         return coursModele.getListSalle();
+    }
+
+    public List<Module> getListeModule() {
+        return coursModele.getListeModule();
     }
 
 }
