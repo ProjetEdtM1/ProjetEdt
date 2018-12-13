@@ -162,7 +162,7 @@ public class CoursVue extends Fenetre {
                         break;
                     case ItemEvent.SELECTED:
                         Module tmp;
-                        tmp = (Module) moduleJcomboBox.getSelectedItem();
+                        tmp = new Module.Builder((String) moduleJcomboBox.getSelectedItem()).build();
                         gererCoursControleur.setNouveaModuleCours(tmp.getIntitule());
                         break;
                 }
