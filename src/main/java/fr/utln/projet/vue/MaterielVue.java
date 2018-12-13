@@ -57,7 +57,7 @@ public class MaterielVue extends Fenetre {
     private final JTextField nomMateriel;
 
 
-    public MaterielVue(final MaterielModele materielModele) {
+    public MaterielVue(final MaterielModele materielModele, final MenuProfRefVue menuProfRefVue) {
 
         super();
         setTitle("CRUD  materiel");
@@ -124,7 +124,42 @@ public class MaterielVue extends Fenetre {
         numMateriellabel = new JLabel(rbLabel.getString("Numero de materiel")+" :");
         nomMateriellabel = new JLabel(rbLabel.getString("Nom de materiel")+" :");
 
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
 
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonMateriel();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonMateriel();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
         GridBagConstraints c = new GridBagConstraints();
 

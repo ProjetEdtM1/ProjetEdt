@@ -125,12 +125,12 @@ public class SalleVue  extends Fenetre {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                menuProfRefVue.setTrueBoutonSalle();
+                menuProfRefVue.setTrueBoutonMa();
             }
 
             @Override
             public void windowClosed(WindowEvent e) {
-                menuProfRefVue.setTrueBoutonSalle();
+                menuProfRefVue.setTrueBoutonMa();
             }
 
             @Override
