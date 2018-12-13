@@ -43,7 +43,7 @@ public class CoursVue extends Fenetre {
     private static GroupeListModele groupeListModele;
     private static ProfesseurListModele professeurListModele;
     private static SalleListModele salleListModele;
-    private static ModuleListeModele moduleListeModele;
+    private static ArrayList<String> moduleListeModele;
 
 
     private JLabel groupetudlabel = new JLabel(rbLabel.getString("Intitule groupe")+" :");
@@ -56,12 +56,12 @@ public class CoursVue extends Fenetre {
 
 
     private String groupeCours = new String();
-    private JTextField nomModuleJTextField = new JTextField();
+//    private JTextField nomModuleJTextField = new JTextField();
 
 
     private JComboBox<Professeur> idProfesseurJcomboBox;
     private JComboBox<String> groupeEtudiantJcomboBox;
-    private JComboBox<Module> moduleJcomboBox;
+    private JComboBox<String> moduleJcomboBox;
     private JComboBox jboxHeureDebCours = new JComboBox();
     private JComboBox jboxMinuteDebCours = new JComboBox();
     private JComboBox jboxHeureFinCours = new JComboBox();
@@ -89,12 +89,13 @@ public class CoursVue extends Fenetre {
        // this.professeurControleur = professeurControleur;
         this.groupeListModele = new GroupeListModele(this.gererCoursControleur.getListGroupe());
         this.professeurListModele = new ProfesseurListModele(this.gererCoursControleur.getListProfesseur());
-//        this.salleListModele = gererCoursControleur.getListSalle();
 
         this.salleListModele = new SalleListModele(this.gererCoursControleur.getListSalle());
-        this.moduleListeModele = new ModuleListeModele(this.gererCoursControleur.getListeModule());
 
-        System.out.println("aaaa " + groupeListModele.getClass());
+        System.out.println(gererCoursControleur.getListeModule().get(0).getClass());
+        this.moduleListeModele = this.gererCoursControleur.getListeModule();
+
+
         groupeEtudiantJcomboBox = new JComboBox<String>(groupeListModele);
         // groupeEtudiantJcomboBox.setEnabled(false);
         groupeEtudiantJcomboBox.addItemListener(new ItemListener() {
@@ -148,7 +149,11 @@ public class CoursVue extends Fenetre {
             }
         });
 
-        moduleJcomboBox = new JComboBox<Module>(moduleListeModele);
+        moduleJcomboBox = new JComboBox<String>();
+        for (String e: moduleListeModele) {
+            moduleJcomboBox.addItem(e);
+        }
+
         moduleJcomboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
