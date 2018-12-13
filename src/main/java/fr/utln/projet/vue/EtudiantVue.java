@@ -444,6 +444,12 @@ public class EtudiantVue extends Fenetre  {
 
     }
 
+    /**
+     * Methode qui affiche le detail d'un étudiant dans la jcombobox
+     *
+     * @param etudiant
+     * @autor CLAIN CYRIL
+     */
     public void montrerDetail(Etudiant etudiant){
         if (etudiant == null){
             numEtudDetailTextField.setText("");
@@ -466,7 +472,13 @@ public class EtudiantVue extends Fenetre  {
         }
     }
 
-    public Boolean testNumEtud(){
+    /**
+     * Methode de vérification des règles de gestion
+     *
+     * @return boolean
+     * @autor CLAIN CYRIL
+     */
+    public boolean testNumEtud(){
         boolean test = true;
         if (numetud.getText().charAt(0) != 'e'){
             JOptionPane.showMessageDialog(etudiantAjoutPanel, "Le numero étudiant doit commencé par e (ex: e123)");
