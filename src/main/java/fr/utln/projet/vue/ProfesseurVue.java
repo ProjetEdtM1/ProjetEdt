@@ -340,19 +340,34 @@ public class ProfesseurVue extends Fenetre{
         setVisible(true);
     }
 
-
+    /**
+     * Methode rendant cliquable ou non le bouton de supression de professeur
+     *
+     * @param b
+     * @autor CLAIN CYRIL
+     */
     private void setSuppressionProfesseurJButton(boolean b) {
         suppressionProfesseurJButton.setEnabled(b);
 
     }
-
+    /**
+     * Methode rendant cliquable ou non les boutons d'ajout de professeur
+     *
+     * @param b
+     * @autor CLAIN CYRIL
+     */
     public void setCreationProfesseur(boolean b) {
         ajoutOkProfesseurJButton.setEnabled(b);
         ajoutCancelProfesseurJButton.setEnabled(b);
 
     }
 
-
+    /**
+     * Methode affichant le detail d'un professeur dans la jcombobox
+     *
+     * @param professeur
+     * @autor CLAIN CYRIL
+     */
     public void montrerDetail(Professeur professeur){
         if (professeur == null){
             numProfDetailTextField.setText("");
@@ -372,6 +387,12 @@ public class ProfesseurVue extends Fenetre{
         }
     }
 
+    /**
+     * Methode rendant cliquable ou non les champs de professeur lié a la modification
+     *
+     * @param b
+     * @autor CLAIN CYRIL
+     */
     public void setModification(boolean b) {
         nomProfDetailTextField.setEnabled(true);
         prenomProfDetailTextField.setEnabled(b);

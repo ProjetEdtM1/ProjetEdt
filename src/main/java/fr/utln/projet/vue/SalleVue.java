@@ -12,6 +12,8 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -54,7 +56,7 @@ public class SalleVue  extends Fenetre {
     private final JTextField numSalle;
 
 
-    public SalleVue(SalleModele salleModele) {
+    public SalleVue(SalleModele salleModele, final MenuProfRefVue menuProfRefVue) {
 
         super();
         setTitle("CRUD  salle");
@@ -115,6 +117,42 @@ public class SalleVue  extends Fenetre {
             }
         });
 
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonMa();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonMa();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
         GridBagConstraints c = new GridBagConstraints();
 
@@ -177,16 +215,34 @@ public class SalleVue  extends Fenetre {
         setVisible(true);
     }
 
+    /**
+     * Methode reandant cliquable ou non le bouton de supression
+     *
+     * @param b
+     * @autor CLAIN CYRIL
+     */
     private void setSuppressionSalleJButton(boolean b) {
         suppressionSalleJButton.setEnabled(b);
     }
 
+    /**
+     * Methode reandant cliquable ou non les boutons d'ajout
+     *
+     * @param b
+     * @autor CLAIN CYRIL
+     */
     public void setCreationSalle(boolean b) {
         ajoutOkSalleJButton.setEnabled(b);
         ajoutCancelSalleJButton.setEnabled(b);
 
     }
 
+    /**
+     * Methode selectione le bon fichier de bundle
+     *
+     * @param selectedValue
+     * @autor CLAIN CYRIL
+     */
     private void changeBundle(String selectedValue) {
         if (selectedValue.compareTo("Anglais") == 0) {
             rbBouton = ResourceBundle.getBundle("textBouton", Locale.ENGLISH);
@@ -201,10 +257,21 @@ public class SalleVue  extends Fenetre {
 
     }
 
+    /**
+     * Methode qui change les lables en fonction du bundle
+     *
+     * @param rbLabel
+     * @autor CLAIN CYRIL
+     */
     private void setTextLabel(ResourceBundle rbLabel) {
         numSallelabel.setText(rbLabel.getString("Numero de salle"));
     }
-
+    /**
+     * Methode qui change les boutons en fonction du bundle
+     *
+     * @param rbBouton
+     * @autor CLAIN CYRIL
+     */
     private void setTextBouton(ResourceBundle rbBouton) {
         suppressionSalleJButton.setText(rbBouton.getString("Supprimer"));
         ajoutOkSalleJButton.setText(rbBouton.getString("Ajouter"));

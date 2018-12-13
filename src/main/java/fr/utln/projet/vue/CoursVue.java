@@ -6,11 +6,11 @@ package fr.utln.projet.vue;
  *
  * Description   : Partie visible de mon interface permet de voir les formulaire d'ajout d'un cours
  *
- * Version       : 1.0
+ * Version       : 2.0
  *
- * Date          : 30/11/2018
+ * Date          : 10/12/2018
  *
- * Copyright     : CLAIN Cyril
+ * Copyright     : CLAIN Cyril, NOCITO Marc
  */
 
 

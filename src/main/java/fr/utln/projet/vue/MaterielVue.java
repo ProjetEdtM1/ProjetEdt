@@ -57,7 +57,7 @@ public class MaterielVue extends Fenetre {
     private final JTextField nomMateriel;
 
 
-    public MaterielVue(final MaterielModele materielModele) {
+    public MaterielVue(final MaterielModele materielModele, final MenuProfRefVue menuProfRefVue) {
 
         super();
         setTitle("CRUD  materiel");
@@ -124,7 +124,42 @@ public class MaterielVue extends Fenetre {
         numMateriellabel = new JLabel(rbLabel.getString("Numero de materiel")+" :");
         nomMateriellabel = new JLabel(rbLabel.getString("Nom de materiel")+" :");
 
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent e) {
 
+            }
+
+            @Override
+            public void windowClosing(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonMateriel();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent e) {
+                menuProfRefVue.setTrueBoutonMateriel();
+            }
+
+            @Override
+            public void windowIconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowActivated(WindowEvent e) {
+
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent e) {
+
+            }
+        });
 
         GridBagConstraints c = new GridBagConstraints();
 
@@ -197,6 +232,12 @@ public class MaterielVue extends Fenetre {
         setVisible(true);
     }
 
+    /**
+     * Methode qui selectione le fichier bundle à utiliser
+     *
+     * @param selectedValue
+     * @autor CLAIN CYRIL
+     */
     private void changeBundle(String selectedValue) {
         if (selectedValue.compareTo("Anglais") == 0){
             rbBouton = ResourceBundle.getBundle("textBouton",Locale.ENGLISH);
@@ -211,6 +252,12 @@ public class MaterielVue extends Fenetre {
 
     }
 
+    /**
+     * Methode qui modifie les labes en fonctions du bundle
+     *
+     * @param rbLabel
+     * @autor CLAIN CYRIL
+     */
     private void setTextLabel(ResourceBundle rbLabel) {
         nomMateriellabel.setText(rbLabel.getString("Nom de materiel"));
         numMateriellabel.setText(rbLabel.getString("Numero de materiel"));
@@ -218,19 +265,44 @@ public class MaterielVue extends Fenetre {
 
     }
 
+    /**
+     * Methode qui rend cliquable ou non le bouton
+     *
+     * @param b
+     * @autor CLAIN CYRIL
+     */
     private void setSuppressionMaterielJButton(boolean b) {
         suppressionMaterielJButton.setEnabled(b);
 
     }
+    /**
+     * Methode qui rend cliquable ou non le bouton
+     *
+     * @param b
+     * @autor CLAIN CYRIL
+     */
     public void setCreationMateriel(boolean b) {
         ajoutOkMaterielJButton.setEnabled(b);
         ajoutCancelMaterielJButton.setEnabled(b);
 
     }
+
+    /**
+     * Methode retournant l'instance de la vue MAteriel
+     *
+     * @
+     * @autor CLAIN CYRIL
+     */
     public MaterielVue getInstance(){
         return this;
     }
 
+    /**
+     *  Methode appelant le fichier de bundle sur les boutons
+     *
+     * @param rb
+     * @autor CLAIN CYRIL
+     */
     public void setTextBouton(ResourceBundle rb) {
         suppressionMaterielJButton.setText((rb.getString("Supprimer")));
         ajoutCancelMaterielJButton.setText((rb.getString("Annuler")));

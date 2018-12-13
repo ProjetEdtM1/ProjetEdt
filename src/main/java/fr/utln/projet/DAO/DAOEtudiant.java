@@ -2,7 +2,6 @@ package fr.utln.projet.DAO;
 
 import fr.utln.projet.bdd.Connexion;
 import fr.utln.projet.utilisateur.*;
-import javax.swing.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

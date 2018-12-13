@@ -1,15 +1,18 @@
 package fr.utln.projet.bdd;
 
+import fr.utln.projet.utils.ConfigReader;
+import fr.utln.projet.utils.DatabaseManager;
+
 import java.sql.*;
 
 /*
  * Nom de classe : Connexion
  *
- * Description   : Connection a la Database sur serveur distant h2 avec url, login, mot de passe
+ * Description   : Connection a la Database sur serveur distant h2 avec fichier de conf
  *
- * Version       : 3.0
+ * Version       : 4.0
  *
- * Date          : 12/11/2018
+ * Date          : 13/12/2018
  *
  * Copyright     : CLAIN Cyril NOCITO Marc
  */
@@ -26,20 +29,23 @@ public class Connexion {
     static final String USER = "sa";
     static final String PASS = "";
 
+    // pour postgres
     // String Driver = "org.postrgesql.Driver";
-    // String url = "jdbc:postgresql://" + host + "/"; // pour postgres
+    // String url = "jdbc:postgresql://" + host + "/";
 
 
     public void connect() {
-        //Statement statement = null;
+
+        //Importation des paramètres de configuration (cf. src/main/resources/config.xml)
+        ConfigReader.importConfig();
 
         try {
             // STEP 1: Register JDBC driver
-            Class.forName(JDBC_DRIVER);
+            //Class.forName(JDBC_DRIVER);
 
             //STEP 2: Open a connection
             System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DatabaseManager.getConnection();
             System.out.println("connection ok");
 
 
@@ -51,13 +57,7 @@ public class Connexion {
 //            ResultSet resultSet = statement.executeQuery(sql);
 //            System.out.println(resultSet);
 
-        }
-
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

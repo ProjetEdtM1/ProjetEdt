@@ -22,10 +22,13 @@ public class MenuProfRefVue extends Fenetre {
     // Bouton
     private  JButton boutonGererModules;// = new JButton("Gérer modules");
     private  JButton boutonGererEtudiants;// = new JButton("Gérer étudiants");
-    private  JButton boutonGererProf;// = new JButton("Gérer professeurs");
+    private  JButton boutonGererProf;
     private JButton boutonGererCours;
+    private JButton boutonGererSalle;
+    private JButton boutonGererMateriel;
 
-    private JButton boutonImage = new JButton(new ImageIcon("/home/cclain594/Bureau/copie_git_23_11/projetEdt/code.gif"));
+
+    //private JButton boutonImage = new JButton(new ImageIcon("/chemin/code.gif"));
 
     public static LangueListModele langueListModele;
     private final JList<String> langueJlist;
@@ -49,6 +52,8 @@ public class MenuProfRefVue extends Fenetre {
         boutonGererEtudiants = new JButton(rbBouton.getString("Gerer etudiants"));
         boutonGererProf = new JButton(rbBouton.getString("Gerer professeurs"));
         boutonGererCours = new JButton(rbBouton.getString("Gerer cours"));
+        boutonGererSalle = new JButton(rbBouton.getString("Gerer salle"));
+        boutonGererMateriel = new JButton(rbBouton.getString("Gerer materiel"));
 
         String[] listlangue = {"Francais","Anglais"};
 
@@ -67,6 +72,24 @@ public class MenuProfRefVue extends Fenetre {
 
             }
         });*/
+
+
+        //action lsitener empechant aux vue d'etre ouverte a la chaine si elle n'est pas fermé
+        boutonGererMateriel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new MaterielVue(new MaterielModele(),getInstance());
+                boutonGererMateriel.setEnabled(false);
+            }
+        });
+
+        boutonGererSalle.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new SalleVue(new SalleModele(),getInstance());
+                boutonGererSalle.setEnabled(false);
+            }
+        });
 
         this.boutonGererModules.addActionListener(new ActionListener() {
             @Override
@@ -115,13 +138,11 @@ public class MenuProfRefVue extends Fenetre {
         panelGeneral.add(boutonGererEtudiants,c);
         c.gridx = 4;
         panelGeneral.add(boutonGererProf,c);
+        c.gridx = 6;
+        panelGeneral.add(boutonGererSalle,c);
+        c.gridx = 8;
+        panelGeneral.add(boutonGererMateriel,c);
 
-        /*boutonImage.setPreferredSize(new Dimension(450,169));
-        c.gridx = 0;
-        c.gridy = 3;
-        c.gridheight = 0;
-        c.gridwidth = 6;
-        panelGeneral.add(boutonImage,c);*/
 
 
         contentPane.add(panelGeneral);// add(component) equals add(component,borderlayout.center)
@@ -135,6 +156,12 @@ public class MenuProfRefVue extends Fenetre {
 
     public MenuProfRefVue getInstance(){
         return this;
+    }
+
+    // rend clicable le bouton une fois la fentre associé fermé
+
+    public void setTrueBoutonMa(){
+        boutonGererSalle.setEnabled(true);
     }
 
     public void setTrueBoutonModule(){
@@ -151,8 +178,10 @@ public class MenuProfRefVue extends Fenetre {
 
     public void setTrueBoutonCours(){this.boutonGererCours.setEnabled(true);}
 
+    public void setTrueBoutonMateriel(){boutonGererMateriel.setEnabled(true);}
+
+
     private void changeBundle(String selectedValue) {
-        System.out.println("je passe");
         if (selectedValue.compareTo("Anglais") == 0){
             rbBouton = ResourceBundle.getBundle("textBouton", Locale.ENGLISH);
 
@@ -168,5 +197,7 @@ public class MenuProfRefVue extends Fenetre {
         boutonGererModules.setText(rbBouton.getString("Gerer modules"));
         boutonGererEtudiants.setText(rbBouton.getString("Gerer etudiants"));
         boutonGererProf.setText(rbBouton.getString("Gerer professeurs"));
+        boutonGererSalle.setText(rbBouton.getString("Gerer salle"));
+        boutonGererMateriel.setText(rbBouton.getString("Gerer materiel"));
     }
 }

@@ -1,0 +1,48 @@
+Manifest-Version: 1.0
+Implementation-Title: H2 Database Engine
+Bundle-License: http://www.h2database.com/html/license.html
+Bundle-SymbolicName: org.h2
+Implementation-Version: 1.4.197
+Bundle-Category: jdbc
+Bundle-ManifestVersion: 2
+Bundle-Vendor: H2 Group
+Import-Package: javax.management,javax.naming;resolution:=optional,jav
+ ax.naming.spi;resolution:=optional,javax.net,javax.net.ssl,javax.serv
+ let;resolution:=optional,javax.servlet.http;resolution:=optional,java
+ x.sql,javax.tools;resolution:=optional,javax.transaction.xa;resolutio
+ n:=optional,org.apache.lucene.analysis;version="[3.6.2,4.0.0)";resolu
+ tion:=optional,org.apache.lucene.analysis.standard;version="[3.6.2,4.
+ 0.0)";resolution:=optional,org.apache.lucene.document;version="[3.6.2
+ ,4.0.0)";resolution:=optional,org.apache.lucene.index;version="[3.6.2
+ ,4.0.0)";resolution:=optional,org.apache.lucene.queryParser;version="
+ [3.6.2,4.0.0)";resolution:=optional,org.apache.lucene.search;version=
+ "[3.6.2,4.0.0)";resolution:=optional,org.apache.lucene.store;version=
+ "[3.6.2,4.0.0)";resolution:=optional,org.apache.lucene.util;version="
+ [3.6.2,4.0.0)";resolution:=optional,org.locationtech.jts.geom;version
+ ="1.15.0";resolution:=optional,org.h2;version="[1.4.197,1.5.0)",org.h
+ 2.api;version="[1.4.197,1.5.0)",org.h2.fulltext;version="[1.4.197,1.5
+ .0)",org.h2.jdbcx;version="[1.4.197,1.5.0)",org.h2.tools;version="[1.
+ 4.197,1.5.0)",org.h2.util;version="[1.4.197,1.5.0)",org.h2.value;vers
+ ion="[1.4.197,1.5.0)",org.osgi.framework;version="1.5",org.osgi.servi
+ ce.jdbc;version="1.0";resolution:=optional,org.slf4j;version="[1.6.0,
+ 1.7.0)";resolution:=optional
+Main-Class: org.h2.tools.Console
+Provide-Capability: osgi.service;objectClass:List<String>=org.osgi.ser
+ vice.jdbc.DataSourceFactory
+Export-Package: org.h2;version="1.4.197",org.h2.api;version="1.4.197",
+ org.h2.constant;version="1.4.197",org.h2.fulltext;version="1.4.197",o
+ rg.h2.jdbc;version="1.4.197",org.h2.jdbcx;version="1.4.197",org.h2.to
+ ols;version="1.4.197",org.h2.util;version="1.4.197",org.h2.value;vers
+ ion="1.4.197",org.h2.bnf;version="1.4.197",org.h2.bnf.context;version
+ ="1.4.197",org.h2.mvstore;version="1.4.197",org.h2.mvstore.db;version
+ ="1.4.197",org.h2.mvstore.type;version="1.4.197",org.h2.mvstore.rtree
+ ;version="1.4.197"
+Premain-Class: org.h2.util.Profiler
+Bundle-Name: H2 Database Engine
+Bundle-Version: 1.4.197
+Bundle-Activator: org.h2.util.DbDriverActivator
+Multi-Release: true
+Implementation-URL: http://www.h2database.com
+Build-Jdk: 1.7
+Created-By: 1.7.0_80-b15 (Oracle Corporation)
+
