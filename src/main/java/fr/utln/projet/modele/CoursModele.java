@@ -16,7 +16,7 @@ import java.util.List;
 public class CoursModele {
     List<String> groupes = new ArrayList();
     List<Salle> salles = new ArrayList();
-    List<Module> modules= new ArrayList();
+    ArrayList<String> modules= new ArrayList();
     List<Professeur> professeurs = new ArrayList();
 
 
@@ -58,8 +58,8 @@ public class CoursModele {
         return salles;
     }
 
-    public List<Module> getListeModule() {
-        modules = daoModule.creationListModule();
+    public ArrayList<String> getListeModule() {
+        modules = daoModule.listeIntituleModule();
         return modules;
     }
 

@@ -103,6 +103,31 @@ public class ModuleDAO {
     return moduleList;
     }
 
+
+
+    public ArrayList<String> listeIntituleModule() {
+        this.conn = new Connexion();
+        conn.connect();
+
+        ArrayList<String> moduleList = new ArrayList<>();
+        String req = "SELECT Intitulemodule FROM MODULE";
+
+        try{
+            Statement stmt = conn.getConn().createStatement();
+            ResultSet res=  stmt.executeQuery(req);
+            while (res.next()) {
+                moduleList.add(res.getString(1));
+            }
+
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return moduleList;
+    }
+
     /**
      * Récupération d'un module dans la base de données en fonction de l'intitulé passé en paramètre
      * @param intituleModule

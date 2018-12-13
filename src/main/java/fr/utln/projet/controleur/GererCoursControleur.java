@@ -430,7 +430,7 @@ public class GererCoursControleur {
         return coursModele.getListSalle();
     }
 
-    public List<Module> getListeModule() {
+    public ArrayList<String> getListeModule() {
         return coursModele.getListeModule();
     }
 

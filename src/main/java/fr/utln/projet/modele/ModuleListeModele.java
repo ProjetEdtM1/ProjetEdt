@@ -15,6 +15,9 @@ public class ModuleListeModele  extends DefaultComboBoxModel<Module> implements 
         this.modules = module;
     }
 
+
+
+
     @Override
     public void update(Observable o, Object arg) {
 
