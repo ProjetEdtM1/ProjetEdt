@@ -8,11 +8,11 @@ import java.sql.*;
 /*
  * Nom de classe : Connexion
  *
- * Description   : Connection a la Database sur serveur distant h2 avec url, login, mot de passe
+ * Description   : Connection a la Database sur serveur distant h2 avec fichier de conf
  *
- * Version       : 3.0
+ * Version       : 4.0
  *
- * Date          : 12/11/2018
+ * Date          : 13/12/2018
  *
  * Copyright     : CLAIN Cyril NOCITO Marc
  */
@@ -29,8 +29,9 @@ public class Connexion {
     static final String USER = "sa";
     static final String PASS = "";
 
+    // pour postgres
     // String Driver = "org.postrgesql.Driver";
-    // String url = "jdbc:postgresql://" + host + "/"; // pour postgres
+    // String url = "jdbc:postgresql://" + host + "/";
 
 
     public void connect() {
@@ -40,7 +41,7 @@ public class Connexion {
 
         try {
             // STEP 1: Register JDBC driver
-            Class.forName(JDBC_DRIVER);
+            //Class.forName(JDBC_DRIVER);
 
             //STEP 2: Open a connection
             System.out.println("Connecting to database...");
@@ -56,13 +57,7 @@ public class Connexion {
 //            ResultSet resultSet = statement.executeQuery(sql);
 //            System.out.println(resultSet);
 
-        }
-
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
