@@ -1,5 +1,8 @@
 package fr.utln.projet.bdd;
 
+import fr.utln.projet.utils.ConfigReader;
+import fr.utln.projet.utils.DatabaseManager;
+
 import java.sql.*;
 
 /*
@@ -31,7 +34,9 @@ public class Connexion {
 
 
     public void connect() {
-        //Statement statement = null;
+
+        //Importation des paramètres de configuration (cf. src/main/resources/config.xml)
+        ConfigReader.importConfig();
 
         try {
             // STEP 1: Register JDBC driver
@@ -39,7 +44,7 @@ public class Connexion {
 
             //STEP 2: Open a connection
             System.out.println("Connecting to database...");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            conn = DatabaseManager.getConnection();
             System.out.println("connection ok");
 
 

@@ -1,0 +1,49 @@
+package fr.utln.projet.utils;
+
+/**
+ * Created by bruno on 16/10/14.
+ * Cette classe représente les erreurs émise lors de l'importation des paramètes de l'application.
+ * L'erreur d'origine est accessible via getException().
+ * copyright: cours-java-librarymanager-jdbcgui
+ */
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
+
+/**
+ * Cette classe lit des lignes de la forme
+ * nom="valeur"
+ * dans le fichier src/main/resources/config.xml
+ * pour en faire des System Properties
+ */
+public class ConfigReader{
+    private static Logger logger = Logger.getLogger(ConfigReader.class.getName());
+
+    public static void importConfig() {
+        //Le flux sera fermé automatiquement
+        try (BufferedReader reader = new BufferedReader(
+                new InputStreamReader(ConfigReader.class.getResourceAsStream("/config.conf")
+                        , Charset.defaultCharset()))) {
+            String lineFromFile;
+            // affiche dans le buffer les ligne du fichier de conf
+            while ((lineFromFile = reader.readLine()) != null) {
+                String[] parameter = lineFromFile.split("=");
+                String value = parameter[1].substring(1, parameter[1].length() - 1);
+                System.setProperty(parameter[0], value);
+                //On emet un entrée de log
+                logger.config(parameter[0] + " : " + System.getProperty(parameter[0]));
+            }
+
+            //Chargement des paramètres du logger
+            LogManager.getLogManager()
+                    .readConfiguration(ConfigReader.class.getResourceAsStream(System.getProperty("java.util.logging.config.file")));
+
+
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+    }
+}
