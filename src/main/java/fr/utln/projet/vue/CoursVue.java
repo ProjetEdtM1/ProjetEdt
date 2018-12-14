@@ -74,9 +74,10 @@ public class CoursVue extends Fenetre {
     private static JPanel ajoutcoursPanel = new JPanel(new GridBagLayout());
   //  private static JPanel dateCoursPanel = new JPanel(new GridBagLayout());
     private static JPanel dateCoursPanel = new JPanel(new GridLayout(1, 3,2,0));
-    private static JPanel heureDebCoursPanel = new JPanel(new GridBagLayout());
-    private static JPanel heureFinCoursPanel = new JPanel(new GridBagLayout());
-
+    private static JPanel heureDebCoursPanel = new JPanel(new GridLayout(1, 2,2,0));
+    private static JPanel heureFinCoursPanel = new JPanel(new GridLayout(1, 2,2,0));
+//    private static JPanel heureDebCoursPanel = new JPanel(new GridBagLayout());
+//    private static JPanel heureFinCoursPanel = new JPanel(new GridBagLayout());
     private final JButton ajouterCoursJBouton = new JButton(rbBouton.getString("Ajouter"));
     private final JButton cancelAjouterCoursJButton = new JButton( rbBouton.getString("Annuler"));
 
@@ -395,7 +396,7 @@ public class CoursVue extends Fenetre {
         c.gridy = 6;
         ajoutcoursPanel.add(numSallelabel, c);
 
-        //placement item(combobox / jtexfield)
+        //placement item(combobox)
 
         c.fill = 1;
         c.gridx = 1;

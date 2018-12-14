@@ -26,8 +26,6 @@ public class GererCoursControleur {
     private String nouveauGroupeCours = new String();
     private String nouveauIdProfesseurCours = new String();
     private String nouveaModuleCours = new String();
-//    private Document nouveauIntituleModule = new PlainDocument();
-    //    private Document nouveauJourCours = new NumberDocument();
     private int nouveauJourCours;
     private int nouveauMoisCours;
     private int nouveauAnneeCours;
@@ -39,26 +37,6 @@ public class GererCoursControleur {
 
     public GererCoursControleur(CoursModele coursModele){
         this.coursModele = coursModele;
-
-        DocumentListener ecouterChangementTexte = new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                changedUpdate(e);
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                changedUpdate(e);
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-
-            }
-        };
-
-//        nouveauIntituleModule.addDocumentListener(ecouterChangementTexte);
-//        nouveauJourCours.addDocumentListener(ecouterChangementTexte);
     }
 
 
@@ -100,15 +78,7 @@ public class GererCoursControleur {
 
     }
 
-    private int convertionDocumentInt(Document document) {
-        try {
-            String aux = document.getText(0, document.getLength());
-            return Integer.parseInt(aux);
-        } catch (BadLocationException e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
+
 
     private void initialisationAnnee() {
         nouveauAnneeCours = 2018;
@@ -222,200 +192,6 @@ public class GererCoursControleur {
     }
 
 
-
-
-
-
-    // Pas toucher a ca !!
-    public List<Cours> getCoursSemaineGroupe(String intituleGroupe){
-        return this.coursModele.getCoursSemaineGroupe(intituleGroupe);
-    }
-
-    public List<Cours> getCoursSemaineProf(String login){
-        return this.coursModele.getCoursSemaineProf(login);
-    }
-
-    public Object[][] remplireTableCoursProf(String login){
-        Object[][] donnes = new Object[11][8];
-        List<Cours> listeCours = new ArrayList<>();
-        listeCours = getCoursSemaineProf(login);
-
-        for (Cours c: listeCours) {
-            int jour = c.getDateCours().getDay();
-            String heureDeb = c.getHeureDebCours().toString();
-            String heureFin = c.getHeureFinCours().toString();
-
-            donnes[0][0]="8h";
-            donnes[1][0]="9h";
-            donnes[2][0]="10h";
-            donnes[3][0]="11h";
-            donnes[4][0]="12h";
-            donnes[5][0]="13h";
-            donnes[6][0]="14h";
-            donnes[7][0]="15h";
-            donnes[8][0]="16h";
-            donnes[9][0]="17h";
-            donnes[10][0]="18h";
-
-            if(heureDeb.equals("08:00:00")){
-                donnes[0][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("09:00:00")){
-                donnes[1][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("10:00:00")){
-                donnes[2][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("11:00:00")){
-                donnes[3][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("12:00:00")){
-                donnes[4][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("13:00:00")){
-                donnes[5][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("14:00:00")){
-                donnes[6][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("15:00:00")){
-                donnes[7][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("16:00:00")){
-                donnes[8][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("17:00:00")){
-                donnes[9][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("18:00:00")){
-                donnes[10][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("09:00:00")){
-                donnes[0][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("10:00:00")){
-                donnes[1][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("11:00:00")){
-                donnes[2][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("12:00:00")){
-                donnes[3][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("13:00:00")){
-                donnes[4][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("14:00:00")){
-                donnes[5][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("15:00:00")){
-                donnes[6][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("16:00:00")){
-                donnes[7][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("17:00:00")){
-                donnes[8][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("18:00:00")){
-                donnes[9][jour] = c.getIntituleModule();
-            }
-
-
-        }
-        return donnes;
-    }
-
-    public Object[][] remplireTableCours(String intituleGroupe){
-        Object[][] donnes = new Object[11][8];
-        List<Cours> listeCours = new ArrayList<>();
-        listeCours = getCoursSemaineGroupe(intituleGroupe);
-
-        for (Cours c: listeCours) {
-            int jour = c.getDateCours().getDay();
-            String heureDeb = c.getHeureDebCours().toString();
-            String heureFin = c.getHeureFinCours().toString();
-
-            donnes[0][0]="8h";
-            donnes[1][0]="9h";
-            donnes[2][0]="10h";
-            donnes[3][0]="11h";
-            donnes[4][0]="12h";
-            donnes[5][0]="13h";
-            donnes[6][0]="14h";
-            donnes[7][0]="15h";
-            donnes[8][0]="16h";
-            donnes[9][0]="17h";
-            donnes[10][0]="18h";
-
-            if(heureDeb.equals("08:00:00")){
-                donnes[0][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("09:00:00")){
-                donnes[1][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("10:00:00")){
-                donnes[2][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("11:00:00")){
-                donnes[3][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("12:00:00")){
-                donnes[4][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("13:00:00")){
-                donnes[5][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("14:00:00")){
-                donnes[6][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("15:00:00")){
-                donnes[7][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("16:00:00")){
-                donnes[8][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("17:00:00")){
-                donnes[9][jour] = c.getIntituleModule();
-            }
-            if(heureDeb.equals("18:00:00")){
-                donnes[10][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("09:00:00")){
-                donnes[0][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("10:00:00")){
-                donnes[1][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("11:00:00")){
-                donnes[2][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("12:00:00")){
-                donnes[3][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("13:00:00")){
-                donnes[4][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("14:00:00")){
-                donnes[5][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("15:00:00")){
-                donnes[6][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("16:00:00")){
-                donnes[7][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("17:00:00")){
-                donnes[8][jour] = c.getIntituleModule();
-            }
-            if(heureFin.equals("18:00:00")){
-                donnes[9][jour] = c.getIntituleModule();
-            }
-
-
-        }
-        return donnes;
-    }
 
 
     public List<String> getListGroupe() {
