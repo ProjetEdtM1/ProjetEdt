@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MenuProfVue extends JFrame {
+public class MenuProfVue extends JFrame implements MenuProfSuperVue {
     private String loginProf;
 
     private  JButton boutonGererReservationSalle;
@@ -56,7 +56,11 @@ public class MenuProfVue extends JFrame {
         boutonGererReservationSalle.setEnabled(true);
     }
 
-    public void setTrueBoutonAffichagePlanning(){boutonAffichagePlanning.setEnabled(false);}
 
     public MenuProfVue getInstance(){return this;}
+
+    @Override
+    public void setTrueBoutonAffichagePlanning() {
+        boutonAffichagePlanning.setEnabled(true);
+    }
 }

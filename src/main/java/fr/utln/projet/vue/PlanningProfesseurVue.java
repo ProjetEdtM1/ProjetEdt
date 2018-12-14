@@ -13,7 +13,7 @@ import static com.sun.glass.ui.Cursor.setVisible;
 public class PlanningProfesseurVue extends Fenetre implements PlanningSuperVue {
     private CoursControleur coursControleur;
     private String login;
-    private MenuProfVue menuProfVue;
+    private MenuProfSuperVue menuProfVue;
 
     private JLabel labelTitre;
     private JTable tablePlanning;
@@ -26,7 +26,7 @@ public class PlanningProfesseurVue extends Fenetre implements PlanningSuperVue {
     private JMenu  menuAffichage = new JMenu(rbMenu.getString("Affichage"));
     private JMenu  logout = new JMenu(rbMenu.getString("Logout"));
 
-    public PlanningProfesseurVue(String login, final MenuProfVue menuProfVue){
+    public PlanningProfesseurVue(String login, final MenuProfSuperVue menuProfVue){
         super();
         setTitle("Planning");
         this.coursControleur = new CoursControleur(this);

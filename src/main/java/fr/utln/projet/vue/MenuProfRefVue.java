@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 
 import static fr.utln.projet.vue.MaterielVue.langueListModele;
 
-public class MenuProfRefVue extends Fenetre {
+public class MenuProfRefVue extends Fenetre implements MenuProfSuperVue {
 
     // bundle pour l'internationalisation
     private ResourceBundle rbBouton = ResourceBundle.getBundle("textBouton");
@@ -26,6 +26,7 @@ public class MenuProfRefVue extends Fenetre {
     private JButton boutonGererCours;
     private JButton boutonGererSalle;
     private JButton boutonGererMateriel;
+    private JButton boutonAffichagePlanning;
 
 
     //private JButton boutonImage = new JButton(new ImageIcon("/chemin/code.gif"));
@@ -54,6 +55,7 @@ public class MenuProfRefVue extends Fenetre {
         boutonGererCours = new JButton(rbBouton.getString("Gerer cours"));
         boutonGererSalle = new JButton(rbBouton.getString("Gerer salle"));
         boutonGererMateriel = new JButton(rbBouton.getString("Gerer materiel"));
+        boutonAffichagePlanning = new JButton(rbBouton.getString("Planning"));
 
         String[] listlangue = {"Francais","Anglais"};
 
@@ -123,6 +125,14 @@ public class MenuProfRefVue extends Fenetre {
             }
         });
 
+        boutonAffichagePlanning.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new PlanningProfesseurVue(getInstance().loginProfRef,getInstance());
+                boutonAffichagePlanning.setEnabled(false);
+            }
+        });
+
         contentPane.setLayout(new BorderLayout());
 
         panelLangue.add(langueJlist);
@@ -149,6 +159,10 @@ public class MenuProfRefVue extends Fenetre {
         c.gridx = 4;
 
         panelGeneral.add(boutonGererCours,c);
+
+        c.gridy = 4;
+        c.gridx = 2;
+        panelGeneral.add(boutonAffichagePlanning,c);
 
 
         contentPane.add(panelGeneral);// add(component) equals add(component,borderlayout.center)
@@ -205,5 +219,10 @@ public class MenuProfRefVue extends Fenetre {
         boutonGererProf.setText(rbBouton.getString("Gerer professeurs"));
         boutonGererSalle.setText(rbBouton.getString("Gerer salle"));
         boutonGererMateriel.setText(rbBouton.getString("Gerer materiel"));
+    }
+
+    @Override
+    public void setTrueBoutonAffichagePlanning() {
+        boutonAffichagePlanning.setEnabled(true);
     }
 }
