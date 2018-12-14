@@ -58,6 +58,17 @@ public class DAOCours {
     }
 
 
+    /**
+     * verifie qu'on puisse bien ajouter un cours, sans poser de problemes au niveau des horaires pour les etudiants,
+     * les professeurs et les salles
+     * @param groupe
+     * @param idProf
+     * @param intituleModule
+     * @param dateCours
+     * @param hDebutCours
+     * @param hFinCours
+     * @param numSalleCours
+     */
     public void testAjoutCours(String groupe, String idProf, String intituleModule, Date dateCours, Time hDebutCours, Time hFinCours, String numSalleCours) {
 //        System.out.println(chevauchementcoursetudiant(groupe, dateCours, hDebutCours, hFinCours));
         boolean testprofesseur = chevauchementCoursProfesseur(idProf,dateCours,hDebutCours, hFinCours);
@@ -223,6 +234,15 @@ public class DAOCours {
     }
 
 
+    /**
+     * verifie que le cours que l'on veut ajouter n'empiete pas sur un autre cours deja present, au niveau de l'emploi
+     * du temps des etudiants
+     * @param grp
+     * @param date
+     * @param hdc
+     * @param hfc
+     * @return
+     */
     public boolean chevauchementcoursetudiant(String grp, Date date, Time hdc, Time hfc) {
         this.conn = new Connexion();
         conn.connect();
@@ -284,6 +304,16 @@ public class DAOCours {
         return retour;
     }
 
+
+    /**
+     * verifie que le cours que l'on veut ajouter n'empiete pas sur un autre cours deja present, au niveau de l'emploi
+     * du temps des professeurs
+     * @param idProf
+     * @param date
+     * @param hdc
+     * @param hfc
+     * @return
+     */
     public boolean chevauchementCoursProfesseur(String idProf, Date date, Time hdc, Time hfc) {
         this.conn = new Connexion();
         conn.connect();
@@ -347,7 +377,15 @@ public class DAOCours {
     }
 
 
-
+    /**
+     * verifie que le cours que l'on veut ajouter n'empiete pas sur un autre cours deja present, au niveau de l'emploi
+     * du temps des salles
+     * @param date
+     * @param hdc
+     * @param hfc
+     * @param salle
+     * @return
+     */
     public boolean chevauchementCoursSalle(Date date, Time hdc, Time hfc, String salle) {
         this.conn = new Connexion();
         conn.connect();

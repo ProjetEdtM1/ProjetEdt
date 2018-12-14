@@ -32,19 +32,16 @@ public class CoursVue extends Fenetre {
     private final MenuProfRefVue menuProfRefVue;
     private final CoursModele coursModele;
     private final GererCoursControleur gererCoursControleur;
-    //private final ProfesseurControleur professeurControleur;
-
 
     //bundle utilisé pour acceder aux .properties
     private ResourceBundle rbBouton = ResourceBundle.getBundle("textBouton");
     private ResourceBundle rbLabel = ResourceBundle.getBundle("textLabel");
 
-    //utilisation de liste groupe et etudiante en jcombobox
+    //utilisation de liste groupe et etudiant en jcombobox
     private static GroupeListModele groupeListModele;
     private static ProfesseurListModele professeurListModele;
     private static SalleListModele salleListModele;
     private static ArrayList<String> moduleListeModele;
-
 
     private JLabel groupetudlabel = new JLabel(rbLabel.getString("Intitule groupe")+" :");
     private JLabel numProflabel = new JLabel(rbLabel.getString("Id professeur")+" :");
@@ -54,10 +51,7 @@ public class CoursVue extends Fenetre {
     private JLabel h_finlabel = new JLabel(rbLabel.getString("Heure de fin")+" :");
     private JLabel numSallelabel = new JLabel(rbLabel.getString("Numero de salle")+" :");
 
-
     private String groupeCours = new String();
-//    private JTextField nomModuleJTextField = new JTextField();
-
 
     private JComboBox<Professeur> idProfesseurJcomboBox;
     private JComboBox<String> groupeEtudiantJcomboBox;
@@ -72,12 +66,9 @@ public class CoursVue extends Fenetre {
     private JComboBox<Salle> salleJcombobox;
 
     private static JPanel ajoutcoursPanel = new JPanel(new GridBagLayout());
-  //  private static JPanel dateCoursPanel = new JPanel(new GridBagLayout());
     private static JPanel dateCoursPanel = new JPanel(new GridLayout(1, 3,2,0));
     private static JPanel heureDebCoursPanel = new JPanel(new GridLayout(1, 2,2,0));
     private static JPanel heureFinCoursPanel = new JPanel(new GridLayout(1, 2,2,0));
-//    private static JPanel heureDebCoursPanel = new JPanel(new GridBagLayout());
-//    private static JPanel heureFinCoursPanel = new JPanel(new GridBagLayout());
     private final JButton ajouterCoursJBouton = new JButton(rbBouton.getString("Ajouter"));
     private final JButton cancelAjouterCoursJButton = new JButton( rbBouton.getString("Annuler"));
 
@@ -87,8 +78,6 @@ public class CoursVue extends Fenetre {
         this.coursModele = new CoursModele();
         this.gererCoursControleur = new GererCoursControleur(coursModele);
         this.menuProfRefVue = menuProfRefVue;
-       // this.controleurEtudiant = controleurEtudiant;
-       // this.professeurControleur = professeurControleur;
         this.groupeListModele = new GroupeListModele(this.gererCoursControleur.getListGroupe());
         this.professeurListModele = new ProfesseurListModele(this.gererCoursControleur.getListProfesseur());
 
@@ -99,7 +88,6 @@ public class CoursVue extends Fenetre {
 
 
         groupeEtudiantJcomboBox = new JComboBox<String>(groupeListModele);
-        // groupeEtudiantJcomboBox.setEnabled(false);
         groupeEtudiantJcomboBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -126,7 +114,6 @@ public class CoursVue extends Fenetre {
                     case ItemEvent.SELECTED:
                         Salle tmp;
                         tmp = (Salle) salleJcombobox.getSelectedItem();
-                        System.out.println("hello " + tmp.getNumerosalle());
                         gererCoursControleur.setNouvauSalleCours(tmp.getNumerosalle());
                         break;
 
@@ -179,12 +166,10 @@ public class CoursVue extends Fenetre {
             }
         });
 
-//        nomModuleJTextField = new JTextField(gererCoursControleur.getNouveauIntituleModule(),"",10);
-
 
 //        remplissage des JBox pour les cours
 
-        //      Remplis un tableau d'heures possibles a selectionner dans la jcombobox
+//        Remplis un tableau d'heures possibles a selectionner dans la jcombobox
         ArrayList<Integer> heures = new ArrayList<>();
         for(int i = 8; i < 19; i++) {
             heures.add(i);
@@ -204,7 +189,6 @@ public class CoursVue extends Fenetre {
 //      Remplis un tableau des minutes possibles a selectionner dans la jcombobox
         ArrayList<Integer> minutes = new ArrayList<>();
         minutes.add(00);
-//        minutes.add(30);
 
 //      remplissage de la jcombobox des minutes de debut de reservation
         for (int s: minutes) {
