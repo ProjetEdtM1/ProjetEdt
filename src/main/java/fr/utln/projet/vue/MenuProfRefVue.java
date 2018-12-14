@@ -129,6 +129,8 @@ public class MenuProfRefVue extends Fenetre {
         contentPane.add(panelLangue,BorderLayout.WEST);
         GridBagConstraints c = new GridBagConstraints();
 
+
+        c.fill = 1;
         c.gridx = 0;
         c.gridy = 0;
         c.gridheight = 2;
@@ -138,11 +140,15 @@ public class MenuProfRefVue extends Fenetre {
         panelGeneral.add(boutonGererEtudiants,c);
         c.gridx = 4;
         panelGeneral.add(boutonGererProf,c);
-        c.gridx = 6;
-        panelGeneral.add(boutonGererSalle,c);
-        c.gridx = 8;
-        panelGeneral.add(boutonGererMateriel,c);
 
+        c.gridy = 2;
+        c.gridx = 0;
+        panelGeneral.add(boutonGererSalle,c);
+        c.gridx = 2;
+        panelGeneral.add(boutonGererMateriel,c);
+        c.gridx = 4;
+
+        panelGeneral.add(boutonGererCours,c);
 
 
         contentPane.add(panelGeneral);// add(component) equals add(component,borderlayout.center)

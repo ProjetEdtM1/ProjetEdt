@@ -72,7 +72,8 @@ public class CoursVue extends Fenetre {
     private JComboBox<Salle> salleJcombobox;
 
     private static JPanel ajoutcoursPanel = new JPanel(new GridBagLayout());
-    private static JPanel dateCoursPanel = new JPanel(new GridBagLayout());
+  //  private static JPanel dateCoursPanel = new JPanel(new GridBagLayout());
+    private static JPanel dateCoursPanel = new JPanel(new GridLayout(1, 3,2,0));
     private static JPanel heureDebCoursPanel = new JPanel(new GridBagLayout());
     private static JPanel heureFinCoursPanel = new JPanel(new GridBagLayout());
 
@@ -338,20 +339,21 @@ public class CoursVue extends Fenetre {
 
 //      placement des JCombobox de la date, de l'heures de debut et de fin du cours
 
-        c.gridx = 0;
-        c.gridy = 0;
-        dateCoursPanel.add(jboxJourCours, c);
 
-        c.gridx = 1;
-        dateCoursPanel.add(jboxMoisCours, c);
+        dateCoursPanel.add(jboxJourCours);
 
-        c.gridx = 2;
-        dateCoursPanel.add(jboxAnneeCours, c);
+
+        dateCoursPanel.add(jboxMoisCours);
+
+
+        dateCoursPanel.add(jboxAnneeCours);
 
         c.gridx = 1;
         c.gridy = 3;
+        c.fill = 1;
         ajoutcoursPanel.add(dateCoursPanel, c);
 
+        c.gridwidth = 1;
         c.gridx = 0;
         c.gridy = 0;
         heureDebCoursPanel.add(jboxHeureDebCours, c);
@@ -395,6 +397,7 @@ public class CoursVue extends Fenetre {
 
         //placement item(combobox / jtexfield)
 
+        c.fill = 1;
         c.gridx = 1;
         c.gridy = 0;
         ajoutcoursPanel.add(groupeEtudiantJcomboBox, c);
