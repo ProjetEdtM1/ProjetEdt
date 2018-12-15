@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS ETUDIANT (
   nomEtudiant varchar(15),
   prenomEtudiant varchar(15),
   motDePasse varchar(15),
-  intituleGroupe varchar(10) references GROUPE(intituleGroupe),
+  intituleGroupe varchar(15) references GROUPE(intituleGroupe),
   PRIMARY KEY (numEtudiant)
 );
 
