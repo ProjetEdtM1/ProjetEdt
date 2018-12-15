@@ -9,6 +9,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -65,7 +66,7 @@ public class ControleurEtudiant {
                 boolean conditionDAjout;
                 boolean conditiondeModification;
                 conditionDAjout = ((nomNouvelEtudiantModel.getLength() == 0)|| (prenomNouvelEtudiantModel.getLength() == 0) || (groupeNouvelEtudiantModel.getLength() == 0) ||(numNouvelEtudiantModel.getLength() == 0) || (mdpNouvelEtudiantModel.getLength() == 0));
-                conditiondeModification = ((prenomEtudiantModel.getLength() == 0)|| (prenomEtudiantModel.getLength() == 0));
+                conditiondeModification = ((prenomEtudiantModel.getLength() == 0)|| (nomEtudiantModel.getLength() == 0));
 
                 if (conditionDAjout)
                     etudiantVue.setCreationEtudiant(false);
@@ -77,7 +78,19 @@ public class ControleurEtudiant {
                     etudiantVue.setModificationEtudiant(false);
                  }
                 else if (!conditiondeModification){
-                    etudiantVue.setModificationEtudiant(true);
+
+                    if (prenomEtudiantModel.getLength() > 15) {
+                        // Emission d'un bruit car on a atteint la limite du nombre de caractères autorisés.
+                        Toolkit.getDefaultToolkit().beep();
+                        // on doit couper la chaîne à insérer car on dépasserait le nombre de caractères autorisés.
+                    }
+                    if (nomEtudiantModel.getLength() > 15) {
+                        Toolkit.getDefaultToolkit().beep();
+                    }
+                    else
+                        {
+                            etudiantVue.setModificationEtudiant(true);
+                        }
 
                 }
             }
@@ -170,11 +183,15 @@ public class ControleurEtudiant {
      */
     public void modifierEtudiant() {
         try {
+            int maxnom = nomEtudiantModel.getLength();
+            int maxprenom = prenomEtudiantModel.getLength();
+            if (maxnom > 15){ maxnom = 15;}
+            if(maxprenom > 15) { maxprenom = 15;}
 
             modeleEtudiant.modifiereEtudiant(
                     numEtudiantModel.getText(0, numEtudiantModel.getLength()),
-                    nomEtudiantModel.getText(0, nomEtudiantModel.getLength()),
-                    prenomEtudiantModel.getText(0, prenomEtudiantModel.getLength()),
+                    nomEtudiantModel.getText(0, maxnom),
+                    prenomEtudiantModel.getText(0, maxprenom),
                     groupeEtudiantModel.getText(0, groupeEtudiantModel.getLength())
 
                     );
@@ -235,5 +252,45 @@ public class ControleurEtudiant {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void setNumNouvelEtudiantModel(Document numNouvelEtudiantModel) {
+        this.numNouvelEtudiantModel = numNouvelEtudiantModel;
+    }
+
+    public void setNomNouvelEtudiantModel(Document nomNouvelEtudiantModel) {
+        this.nomNouvelEtudiantModel = nomNouvelEtudiantModel;
+    }
+
+    public void setPrenomNouvelEtudiantModel(Document prenomNouvelEtudiantModel) {
+        this.prenomNouvelEtudiantModel = prenomNouvelEtudiantModel;
+    }
+
+    public void setGroupeNouvelEtudiantModel(Document groupeNouvelEtudiantModel) {
+        this.groupeNouvelEtudiantModel = groupeNouvelEtudiantModel;
+    }
+
+    public void setMdpNouvelEtudiantModel(Document mdpNouvelEtudiantModel) {
+        this.mdpNouvelEtudiantModel = mdpNouvelEtudiantModel;
+    }
+
+    public void setNumEtudiantModel(Document numEtudiantModel) {
+        this.numEtudiantModel = numEtudiantModel;
+    }
+
+    public void setNomEtudiantModel(Document nomEtudiantModel) {
+        this.nomEtudiantModel = nomEtudiantModel;
+    }
+
+    public void setPrenomEtudiantModel(Document prenomEtudiantModel) {
+        this.prenomEtudiantModel = prenomEtudiantModel;
+    }
+
+    public void setGroupeEtudiantModel(Document groupeEtudiantModel) {
+        this.groupeEtudiantModel = groupeEtudiantModel;
+    }
+
+    public void setMdpEtudiantModel(Document mdpEtudiantModel) {
+        this.mdpEtudiantModel = mdpEtudiantModel;
     }
 }

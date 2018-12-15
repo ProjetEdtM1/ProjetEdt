@@ -17,9 +17,9 @@ import java.util.ResourceBundle;
  *
  * Description   : Partie visible de mon interface permet de voir les formulaire CRUD d'étudiant
  *
- * Version       : 2.3
+ * Version       : 2.4
  *
- * Date          : 21/11/2018
+ * Date          : 15/12/2018
  *
  * Copyright     : CLAIN Cyril
  */
@@ -105,7 +105,6 @@ public class EtudiantVue extends Fenetre  {
             @Override
             public void actionPerformed(ActionEvent e) {
                 controleurEtudiant.deleteEtudiant(etudiantSuppressionJList.getSelectedValue());
-                //setSuppressionEtudiant((etudiantSuppressionJList.getSelectedValue() == null));
                 supprimerEtudiantJButton.setEnabled(false);
 
             }
@@ -301,6 +300,8 @@ public class EtudiantVue extends Fenetre  {
         c.gridx = 0;
         etudiantDetailPanel.add(modifierEtudiantJBouton,c);
 
+        c.gridy = 06;
+        etudiantDetailPanel.add(new JLabel(rbLabel.getString("taille maximum sauvegarder 15")),c);
 
 
 
@@ -403,6 +404,7 @@ public class EtudiantVue extends Fenetre  {
         getContentPane().add(etudiantDetailPanel, c);
 
 
+
         setVisible(true);
 
     }
@@ -444,6 +446,7 @@ public class EtudiantVue extends Fenetre  {
 
     }
 
+
     /**
      * Methode qui affiche le detail d'un étudiant dans la jcombobox
      *
@@ -459,16 +462,16 @@ public class EtudiantVue extends Fenetre  {
         }
         else{
             numEtudDetailTextField.setText(etudiant.getNumetud());
-            numEtudDetailTextField= new JTextField(controleurEtudiant.getNumEtudiantModel(),etudiant.getNumetud(),10);
+            numEtudDetailTextField = new JTextField(controleurEtudiant.getNumEtudiantModel(),etudiant.getNumetud(),15);
 
             nomEtudDetailTextField.setText(etudiant.getNom());
-            nomEtudDetailTextField= new JTextField(controleurEtudiant.getNomEtudiantModel(),etudiant.getNom(),10);
+            nomEtudDetailTextField = new JTextField(controleurEtudiant.getNomEtudiantModel(),etudiant.getNom(),15);
 
             prenomEtudDetailTextField.setText(etudiant.getPrenom());
-            prenomEtudDetailTextField= new JTextField(controleurEtudiant.getPrenomEtudiantModel(),etudiant.getPrenom(),10);
+            prenomEtudDetailTextField = new JTextField(controleurEtudiant.getPrenomEtudiantModel(),etudiant.getPrenom(),15);
 
             groupeEtudDetailTextField.setText(etudiant.getGroupe());
-            groupeEtudDetailTextField= new JTextField(controleurEtudiant.getGroupeEtudiantModel(),etudiant.getGroupe(),10);
+            groupeEtudDetailTextField = new JTextField(controleurEtudiant.getGroupeEtudiantModel(),etudiant.getGroupe(),15);
         }
     }
 
@@ -500,4 +503,5 @@ public class EtudiantVue extends Fenetre  {
         return test;
 
     }
+
 }
