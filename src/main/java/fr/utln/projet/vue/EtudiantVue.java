@@ -365,6 +365,8 @@ public class EtudiantVue extends Fenetre  {
         c.gridx = 1;
         c.gridy = 5;
         etudiantAjoutPanel.add(ajoutcancelEtudiantJButton, c);
+        c.gridy = 06;
+        etudiantAjoutPanel.add(new JLabel(rbLabel.getString("taille maximum sauvegarder 15")),c);
 
         // Suppression d'un etudiant
         etudiantSuppressionPanel.setBorder(BorderFactory.createTitledBorder("Suppression"));

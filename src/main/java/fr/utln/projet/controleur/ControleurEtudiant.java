@@ -79,18 +79,8 @@ public class ControleurEtudiant {
                  }
                 else if (!conditiondeModification){
 
-                    if (prenomEtudiantModel.getLength() > 15) {
-                        // Emission d'un bruit car on a atteint la limite du nombre de caractères autorisés.
-                        Toolkit.getDefaultToolkit().beep();
-                        // on doit couper la chaîne à insérer car on dépasserait le nombre de caractères autorisés.
-                    }
-                    if (nomEtudiantModel.getLength() > 15) {
-                        Toolkit.getDefaultToolkit().beep();
-                    }
-                    else
-                        {
-                            etudiantVue.setModificationEtudiant(true);
-                        }
+                    etudiantVue.setModificationEtudiant(true);
+
 
                 }
             }
@@ -121,12 +111,23 @@ public class ControleurEtudiant {
     public Boolean persisteEtudiant() {
         Boolean bool = false;
         try {
+            int maxnum = numNouvelEtudiantModel.getLength();
+            int maxnom = nomNouvelEtudiantModel.getLength();
+            int maxprenom = prenomNouvelEtudiantModel.getLength();
+            int maxgroupe = groupeNouvelEtudiantModel.getLength();
+            int maxmdp = mdpNouvelEtudiantModel.getLength();
+            if (maxnum > 15){ maxnum = 15;}
+            if(maxnom > 15) { maxnom = 15;}
+            if (maxprenom > 15){ maxprenom = 15;}
+            if(maxgroupe > 15) { maxgroupe = 15;}
+            if(maxmdp > 15) { maxmdp = 15;}
+            System.out.println(maxnum);
             bool =  modeleEtudiant.persisteEtudiant(
-                        numNouvelEtudiantModel.getText(0, numNouvelEtudiantModel.getLength()),
-                        nomNouvelEtudiantModel.getText(0, nomNouvelEtudiantModel.getLength()),
-                        prenomNouvelEtudiantModel.getText(0, prenomNouvelEtudiantModel.getLength()),
-                        mdpNouvelEtudiantModel.getText(0, mdpNouvelEtudiantModel.getLength()),
-                        groupeNouvelEtudiantModel.getText(0, groupeNouvelEtudiantModel.getLength())
+                        numNouvelEtudiantModel.getText(0, maxnum),
+                        nomNouvelEtudiantModel.getText(0, maxnom),
+                        prenomNouvelEtudiantModel.getText(0, maxprenom),
+                        mdpNouvelEtudiantModel.getText(0, maxmdp),
+                        groupeNouvelEtudiantModel.getText(0, maxgroupe)
 
             );
             if (bool) cancelEtudiant();
