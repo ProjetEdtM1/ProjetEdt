@@ -120,7 +120,7 @@ CREATE TABLE IF NOT EXISTS GROUPE (
 --
 
 CREATE TABLE IF NOT EXISTS ETUDIANT (
-  numEtudiant varchar(10),
+  numEtudiant varchar(15),
   nomEtudiant varchar(15),
   prenomEtudiant varchar(15),
   motDePasse varchar(15),
