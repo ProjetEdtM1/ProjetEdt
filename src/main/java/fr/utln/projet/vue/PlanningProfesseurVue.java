@@ -17,14 +17,7 @@ public class PlanningProfesseurVue extends Fenetre implements PlanningSuperVue {
 
     private JLabel labelTitre;
     private JTable tablePlanning;
-    private ResourceBundle rbMenu = ResourceBundle.getBundle("textMenu");
 
-    private JMenuBar menuedt = new JMenuBar();
-    private JMenu  menuCours = new JMenu(rbMenu.getString("Cours"));
-    private JMenu  menuSalles = new JMenu(rbMenu.getString("Salles"));
-    private JMenu  menuMateriel = new JMenu(rbMenu.getString("Materiel"));
-    private JMenu  menuAffichage = new JMenu(rbMenu.getString("Affichage"));
-    private JMenu  logout = new JMenu(rbMenu.getString("Logout"));
 
     public PlanningProfesseurVue(String login, final MenuProfSuperVue menuProfVue){
         super();
@@ -52,11 +45,6 @@ public class PlanningProfesseurVue extends Fenetre implements PlanningSuperVue {
         c.gridy = 1;
         panelGeneral.add(tablePlanning,c);
 
-        menuedt.add(menuCours);
-        menuedt.add(menuSalles);
-        menuedt.add(menuMateriel);
-        menuedt.add(menuAffichage);
-        contentPane.add(menuedt,BorderLayout.NORTH);
 
 
         contentPane.add(panelGeneral);

@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ResourceBundle;
 
-/*
+/**
  * Nom de classe : EtudiantVue
  *
  * Description   : Partie visible de mon interface permet de voir les formulaire CRUD d'étudiant
