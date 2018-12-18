@@ -3,7 +3,6 @@ package fr.utln.projet.modele;
 import fr.utln.projet.DAO.DAOEtudiant;
 import fr.utln.projet.utilisateur.Etudiant;
 
-import javax.swing.text.Document;
 import java.sql.SQLException;
 import java.util.*;
 

@@ -1,7 +1,6 @@
 package fr.utln.projet.DAO;
 
 import fr.utln.projet.bdd.Connexion;
-import org.h2.jdbc.JdbcPreparedStatement;
 
 import java.sql.*;
 

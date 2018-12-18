@@ -3,9 +3,7 @@ package fr.utln.projet.DAO;
 
 import fr.utln.projet.bdd.Connexion;
 import fr.utln.projet.module.Module;
-import fr.utln.projet.bdd.InitStatement;
 
-import java.lang.reflect.Type;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

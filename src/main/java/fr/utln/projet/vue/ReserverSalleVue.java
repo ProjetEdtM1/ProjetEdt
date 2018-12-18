@@ -15,8 +15,6 @@ public class ReserverSalleVue extends Fenetre{
     private ReserverSalleControleur reserverSalleControleur;
     private ReserverSalleModele reserverSalleModele;
 
-//    private HeureDebResModel heureDebResModel;
-
     private JPanel ajoutPanel = new JPanel(new GridBagLayout());
     private JPanel heureDebResPanel = new JPanel(new GridBagLayout());
     private JPanel heureFinResPanel = new JPanel(new GridBagLayout());
@@ -29,9 +27,6 @@ public class ReserverSalleVue extends Fenetre{
     private JLabel labelHeureFinResa = new JLabel("Heure Fin ");
 
     private JTextField textNumSalle = new JTextField();
-//    private JTextField textDateReservation = new JTextField();
-//    private JTextField textHeureDebutReservation = new JTextField();
-//    private JTextField textHeureFinReservation = new JTextField();
 
     private JComboBox jboxHeureDebRes = new JComboBox();
     private JComboBox jboxMinuteDebRes = new JComboBox();
@@ -162,14 +157,9 @@ public class ReserverSalleVue extends Fenetre{
         contrainte.gridy = 3;
         ajoutPanel.add(labelHeureFinResa, contrainte);
 
-        // attention ajouter gridwith pour les jbox
-
 //      Placement des champs de saisie de texte de demande d'ajout
 
         textNumSalle = new JTextField("", 10);
-//        textDateReservation = new JTextField("", 10);
-//        textHeureDebutReservation = new JTextField("", 10);
-//        textHeureFinReservation = new JTextField("", 10);
 
         contrainte.gridx = 1;
         contrainte.gridy = 0;
@@ -231,8 +221,6 @@ public class ReserverSalleVue extends Fenetre{
         contrainte.gridx = 0;
         contrainte.gridy = 0;
         getContentPane().add(ajoutPanel, contrainte);
-
-//        ajoutPanel.setBorder(BorderFactory.createTitledBorder("Annuler sa demande de reservation"));
 
 
 

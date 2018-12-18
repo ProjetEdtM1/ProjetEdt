@@ -141,7 +141,6 @@ public class ProfesseurControleur {
             return (professeurModele.deleteProfesseur(professeur));
         } catch (SQLException e) {
             return(false);
-            //e.printStackTrace();
         }
     }
 

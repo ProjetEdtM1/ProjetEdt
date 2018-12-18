@@ -1,15 +1,11 @@
 package fr.utln.projet.DAO;
 
-import com.sun.deploy.security.ValidationState;
 import fr.utln.projet.bdd.Connexion;
 import fr.utln.projet.utilisateur.Cours;
 import fr.utln.projet.utilisateur.Professeur;
-import org.h2.jdbc.JdbcPreparedStatement;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 public class DAOCours {
@@ -29,7 +25,7 @@ public class DAOCours {
      * @param numSalleCours  ajoute un cours dans la BD
      */
 
-    public void ajouterCours(String groupe, String idProf, String intituleModule, Date dateCours, Time hDebutCours, Time hFinCours, String numSalleCours) {
+    public boolean ajouterCours(String groupe, String idProf, String intituleModule, Date dateCours, Time hDebutCours, Time hFinCours, String numSalleCours) {
         this.conn = new Connexion();
         conn.connect();
 
@@ -47,14 +43,13 @@ public class DAOCours {
             psmt.setObject(7, numSalleCours, Types.VARCHAR);
 
             psmt.executeUpdate();
-
+            conn.close();
+            return true;
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            conn.close();
+            return false;
         }
-
-
-        conn.close();
     }
 
 
@@ -69,17 +64,17 @@ public class DAOCours {
      * @param hFinCours
      * @param numSalleCours
      */
-    public void testAjoutCours(String groupe, String idProf, String intituleModule, Date dateCours, Time hDebutCours, Time hFinCours, String numSalleCours) {
-//        System.out.println(chevauchementcoursetudiant(groupe, dateCours, hDebutCours, hFinCours));
+    public boolean testAjoutCours(String groupe, String idProf, String intituleModule, Date dateCours, Time hDebutCours, Time hFinCours, String numSalleCours) {
         boolean testprofesseur = chevauchementCoursProfesseur(idProf,dateCours,hDebutCours, hFinCours);
         boolean testEtudiant = chevauchementcoursetudiant(groupe, dateCours, hDebutCours, hFinCours);
         boolean testSalle = chevauchementCoursSalle(dateCours, hDebutCours, hFinCours, numSalleCours);
         if (!testEtudiant && !testprofesseur && !testSalle) {
             System.out.println("Le cours peut etre ajoute ");
-            ajouterCours(groupe, idProf, intituleModule, dateCours, hDebutCours, hFinCours, numSalleCours);
+            return ajouterCours(groupe, idProf, intituleModule, dateCours, hDebutCours, hFinCours, numSalleCours);
         }
         else {
             System.out.println("Le cours n'a pas pu etre ajoute ");
+            return false;
 
         }
     }
@@ -265,32 +260,25 @@ public class DAOCours {
                 Time hDebCours = res.getTime("heuredebcours");
                 Time hFinCours = res.getTime("heurefincours");
 
-                System.out.println(hdc.compareTo(hDebCours));
-                System.out.println(hFinCours.compareTo(hfc));
-
 //                chevauchement sur l'heure de debut (commence avant le debut, mais fini apres le debut
                 if ((hdc.compareTo(hDebCours) <= 0) && (hfc.compareTo(hDebCours) > 0)) {
-                    System.out.println("chevauchement inferieur ");
                     retour = true;
                 }
 
 //                chevauchelent interne (commence apres le debut, mais avant la fin, et fini avant la fin)
                 if ((hdc.compareTo(hDebCours) >= 0) && (hdc.compareTo(hFinCours) <= 0) && (hfc.compareTo(hDebCours) > 0)
                         && (hfc.compareTo(hFinCours) <= 0) && (!retour)) {
-                    System.out.println("chevauchement interieur ");
                     retour = true;
                 }
 
 //                chevauchement sur l'heure de fin (commence apres le debut, mais avant la fin, et fini plus tard)
                 if ((hdc.compareTo(hDebCours) > 0) && (hdc.compareTo(hFinCours) < 0) && (hfc.compareTo(hFinCours) >= 0) && (!retour)) {
-                    System.out.println("chevauchement superieur ");
                     retour = true;
                 }
 
 //                chevauchement total (commence avant le debut et fini apres la fin)
 //                securite, mais deja pris en compte par le chevauchement inferieur (le 1)
                 if ((hdc.compareTo(hDebCours) <= 0) && (hfc.compareTo(hFinCours) >= 0) && (!retour)) {
-                    System.out.println("chevauchement total ");
                     retour = true;
                 }
             }
@@ -338,32 +326,25 @@ public class DAOCours {
                 Time hDebCours = res.getTime("heuredebcours");
                 Time hFinCours = res.getTime("heurefincours");
 
-                System.out.println(hdc.compareTo(hDebCours));
-                System.out.println(hFinCours.compareTo(hfc));
-
 //                chevauchement sur l'heure de debut (commence avant le debut, mais fini apres le debut
                 if ((hdc.compareTo(hDebCours) <= 0) && (hfc.compareTo(hDebCours) > 0)) {
-                    System.out.println("chevauchement inferieur ");
                     retour = true;
                 }
 
 //                chevauchelent interne (commence apres le debut, mais avant la fin, et fini avant la fin)
                 if ((hdc.compareTo(hDebCours) >= 0) && (hdc.compareTo(hFinCours) <= 0) && (hfc.compareTo(hDebCours) > 0)
                         && (hfc.compareTo(hFinCours) <= 0) && (!retour)) {
-                    System.out.println("chevauchement interieur ");
                     retour = true;
                 }
 
 //                chevauchement sur l'heure de fin (commence apres le debut, mais avant la fin, et fini plus tard)
                 if ((hdc.compareTo(hDebCours) > 0) && (hdc.compareTo(hFinCours) < 0) && (hfc.compareTo(hFinCours) >= 0) && (!retour)) {
-                    System.out.println("chevauchement superieur ");
                     retour = true;
                 }
 
 //                chevauchement total (commence avant le debut et fini apres la fin)
 //                securite, mais deja pris en compte par le chevauchement inferieur (le 1)
                 if ((hdc.compareTo(hDebCours) <= 0) && (hfc.compareTo(hFinCours) >= 0) && (!retour)) {
-                    System.out.println("chevauchement total ");
                     retour = true;
                 }
             }
@@ -408,32 +389,25 @@ public class DAOCours {
                 Time hDebCours = res.getTime("heuredebcours");
                 Time hFinCours = res.getTime("heurefincours");
 
-                System.out.println(hdc.compareTo(hDebCours));
-                System.out.println(hFinCours.compareTo(hfc));
-
 //                chevauchement sur l'heure de debut (commence avant le debut, mais fini apres le debut
                 if ((hdc.compareTo(hDebCours) <= 0) && (hfc.compareTo(hDebCours) > 0)) {
-                    System.out.println("chevauchement inferieur ");
                     retour = true;
                 }
 
 //                chevauchelent interne (commence apres le debut, mais avant la fin, et fini avant la fin)
                 if ((hdc.compareTo(hDebCours) >= 0) && (hdc.compareTo(hFinCours) <= 0) && (hfc.compareTo(hDebCours) > 0)
                         && (hfc.compareTo(hFinCours) <= 0) && (!retour)) {
-                    System.out.println("chevauchement interieur ");
                     retour = true;
                 }
 
 //                chevauchement sur l'heure de fin (commence apres le debut, mais avant la fin, et fini plus tard)
                 if ((hdc.compareTo(hDebCours) > 0) && (hdc.compareTo(hFinCours) < 0) && (hfc.compareTo(hFinCours) >= 0) && (!retour)) {
-                    System.out.println("chevauchement superieur ");
                     retour = true;
                 }
 
 //                chevauchement total (commence avant le debut et fini apres la fin)
 //                securite, mais deja pris en compte par le chevauchement inferieur (le 1)
                 if ((hdc.compareTo(hDebCours) <= 0) && (hfc.compareTo(hFinCours) >= 0) && (!retour)) {
-                    System.out.println("chevauchement total ");
                     retour = true;
                 }
             }

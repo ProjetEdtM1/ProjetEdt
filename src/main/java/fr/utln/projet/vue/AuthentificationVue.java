@@ -1,6 +1,5 @@
 package fr.utln.projet.vue;
 
-import fr.utln.projet.controleur.CoursControleur;
 import fr.utln.projet.controleur.EtudiantControleurAuth;
 import fr.utln.projet.controleur.ProfesseurControleurAuth;
 

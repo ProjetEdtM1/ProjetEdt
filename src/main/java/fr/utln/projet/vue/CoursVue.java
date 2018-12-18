@@ -1,19 +1,6 @@
 package fr.utln.projet.vue;
 
 
-/*
- * Nom de classe : CoursVue
- *
- * Description   : Partie visible de mon interface permet de voir les formulaire d'ajout d'un cours
- *
- * Version       : 2.0
- *
- * Date          : 10/12/2018
- *
- * Copyright     : CLAIN Cyril, NOCITO Marc
- */
-
-
 import fr.utln.projet.controleur.GererCoursControleur;
 import fr.utln.projet.modele.*;
 import fr.utln.projet.module.Module;
@@ -25,7 +12,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import java.util.Vector;
 
 public class CoursVue extends Fenetre {
 
@@ -66,9 +52,9 @@ public class CoursVue extends Fenetre {
     private JComboBox<Salle> salleJcombobox;
 
     private static JPanel ajoutcoursPanel = new JPanel(new GridBagLayout());
-    private static JPanel dateCoursPanel = new JPanel(new GridLayout(1, 3,2,0));
-    private static JPanel heureDebCoursPanel = new JPanel(new GridLayout(1, 2,2,0));
-    private static JPanel heureFinCoursPanel = new JPanel(new GridLayout(1, 2,2,0));
+    private static JPanel dateCoursPanel;
+    private static JPanel heureDebCoursPanel;
+    private static JPanel heureFinCoursPanel;
     private final JButton ajouterCoursJBouton = new JButton(rbBouton.getString("Ajouter"));
     private final JButton cancelAjouterCoursJButton = new JButton( rbBouton.getString("Annuler"));
 
@@ -83,8 +69,11 @@ public class CoursVue extends Fenetre {
 
         this.salleListModele = new SalleListModele(this.gererCoursControleur.getListSalle());
 
-        System.out.println(gererCoursControleur.getListeModule().get(0).getClass());
         this.moduleListeModele = this.gererCoursControleur.getListeModule();
+
+        dateCoursPanel = new JPanel(new GridLayout(1, 3,2,0));
+        heureDebCoursPanel = new JPanel(new GridLayout(1, 2,2,0));
+        heureFinCoursPanel = new JPanel(new GridLayout(1, 2,2,0));
 
 
         groupeEtudiantJcomboBox = new JComboBox<String>(groupeListModele);
@@ -162,7 +151,13 @@ public class CoursVue extends Fenetre {
         ajouterCoursJBouton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gererCoursControleur.ajoutCours();
+                if (!gererCoursControleur.ajoutCours()) {
+                    JOptionPane.showMessageDialog(ajoutcoursPanel, "Le cours n'a pas pu " +
+                            "etre ajoute, le professeur, le groupe la salle ou les horaires ne sont pas valide");
+                }
+                else {
+                    JOptionPane.showMessageDialog(ajoutcoursPanel, "Le cours a bien ete ajoute");
+                }
             }
         });
 
@@ -174,6 +169,7 @@ public class CoursVue extends Fenetre {
         for(int i = 8; i < 19; i++) {
             heures.add(i);
         }
+
 
 //      Remplis la jcombobox de selection des heures de debut possible
         for (int s : heures) {
@@ -189,6 +185,7 @@ public class CoursVue extends Fenetre {
 //      Remplis un tableau des minutes possibles a selectionner dans la jcombobox
         ArrayList<Integer> minutes = new ArrayList<>();
         minutes.add(00);
+
 
 //      remplissage de la jcombobox des minutes de debut de reservation
         for (int s: minutes) {
@@ -233,6 +230,7 @@ public class CoursVue extends Fenetre {
         }
 
 
+
         jboxJourCours.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -269,6 +267,8 @@ public class CoursVue extends Fenetre {
                 }
             }
         });
+
+
 
         jboxHeureDebCours.addItemListener(new ItemListener() {
             @Override

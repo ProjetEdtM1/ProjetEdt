@@ -21,18 +21,6 @@ public class Connexion {
     //connection
     private static Connection conn;
 
-    // JDBC driver name and database URL
-    //static final String JDBC_DRIVER = "org.h2.Driver";
-    //static final String DB_URL = "jdbc:h2:tcp://localhost/~/test";
-
-    //  Database credentials
-   // static final String USER = "sa";
-    //static final String PASS = "";
-
-    // pour postgres
-    // String Driver = "org.postrgesql.Driver";
-    // String url = "jdbc:postgresql://" + host + "/";
-
 
     public void connect() {
 
@@ -48,14 +36,6 @@ public class Connexion {
             conn = DatabaseManager.getConnection();
             System.out.println("connection ok");
 
-
-            //STEP 3: test de connection a la DB
-
-//            System.out.println("select *");
-//            statement = conn.createStatement();
-//            String sql = "SELECT * FROM ETUDIANT";
-//            ResultSet resultSet = statement.executeQuery(sql);
-//            System.out.println(resultSet);
 
         } catch (SQLException e) {
             e.printStackTrace();

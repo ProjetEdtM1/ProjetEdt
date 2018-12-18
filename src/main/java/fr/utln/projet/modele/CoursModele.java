@@ -3,7 +3,6 @@ package fr.utln.projet.modele;
 import fr.utln.projet.DAO.DAOCours;
 import fr.utln.projet.DAO.DAOSalle;
 import fr.utln.projet.DAO.ModuleDAO;
-import fr.utln.projet.module.Module;
 import fr.utln.projet.utilisateur.Cours;
 import fr.utln.projet.utilisateur.Professeur;
 import fr.utln.projet.utilisateur.Salle;
@@ -24,12 +23,22 @@ public class CoursModele {
     private DAOSalle daoSalle = new DAOSalle();
     private ModuleDAO daoModule = new ModuleDAO();
 
-    /*public CoursModele(GererCoursControleur ajoutCoursControleur){
-        this.ajoutCoursControleur = ajoutCoursControleur;
-    }*/
+    /**
+     * Methode pour ajouter un cours en BDD
+     *
+     * @param groupe
+     * @param idProf
+     * @param module
+     * @param date
+     * @param hDebCours
+     * @param hFinCours
+     * @param numeroSalle
+     * @return
+     */
 
-    public void ajouterCours(String groupe, String idProf, String module, Date date, Time hDebCours, Time hFinCours, String numeroSalle) {
-        dao.testAjoutCours(groupe, idProf, module, date, hDebCours, hFinCours, numeroSalle);
+    public boolean ajouterCours(String groupe, String idProf, String module, Date date, Time hDebCours, Time hFinCours, String numeroSalle) {
+
+        return dao.testAjoutCours(groupe, idProf, module, date, hDebCours, hFinCours, numeroSalle);
     }
 
     public List<Cours> getCoursSemaineGroupe(String intituleGroupe){
@@ -54,7 +63,6 @@ public class CoursModele {
 
     public List<Salle> getListSalle() {
         salles = daoSalle.creationlistsalle();
-        System.out.println(salles.getClass());
         return salles;
     }
 

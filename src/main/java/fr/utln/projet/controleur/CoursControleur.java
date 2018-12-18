@@ -1,18 +1,9 @@
 package fr.utln.projet.controleur;
 
-import com.sun.deploy.panel.NumberDocument;
-import fr.utln.projet.DAO.DAOCours;
 import fr.utln.projet.modele.CoursModele;
 import fr.utln.projet.utilisateur.Cours;
 import fr.utln.projet.vue.PlanningSuperVue;
 
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.PlainDocument;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 

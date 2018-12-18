@@ -1,7 +1,6 @@
 package fr.utln.projet.vue;
 
-import fr.utln.projet.controleur.CoursControleur;
-import fr.utln.projet.modele.CoursModele;
+
 import fr.utln.projet.modele.ReserverSalleModele;
 
 import javax.swing.*;

@@ -1,6 +1,6 @@
 package fr.utln.projet.vue;
 
-import com.sun.deploy.panel.NumberDocument;
+
 import fr.utln.projet.controleur.ModuleControleur;
 import fr.utln.projet.modele.ModuleListeModele;
 import fr.utln.projet.modele.ModuleModele;
@@ -64,9 +64,6 @@ public class ModuleVUE extends Fenetre {
 
         this.menuProfRefVue = menuProfRefVue;
 
-//        JPanel global = new JPanel();
-//        this.setTitle("Gestion des modules");
-//
         getContentPane().setLayout(new GridBagLayout());
         GridBagConstraints contrainte = new GridBagConstraints();
 

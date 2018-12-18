@@ -2,19 +2,10 @@ package fr.utln.projet.controleur;
 
 
 import fr.utln.projet.modele.CoursModele;
-import fr.utln.projet.module.Module;
-import fr.utln.projet.utilisateur.Cours;
 import fr.utln.projet.utilisateur.Professeur;
 import fr.utln.projet.utilisateur.Salle;
-import fr.utln.projet.vue.CoursVue;
-import fr.utln.projet.vue.PlanningSuperVue;
-
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.PlainDocument;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.sql.Time;
 
 import java.util.ArrayList;
@@ -63,7 +54,6 @@ public class GererCoursControleur {
     // format de l'heure: heure:minute:secondes
     // h[h]:m[m]:s[s]
     private Time convertionHeure(int heure, int minute) {
-        System.out.println("bbb");
         String tmpHeure = new String();
         String tmpMinute = new String();
         String tmpHeuretot = new String();
@@ -96,14 +86,14 @@ public class GererCoursControleur {
         nouveauMinuteFinCours = 0;
     }
 
-    public void ajoutCours() {
+    public boolean ajoutCours() {
         Date date;
         Time hDebut;
         Time hFin;
 
-        // mettre un try / catch
         // ATTENTION il faut que la JCombobox soit instanciee sinon c'est 0 et ca plante
-//            date = convertionDate(nouveauAnneeCours, nouveauMoisCours, convertionDocumentInt(nouveauJourCours));
+
+
         if (nouveauAnneeCours == 0) {
             initialisationAnnee();
         }
@@ -120,25 +110,15 @@ public class GererCoursControleur {
             initialisationMinuteFin();
         }
 
-        System.out.println(nouveauAnneeCours);
         date = convertionDate(nouveauAnneeCours, nouveauMoisCours, nouveauJourCours);
 
         hDebut = convertionHeure(nouveauHeureDebCours, nouveauMinuteDebCours);
         hFin = convertionHeure(nouveauHeureFinCours, nouveauMinuteFinCours);
 
-        System.out.println(nouveauGroupeCours);
-        System.out.println(nouveauNumSalleCours);
-        System.out.println("aaaaaaaaa" + nouveaModuleCours);
         String nouveauSalleCours = String.valueOf(nouveauNumSalleCours);
-        System.out.println(nouveauIdProfesseurCours);
-//            System.out.println(nouveauIntituleModule.getText(0, nouveauIntituleModule.getLength()));
-
-        System.out.println(date);
-        System.out.println(hDebut);
-        System.out.println(hFin);
 
 
-        coursModele.ajouterCours(
+        return coursModele.ajouterCours(
                 nouveauGroupeCours, nouveauIdProfesseurCours,
                 nouveaModuleCours,
                 date, hDebut, hFin, nouveauSalleCours

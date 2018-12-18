@@ -92,7 +92,7 @@ public class ProfesseurVue extends Fenetre{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (!(professeurControleur.deleteProfesseur(professeurtSuppressionJList.getSelectedValue()))){
-                    JOptionPane.showMessageDialog(professeurAjoutPanel, "Le professeur donne un cours, remplacé le avant de le suprimer  ");
+                    JOptionPane.showMessageDialog(professeurAjoutPanel, "Le professeur donne un cours, remplacez le avant de le suprimer  ");
                 }
                 suppressionProfesseurJButton.setEnabled(false);
             }
@@ -162,7 +162,7 @@ public class ProfesseurVue extends Fenetre{
                     professeurControleur.persisteProfesseur();
                 }
                 else{
-                    JOptionPane.showMessageDialog(professeurAjoutPanel, "Le login doit commencé par p ");
+                    JOptionPane.showMessageDialog(professeurAjoutPanel, "Le login doit commencer par p ");
                 }
 
             }
@@ -209,7 +209,7 @@ public class ProfesseurVue extends Fenetre{
 
         GridBagConstraints c = new GridBagConstraints();
 
-        professeurDetailPanel.setBorder(BorderFactory.createTitledBorder("Détails profeseur"));
+        professeurDetailPanel.setBorder(BorderFactory.createTitledBorder("Détails professeur"));
 
         c.fill = GridBagConstraints.BOTH;
         c.gridx = 0;
@@ -388,7 +388,7 @@ public class ProfesseurVue extends Fenetre{
     }
 
     /**
-     * Methode rendant cliquable ou non les champs de professeur lié a la modification
+     * Methode rendant cliquable ou non les champs de professeur lie a la modification
      *
      * @param b
      * @autor CLAIN CYRIL

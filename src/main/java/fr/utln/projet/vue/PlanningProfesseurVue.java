@@ -6,9 +6,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.util.ResourceBundle;
-
-import static com.sun.glass.ui.Cursor.setVisible;
 
 public class PlanningProfesseurVue extends Fenetre implements PlanningSuperVue {
     private CoursControleur coursControleur;

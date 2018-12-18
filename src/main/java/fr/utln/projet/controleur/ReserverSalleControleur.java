@@ -2,7 +2,6 @@ package fr.utln.projet.controleur;
 
 import fr.utln.projet.modele.ReserverSalleModele;
 import fr.utln.projet.vue.ReserverSalleVue;
-import javafx.beans.binding.IntegerExpression;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;

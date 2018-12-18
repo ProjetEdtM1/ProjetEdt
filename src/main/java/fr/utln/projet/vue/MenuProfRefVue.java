@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import static fr.utln.projet.vue.MaterielVue.langueListModele;
 
 public class MenuProfRefVue extends Fenetre implements MenuProfSuperVue {
 
