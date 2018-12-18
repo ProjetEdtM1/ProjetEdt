@@ -314,27 +314,6 @@ public class ModuleVUE extends Fenetre {
             }
         });
 
-
-//        ajout.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                controleurModule.ajoutermodule();
-//                String intit = ajoutmodule.getText();
-//                String hCm = nbHeureCm.getText();
-//                String hTd = nbHeureTd.getText();
-//                String hTp = nbHeureTp.getText();
-//
-//                try {
-//                    int aux = Integer.parseInt(hCm);
-//                } catch (NumberFormatException nfe){
-//                    int valmin = 0;
-//
-//                }
-//                Module module = new Module.Builder(intit).nbHeureCm(hCm).nbHeureTd(hTd).nbHeureTp(hTp).build();
-//                ModuleDAO moduleDAO = new ModuleDAO();
-//            }
-//        });
-
     }
 
     public void setBoutonAjouter (boolean b) {

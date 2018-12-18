@@ -47,9 +47,10 @@ public class ModuleControleur{
             @Override
             public void changedUpdate(DocumentEvent e) {
 
-                //todo Modifier les conditions d'ajout
+                // todo Modifier les conditions d'ajout
                 boolean conditionAjout = ((intituleNouveauModuleModele.getLength()==0) || (nbHCmNouveauModuleModele.getLength()==0) ||
                         (nbHTdNouveauModuleModele.getLength()==0) || (nbHTpNouveauModuleModele.getLength()==0));
+
                 boolean conditionModif = ((nbHCmModuleModele.getLength()==0) ||
                         (nbHTdModuleModele.getLength()==0) || (nbHTpModuleModele.getLength()==0));
 
